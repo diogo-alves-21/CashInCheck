@@ -1,0 +1,36 @@
+<% container_title = Consent.model_name.human(count: 0) %>
+<% content_for :title, container_title %>
+<%= render 'mazer_partials/container', title: container_title do %>
+
+    <%= render 'mazer_partials/box/box', title: t('views.mazer.action.show') do %>
+      <%= render 'mazer_partials/box/body' do %>
+
+        <strong><%= Consent.human_attribute_name(:version) %></strong>
+        <p class="text-muted">
+          <%= @consent.version %>
+        </p>
+
+        <strong><%= Consent.human_attribute_name(:kind) %></strong>
+        <p class="text-muted">
+          <%= @consent.translated_kind %>
+        </p>
+
+        <strong><%= Consent.human_attribute_name(:active) %></strong>
+        <p class="text-muted">
+          <%= mazer_label_yes_or_no?(@consent.active) %>
+        </p>
+
+        <strong><%= Consent.human_attribute_name(:content) %></strong>
+        <p class="text-muted">
+          <%= @consent.content %>
+        </p>
+
+      <% end %>
+
+      <%= render 'mazer_partials/box/footer', links: [
+            { name: t("views.mazer.edit"), url: edit_admin_consent_path(@consent) },
+            { name: t("views.mazer.back"), url: admin_consents_path }
+          ] %>
+    <% end %>
+
+<% end %>

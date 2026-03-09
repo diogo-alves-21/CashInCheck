@@ -1,0 +1,17 @@
+en:
+  activerecord:
+    models:
+      consent:
+        one: Consent
+        other: Consents
+    attributes:
+      consent:
+        active: Active
+        version: Version
+        content: Content
+        accepted_consents: Accepted consents
+        kind: Name
+        kind_list:
+          terms: Terms and Conditions
+          cookies: Cookie Policy
+          privacy: Privacy Policy

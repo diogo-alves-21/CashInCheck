@@ -1,0 +1,34 @@
+pt:
+  views:
+    wallets:
+      edit:
+        connect_wallet: Associar Carteira a Conta Bancária
+        disconnect_wallet:
+          title: Desvincular Carteira da Conta Bancária
+          are_you_sure: Desvincular esta carteira da sua conta bancária não irá apagar as transações importadas para o CashInCheck até aqui. Tem a certeza de que pretende continuar?"
+      new_info:
+        subtitle: Criada com sucesso
+        connect_wallet: Associe uma conta bancária à sua nova carteira
+        buttons:
+          connect: Associar agora
+          maybe_later: Mais tarde
+      new_bank_choice:
+        subtitle: Associar conta bancária
+        select_institution:
+          label: O Seu Banco
+          prompt: Selecione o seu banco
+        button: Confirmar
+      account_selection:
+        subtitle: Seleção de conta
+        account:
+          index: Conta %{i}
+          iban: IBAN
+          name: Nome
+          owner: Titular
+        select:
+          label: Conta Para Associar
+          prompt: Selecione uma conta
+        button: Associar
+
+
+

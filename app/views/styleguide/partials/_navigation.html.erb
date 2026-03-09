@@ -1,0 +1,74 @@
+<div class="styleguide__grid-title">
+
+  <div class="styleguide_title_main">
+    <h1 class="styleguide__title-page">Navigation</h1>
+  </div>
+  <!-- Pagination-->
+  <h2 class="styleguide__subtitle-page">Pagination</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">
+    Pagination is a crucial element when you have a lot of pages, for example a online shop.<br>It's a <code>div</code> element that contains a list of <code>a</code> links. The class <code>active-page</code> highlights the page you're in.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<div class="pagination">
+  <div class="pagination__list">
+    <a href="#">&laquo;</a>
+    <a href="#">1</a>
+    <a href="#" class="active-page">2</a>
+    <a href="#">3</a>
+    <a href="#">&raquo;</a>
+  </div>
+</div>
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <div class="pagination">
+        <div class="pagination__list">
+          <a href="#">&laquo;</a>
+          <a href="#">1</a>
+          <a href="#" class="active-page">2</a>
+          <a href="#">3</a>
+          <a href="#">&raquo;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Breadcrumbs-->
+  <h2 class="styleguide__subtitle-page">Breadcrumbs</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">Breadcrumbs reveal the user's location on the website and allow the user to go back at any point.<br>They are built into a <code>ul list</code> of <code>a </code>links.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<div class="styleguide__example-output">
+  <ul class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Pictures</a></li>
+    <li><a href="#">Summer 15</a></li>
+    <li>Italy</li>
+  </ul>
+</div>
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <ul class="breadcrumb">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Pictures</a></li>
+        <li><a href="#">Summer 15</a></li>
+        <li>Italy</li>
+      </ul>
+    </div>
+  </div>
+  <!-- Sticky Footer-->
+  <h2 class="styleguide__subtitle-page">Sticky Footer</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">The purpose of a sticky footer is that it "sticks" to the bottom of the browser window.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code styleguide__example-description--full">
+      <pre class="language-css"><code>
+  @mixin sticky-footer(
+  $footer-height,
+  $wrapper-selector: unquote(".page_wrap"),
+  $footer-selector: unquote("footer"))
+      </code></pre>
+    </div>
+  </div>
+</div>

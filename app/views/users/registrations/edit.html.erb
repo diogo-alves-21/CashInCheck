@@ -1,0 +1,67 @@
+<% locales = 'devise.registrations.edit' %>
+
+<%= render 'layout_partials/header',
+  page_title: t('views.general_pages.more_menu.profile'),
+  page_subtitle: t('views.edit') %>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'cic-table' }) do |f| %>
+  <%= render "users/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <%= f.fields_for :member, resource.member || resource.build_member do |member_fields| %>
+    <%= member_fields.hidden_field :id if member_fields.object.persisted? %>
+
+    <div class="field">
+      <%= member_fields.label :name %><br />
+      <%= member_fields.text_field :name, autofocus: true, autocomplete: "name" %>
+    </div>
+  <% end %>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :password %> <i class="notes-text text--secondary">
+    <% if @minimum_password_length %>
+      <em class="notes-text text--primary text--semi-bold"><%= @minimum_password_length %> <%= t("#{locales}.characters_minimum") %></em>
+    <% end %>
+    <br><%= t("#{locales}.leave_blank_if_you_don_t_want_to_change_it") %></i><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :current_password %> <br><i class="notes-text text--secondary"><%= t("#{locales}.we_need_your_current_password_to_confirm_your_changes") %></i><br />
+    <%= f.password_field :current_password, autocomplete: "current-password" %>
+  </div>
+
+  <div class="actions center">
+    <%= f.submit t("#{locales}.update"), class: "btn" %>
+  </div>
+<% end %>
+
+<div class="m-t-5 m-b-3 center">
+  <h6>
+    <%= t("#{locales}.unhappy") %>
+  </h6>
+
+  <%= link_to t("#{locales}.cancel_my_account"),
+        registration_path(resource_name),
+        data: { turbo_method: :delete, turbo_confirm: t("#{locales}.are_you_sure") },
+        remote: true,
+        class: "text--danger" %>
+</div>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: :back, extraClass: 'btn-icon back-link' }
+  ]  %>
+

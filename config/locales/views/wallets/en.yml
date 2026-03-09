@@ -1,0 +1,33 @@
+en:
+  views:
+    wallets:
+      edit:
+        connect_wallet: Connect Wallet to Bank Account
+        disconnect_wallet:
+          title: Disconnect Wallet from Bank Account
+          are_you_sure: Disconnecting this wallet won't delete existing transactions in CashInCheck. Are you sure you want to continue?
+      new_info:
+        subtitle: Successfully created
+        connect_wallet: Connect a bank account to your new wallet
+        buttons:
+          connect: Connect now
+          maybe_later: Maybe later
+      new_bank_choice:
+        subtitle: Connect bank account
+        select_institution:
+          label: Your Bank
+          prompt: Select your bank
+        button: Confirm
+      account_selection:
+        subtitle: Account selection
+        account:
+          index: Account %{i}
+          iban: IBAN
+          name: Name
+          owner: Owner
+        select:
+          label: Account To Connect
+          prompt: Select an account
+        button: Connect
+
+

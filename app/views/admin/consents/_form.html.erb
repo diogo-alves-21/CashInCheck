@@ -1,0 +1,27 @@
+<%= form_with(model: [:admin, record], class: 'form form-vertical') do |f| %>
+
+  <%= render(partial: 'layout_partials/toasts/errors', locals: { object: record }) %>
+
+  <div class="form-body">
+
+    <div class="form-group">
+      <%= f.label :kind %><br>
+      <%= f.select :kind, options_for_select(Consent.translated_kinds.map { |translation, k, _v| [translation, k] }, selected: f.object.kind.presence || 'terms'), {}, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :active %><br>
+      <%= f.check_box :active, class: 'check-box' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :content %>
+      <%= f.rich_text_area :content %>
+    </div>
+
+    <div class="col-12 d-flex justify-content-end">
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
+
+  </div>
+<% end %>

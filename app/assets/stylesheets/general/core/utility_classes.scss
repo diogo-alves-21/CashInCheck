@@ -1,0 +1,253 @@
+@use "sass:map";
+
+/* Fixed classes */
+.uppercase {
+  text-transform: uppercase;
+}
+
+.center {
+  text-align: center;
+}
+
+.min-width-full {
+  min-width: 100%;
+}
+
+.width-full {
+  width: 100%;
+}
+
+.left {
+  float: left;
+  text-align: left;
+}
+
+.right {
+  float: right;
+  text-align: right;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.d-none {
+  display: none !important;
+}
+
+.d-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.d-flex--column {
+  flex-direction: column;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.wrap-reverse {
+  flex-wrap: wrap-reverse;
+}
+
+.grow--1 {
+  flex-grow: 1;
+}
+
+.justify-right {
+  justify-content: flex-end;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-start {
+  align-items: start;
+}
+
+.align-center {
+  align-items: center !important;
+}
+
+.align-baseline {
+  align-items: baseline;
+}
+
+.align-end {
+  align-items: end;
+}
+
+.align-self-end {
+  align-self: end;
+}
+
+.relative {
+  position: relative;
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.border {
+  border: solid $s_border / 2 theme-color("secondary");
+}
+
+.border-top {
+  border-top: solid $s_border / 2 theme-color("secondary");
+}
+
+.border-left {
+  border-left: solid $s_border / 2 theme-color("secondary");
+}
+
+.border-right {
+  border-right: solid $s_border / 2 theme-color("secondary");
+}
+
+.border-bottom {
+  border-bottom: solid $s_border / 2 theme-color("secondary");
+}
+
+/* Containers */
+$s_fix: 24px;
+$container-max-width: (
+  small: calc(634px + $s_fix),
+  medium: calc(1200px + $s_fix),
+  large: calc(1440px + $s_fix),
+  );
+
+// Adding other relevant max widths
+$container-max-width: map.merge(
+  (
+    // bottom navigation (usual equals medium container)
+    bottom_nav: map.get($container-max-width, medium)
+  ),
+  $container-max-width
+);
+
+@function container-max-width($key: medium) {
+  @return map.get($container-max-width, $key);
+}
+
+.container-small {
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: container-max-width(small);
+  padding: 0 spacer(2);
+  width: 100%;
+}
+
+.container-medium {
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: container-max-width();
+  padding: 0 spacer(2);
+  width: 100%;
+}
+
+.container-large {
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: container-max-width(large);
+  padding: 0 spacer(2);
+  width: 100%;
+}
+
+.container--full-page {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-bottom: spacer(4);
+}
+
+.box {
+  background-color: color("bg-container");
+  border-radius: $s_radius;
+  padding: spacer(2);
+}
+
+/* container btns footer */
+.container__btns-footer {
+  display: flex;
+  flex-flow: row-reverse wrap;
+  justify-content: space-between;
+}
+
+.container__btns-footer--center {
+  gap: spacer();
+  justify-content: center !important;
+}
+
+
+.bg--none {
+  background-color: transparent;
+}
+
+$aux_utility-colors: $theme-colors, $neutral-colors, $colors;
+
+@each $colors in $aux_utility-colors {
+  @each $color, $value in $colors {
+    /* Background */
+    .bg--#{$color} {
+      background-color: $value;
+    }
+
+    .bg-hover--#{$color}:hover {
+      background-color: $value;
+    }
+
+    /* Border */
+    .border--#{$color} {
+      border-color: $value;
+    }
+
+    /* Badges */
+    .badge--#{$color} {
+      @extend .fs-step-2;
+
+      align-items: center;
+      background-color: $value;
+      border-radius: spacer(2);
+      color: adaptative-color($value);
+      display: flex;
+      font-family: $f_family--primary;
+      font-weight: $f_medium;
+      gap: calc(spacer() / 2);
+      justify-content: center;
+      padding: calc(spacer() / 2) spacer();
+      text-transform: capitalize;
+    }
+  }
+
+}
+
+.badge {
+  @extend .badge--secondary;
+}
+
+
+/* Rotation */
+$rotation-values: 45, 90, 135, 180;
+
+@each $deg in $rotation-values {
+  .rotate-#{$deg},
+  .icon-rotate-#{$deg} > i:before {
+    rotate: calc($deg / 45 * 45deg);
+  }
+}
+

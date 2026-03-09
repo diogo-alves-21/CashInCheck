@@ -1,0 +1,27 @@
+{
+  // Editor
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": false,
+
+  "stylelint.validate": [
+    "css",
+    "less",
+    "postcss",
+    "scss"
+  ],
+
+  // ESLint
+  "eslint.validate": [
+    "html",
+    "javascript",
+    "javascriptreact",
+    "erb"
+  ],
+
+  // Ruby
+  "ruby.format": "rubocop",
+  "ruby.lint": {
+    "rubocop": true
+  }
+}

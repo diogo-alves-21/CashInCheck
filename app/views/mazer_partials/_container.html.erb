@@ -1,0 +1,68 @@
+<%# PARAMS:
+
+- title
+  title of the page
+
+- section_breadcrumbs
+  example:
+    section_breadcrumbs: [
+      ["name1", "url1"],
+      ["name2", "url2"],
+      ["name3"]
+    ] %>
+
+<div id="main-content">
+  <div class="page-heading">
+    <div class="page-title">
+      <div class="row">
+        <div class="col-12 col-md-6 order-md-1 order-last">
+          <h3 data-test-title="<%= title %>"><%= title %></h3>
+          <%# <p class="text-subtitle text-muted">
+            Navbar will appear on the top of the page.
+          </p> %>
+        </div>
+        <% if local_assigns[:section_breadcrumbs].present? %>
+          <div class="col-12 col-md-6 order-md-2 order-first">
+            <nav
+              aria-label="breadcrumb"
+              class="breadcrumb-header float-start float-lg-end">
+              <ol class="breadcrumb">
+                <% section_breadcrumbs.each do |breadcrumb| %>
+                  <% if breadcrumb.size < 2 %>
+                    <li class="breadcrumb-item active" aria-current="page">
+                      <%= breadcrumb.first %>
+                    </li>
+                  <% else %>
+                    <li class="breadcrumb-item">
+                      <%= link_to breadcrumb.first, breadcrumb.second %>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ol>
+            </nav>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <section class="section">
+      <%= yield %>
+      <%# <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">About Vertical Navbar</h4>
+        </div>
+        <div class="card-body">
+          <p>
+            Vertical Navbar is a layout option that you can use with
+            Mazer.
+          </p>
+
+          <p>
+            In case you want the navbar to be sticky on top while
+            scrolling, add <code>.navbar-fixed</code> class alongside
+            with <code>.layout-navbar</code> class.
+          </p>
+        </div>
+      </div> %>
+    </section>
+  </div>
+</div>

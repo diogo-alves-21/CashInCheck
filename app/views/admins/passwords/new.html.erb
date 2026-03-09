@@ -1,0 +1,24 @@
+<div class="mb-4">
+  <h2><%= resource.model_name.human(count: 1) %></h2>
+  <%# <a href="../index.html"><img src="../assets/images/brand/logo/logo-primary.svg" class="mb-2" alt=""></a> %>
+  <p class="mb-6"><%= t('devise.passwords.new.forgot_your_password') %></p>
+</div>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, data: { turbo: false }) do |f| %>
+  <%#= devise_error_messages! %>
+  <%= render(partial: 'layout_partials/toasts/errors', locals: { object: resource }) %>
+
+  <div class="mb-3">
+  <%= f.label :email, class: 'form-label' %>
+    <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email" %>
+  </div>
+
+  <div>
+    <!-- Button -->
+    <div class="d-grid">
+      <%= f.submit t('devise.passwords.new.send_me_reset_password_instructions'), class: "btn btn-primary btn-block" %>
+    </div>
+
+    <%= render "admins/shared/links" %>
+  </div>
+<% end %>

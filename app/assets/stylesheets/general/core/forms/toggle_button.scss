@@ -1,0 +1,115 @@
+/* stylelint-disable no-descending-specificity */
+
+/**  Buttons
+ *
+ * HTML example:
+
+  <label class="control control-toggle label-text">Toggle Text
+    <input type="checkbox" checked="checked"/>
+    <div class="control-indicator"></div>
+  </label>
+
+ *
+ * To update the colors of the inputs, the variables should changed on colors.scss
+ *
+ */
+
+ @use "sass:color";
+
+$m_size: 24px;
+$m_border-radius: 4px;
+$m_padding: 2px;
+
+.control-toggle {
+  @include font-scale(-1);
+
+  font-family: $f_family--primary;
+  font-weight: $f_regular;
+  padding-left: calc(($m_size - $m_padding) * 2 + 10px);
+
+  // toggle symbol
+  .control-indicator {
+    background: none;
+    border-radius: $m_border-radius * 3;
+    border-color: $c_input-border--toggle;
+    box-sizing: border-box;
+    height: $m_size;
+    width: calc($m_size - $m_padding) * 2;
+    padding: $m_padding;
+    top: 1px;
+    transition: all $d_fast-duration ease-in-out;
+
+    &:after {
+      background: $c_input-symbol;
+      border-radius: 50%;
+      box-sizing: border-box;
+      height: calc($m_size - 4 * $m_padding);
+      left: $m_padding;
+      top: $m_padding;
+      width: calc($m_size - 4 * $m_padding);
+      transition: all $d_fast-duration ease-in-out;
+    }
+  }
+
+  input ~ .control-indicator:after {
+    display: block;
+  }
+
+  input:checked ~ .control-indicator {
+    background: $c_input-symbol;
+
+    &:after {
+      background: adaptative-color($c_input-symbol);
+      left: calc(100% - ($m_size - 2 * $m_padding));
+    }
+  }
+
+  // Disabled
+  input:disabled ~ .control-indicator:after {
+    background: $c_input--disabled__symbol;
+  }
+}
+
+// Hover
+.control-toggle:hover input:not([disabled]) ~ .control-indicator,
+.control-toggle:hover input:checked ~ .control-indicator:after {
+  background: $c_input--hover;
+}
+
+.control-toggle:hover input ~ .control-indicator,
+.control-toggle:hover input:checked ~ .control-indicator,
+.control-toggle:hover input ~ .control-indicator:after {
+  background: $c_input-symbol;
+}
+
+@each $theme, $color in $theme-colors {
+  .control-toggle--#{$theme} {
+    .control-indicator {
+      border: $s_border solid $color;
+    }
+
+    .control-indicator:after {
+      background: $color;
+    }
+
+    input:checked ~ .control-indicator {
+      background: $color;
+
+      &:after {
+        background: adaptative-color($color);
+      }
+    }
+
+    // Hover
+    &:hover input:not([disabled]) ~ .control-indicator,
+    &:hover input:checked ~ .control-indicator:after {
+      background: color.adjust($color, $lightness: 20%, $saturation: -10%);
+    }
+
+    &:hover input ~ .control-indicator,
+    &:hover input:checked ~ .control-indicator,
+    &:hover input ~ .control-indicator:after {
+      background: $color;
+    }
+  }
+}

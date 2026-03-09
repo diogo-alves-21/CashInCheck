@@ -1,0 +1,237 @@
+/**
+ * This stylesheet has 5 sections:
+ *
+ * 1.Neutral Colors - Where are defined the neutral colors
+ * This colors could be or not in the project palette
+ * Usually this colors are shades of white, gray and black but it could also be
+ * shades of beige for example
+ *
+ * 2.Theme Colors - Where are defined the project palette
+ *
+ * 3.Other Colors - Where are defined other colors you need.
+ * - Project-specific & general colors  -
+ *
+ * 4.Social Networks Colors - Where are defined the colors of social networks
+ *
+ * 5.Functions - Where are defined other color functions
+ *   - Adaptative Color:
+ *     Given a certain color, returns black* or white*, depending on the
+ * contrast. You can also define the dark and light color that it should return.
+ *     eg.:
+ *       adaptative-color( theme-color() ) // returns black or white
+ *
+ *       adaptative-color( theme-color(), neutral-color($key: "600"), neutral-color($key: "200") ) // returns #4F4F4F or #ECECEC
+ *
+ *
+ * HOW TO USE:
+ * 1. Add a color to a section:
+ *    - Choose a section and a name to the color, then add it to the map.merge
+ * of the chosen section. Don't forget to add a comma on the end of the
+ * previous line.
+ *    eg.: $theme-colors: map.merge(
+ *           (
+ *             ... ,
+ *             "name of the color": #COLORHEX / colorname
+ *           ),
+ *           $theme-colors
+ *         );
+ *
+ * 2. Call the right color
+ *    - function-name()
+ *      to use the default color of the section
+ *    eg.: theme-color() // = theme-color("blue") = #007bff
+ *
+ *    - function-name("color name")
+ *      to use a specific color of the section
+ *    eg.: theme-color("secondary") // = #828282
+ *
+ * 3. Request a Theme Color Shade
+ *    You can call for shades of theme color
+ *
+ *    - Lighter shade (positive percentage)
+ *    eg.: theme-color-shade("primary", 30%)
+ *
+ *    - Darker shade (negative percentage)
+ *    eg.: theme-color-shade("primary", -30%)
+ *
+ *
+ * TIP:
+ * If it gets easier, you can use comments next to the colors as notes so you
+ * can check more easily where you are using this color on the website.
+ *
+ * eg.: "white": white, //background -- sidebar, container...
+ *
+ */
+
+ @use "sass:map";
+ @use "sass:math";
+ @use "sass:color";
+
+/* NEUTRAL COLORS */
+
+$neutral-colors: () !default;
+$neutral-colors: map.merge(
+  (
+    "lightest": white,
+    "000": white,
+    "100": #eef5f7,
+    "200": #e1e9eb,
+    "300": #c8d7da,
+    "400": #9aabaf,
+    "500": #506064,
+    "600": #303b41,
+    "700": #151819,
+    "800": black,
+    "darkest": black,
+  ),
+  $neutral-colors
+);
+
+@function neutral-color($key: "000") {
+  @return map.get($neutral-colors, $key);
+}
+
+
+/* THEME COLORS */
+
+$theme-colors: () !default;
+$theme-colors: map.merge(
+  (
+    "primary":    #F7C51D,
+    "secondary":  #3cb4e2,
+    "accent":     #FFFDC1,
+    "success":    #a0f941,
+    "info":       #17A2B8,
+    "warning":    #ffc107,
+    "danger":     #f94144,
+    "light":      neutral-color("200"),
+    "dark":       neutral-color("700"),
+    "disabled":   neutral-color("300"),
+  ),
+  $theme-colors
+);
+$theme-colors: map.merge(
+  (
+    "income":    #3CB4E2,  // secondary
+    "expense":   #F94144,  // danger
+    "balance":   black,    // darkest
+  ),
+  $theme-colors
+);
+
+@function theme-color($key: "primary") {
+  @return map.get($theme-colors, $key);
+}
+
+// Request a theme color shade
+@function theme-color-shade($color-name: "primary", $level: 0) {
+  $color: theme-color("#{$color-name}");
+  $percentage: math.abs($level);
+
+  @if $level > 0 {
+    @return color.adjust($color, $lightness: $percentage);
+  } @else {
+    @return color.adjust($color, $lightness: - $percentage);
+  }
+}
+
+
+/* OTHER COLORS */
+
+$colors: () !default;
+$colors: map.merge(
+  (
+    // PROJECT-SPECIFIC AUXILIARY COLORS
+    "bg-container": #005e820a,
+    "black-50": #00000080,
+    "secondary-20": #005e8233,
+    "secondary-5": #005b800d,
+
+    // GENERAL COLORS
+    "blue":       #007BFF,
+    "indigo":     #6610F2,
+    "purple":     #6F42C1,
+    "pink":       #E83E8C,
+    "red":        #DC3545,
+    "orange":     #FD7E14,
+    "yellow":     #FFC107,
+    "green":      #28A745,
+    "teal":       #20C997,
+    "cyan":       #17A2B8,
+    "white":      neutral-color(),
+    "gray":       neutral-color("500"),
+    "gray-dark":  neutral-color("700")
+  ),
+  $colors
+);
+
+@function color($key: "white") {
+  @return map.get($colors, $key);
+}
+
+
+/* SOCIAL NETWORKS COLORS */
+
+$social-network-colors: () !default;
+$social-network-colors: map.merge(
+  (
+    "facebook":    #3B5998,
+    "twitter":     #55ACEE,
+    "instagram":   #8A3AB9,
+    "youtube":     #B00,
+    "pinterest":   #CB2027,
+    "google-plus": #DD4B39,
+    "linkedin":    #007BB5,
+    "vimeo":       #1AB7EA,
+    "spotify":     #00E461,
+    "dropbox":     #007EE5,
+    "behance":     #1769FF,
+    "whatsapp":    #4DC247
+  ),
+  $social-network-colors
+);
+
+@function social-network-color($key: "facebook") {
+  @return map.get($social-network-colors, $key);
+}
+
+$all-colors: (
+  'theme-color': $theme-colors,
+  'neutral-color': $neutral-colors,
+  'color': $colors,
+  'social-color': $social-network-colors
+);
+
+
+:root {
+  @each $name, $a_colors in $all-colors {
+    @each $color, $value in $a_colors {
+      --#{$name}--#{$color}: #{$value};
+    }
+  }
+}
+
+
+/* FUNCTIONS */
+
+/* Adaptative Color */
+
+// The yiq lightness value that determines when the lightness of color changes from "dark" to "light". Acceptable values are between 0 and 255.
+$yiq-contrasted-threshold:  200 !default;
+
+// Customize the light and dark text colors for use in our YIQ color contrast function.
+$yiq-text-light:            neutral-color() !default;
+$yiq-text-dark:             neutral-color("darkest") !default;
+
+@function adaptative-color($color, $dark: $yiq-text-dark, $light: $yiq-text-light) {
+  $r: color.red($color);
+  $g: color.green($color);
+  $b: color.blue($color);
+  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) * 0.001;
+
+  @if $yiq >= $yiq-contrasted-threshold {
+    @return $dark;
+  } @else {
+    @return $light;
+  }
+}

@@ -1,0 +1,33 @@
+<%= render 'layout_partials/header',
+  page_title: Member.model_name.human(count: 0),
+  page_subtitle: @group.name %>
+
+<div class="cic-table">
+  <div class="box">
+    <div class="cic-table m-t-3 m-b-2">
+      <% @members.each do |member| %>
+        <div class="cic-table__row">
+          <div class="d-flex align-center gap-1">
+            <h5><%= member.name %></h5>
+            <% if member.user == current_user %>
+              <span class="fs-step-2 text--semi-bold uppercase text--secondary"><%= t('views.members.myself') %></span>
+            <% end %>
+          </div>
+
+          <%= link_to group_member_path(@group.id, member), class: 'd-flex align-center gap-1' do %>
+            <i class="cic-icon-show fs-h5"></i>
+            <%= t('views.show') %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: group_path(@group), extraClass: 'btn-icon back-link' }
+  ]  %>
+
+<% @right_buttons = [
+    { icon: 'cic-icon-plus', url: new_group_member_path, extraClass: 'btn-icon action new btn--extra-large', primary: true }
+  ]  %>

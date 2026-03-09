@@ -1,0 +1,67 @@
+<%= render 'layout_partials/header',
+  page_title: @wallet.name,
+  page_subtitle: Transaction.model_name.human(count: 1),
+  buttons: [
+    { icon: 'cic-icon-edit', url: edit_wallet_transaction_path(@wallet, @transaction), extraClass: 'action edit btn-icon' }
+  ] %>
+
+<div class="cic-table">
+  <div>
+    <h6 class="label--small"><%= Transaction.human_attribute_name(:executed_at) %></h6>
+    <p class="uppercase"><%= @transaction.executed_at.strftime("%d %b %Y") %></p>
+  </div>
+
+  <div class="center m-b-2">
+    <h1 class="text--<%= @transaction.kind_before_type_cast == 1 ? 'expense' : 'income' %> m-b-2"><%= @transaction.sign_for_amount %></h1>
+
+  <% if @transaction.category.present? || @transaction.tags.present? %>
+    <div class="d-flex d-flex--column align-center gap-1">
+      <% if @transaction.category.present? %>
+        <p class="badge">
+          <i class="cic-icon-category"></i>
+          <%= @transaction.category.name %>
+        </p>
+      <% end %>
+      <% if @transaction.tags.present? %>
+          <p class="label--small">
+            <%= @transaction.tags.map {|tag| "##{tag.name}" }.uniq.join(' ')  %>
+          </p>
+      <% end %>
+    </div>
+  <% end %>
+  </div>
+
+  <% if @transaction.entity_name.present? %>
+    <div>
+      <h6 class="label--small"><%= Transaction.human_attribute_name(:entity_name) %></h6>
+      <p><%= @transaction.entity_name %></p>
+    </div>
+  <% end %>
+
+  <% if @transaction.payer.present? %>
+    <div>
+      <h6 class="label--small"><%= Transaction.human_attribute_name(:payer_id) %></h6>
+      <p><%= @transaction.payer.name %></p>
+    </div>
+  <% end %>
+
+  <% if @transaction.payees.present? %>
+    <div>
+      <h6 class="label--small"><%= Transaction.human_attribute_name(:payees) %></h6>
+      <% @transaction.payees.each do |payee| %>
+        <p><%= payee.name %></p>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div>
+    <h6 class="label--small"><%= Transaction.human_attribute_name(:notes) %></h6>
+    <p><%= @transaction.description.presence || '-' %></p>
+  </div>
+</div>
+
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: :back, extraClass: 'btn-icon back-link' },
+  ]  %>
+

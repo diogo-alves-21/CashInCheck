@@ -1,0 +1,5 @@
+pt:
+  gdpr:
+    controllers:
+      accept_cookies_error: 'Algo correu mal'
+      create_error: 'Precisa de aceitar todos os consentimentos'

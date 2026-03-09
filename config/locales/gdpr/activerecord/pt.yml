@@ -1,0 +1,17 @@
+pt:
+  activerecord:
+    models:
+      consent:
+        one: Consentimento
+        other: Consentimentos
+    attributes:
+      consent:
+        active: Ativo
+        version: Versão
+        content: Conteúdo
+        accepted_consents: Consentimentos Aceites
+        kind: Nome
+        kind_list:
+          terms: Termos e Condições
+          cookies: Política de Cookies
+          privacy: Política de Privacidade

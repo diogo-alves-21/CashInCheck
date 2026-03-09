@@ -1,0 +1,60 @@
+<% locales = 'views.wallets.account_selection' %>
+
+<%= render 'layout_partials/header',
+  page_title: @wallet.name,
+  page_subtitle: t("#{locales}.subtitle") %>
+
+<%= form_with :url => { action: :select_account }, method: :post, class: 'cic-table' do |f| %>
+  <div class="accounts-container m-b-3">
+    <% @accounts.each_with_index do |account, index| %>
+      <div class="account-card">
+        <h6 class="fs-h5"><%= t("#{locales}.account.index", i: index + 1) %></h6>
+        <div>
+          <p class="label--small"><%= t("#{locales}.account.iban") %></p>
+          <p><%= account["iban"] %></p>
+        </div>
+        <div>
+          <p class="label--small"><%= t("#{locales}.account.name") %></p>
+          <p><%= account["name"].presence || '-' %></p>
+        </div>
+        <div>
+          <p class="label--small"><%= t("#{locales}.account.owner") %></p>
+          <p><%= account["owner_name"].presence || '-' %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :account, t("#{locales}.select.label") %><br>
+    <%= f.select :account,
+            options_for_select(@accounts.each_with_index.map do |ac, i|
+              [
+                "#{t("#{locales}.account.index", i: i + 1)}: #{ac['name']} - #{ac['iban']}",
+                ac['id'],
+                {
+                  'data-account': t("#{locales}.account.index", i: i + 1),
+                  'data-name': ac['name'],
+                  'data-iban': ac['iban']
+                }
+              ]
+            end
+          ),
+          { prompt: t("#{locales}.select.prompt") },
+          {
+            data: {
+              controller: 'tom-select-basic',
+              custom_tom_select: 'select-bank-account'
+            }
+          } %>
+  </div>
+
+
+  <div class="form-buttons center">
+    <%= submit_tag t("#{locales}.button"), class: "btn" %>
+  </div>
+<% end %>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: :back, extraClass: 'btn-icon back-link' },
+  ]  %>

@@ -1,0 +1,144 @@
+/**
+ * This stylesheet has 4 sections:
+ *
+ * 1.Ratios - Where are defined several default ratios
+ *   You can use those with this functon:
+ *     - ratio-by-name()
+ *       to use the default ratio (1.125)
+ *       eg.: ratio-by-name(minor-third) // = 1.2
+ *
+ * 2.Default Settings - Where are defined the default base, breakpoints
+ * and ratios for each breakpoint
+ *
+ * 3.Functions - Where are defined functions that we need to calculate
+ * the size taking into account the base and the breakpoint ratio
+ *
+ * 4.Mixin - Where are defined the mixin
+ *   This mixin allows you to set a step and it automatically calculates
+ * the sizes for all the defined breakpoints taking into account the ratio
+ * of each breakpoint
+ *
+ *
+ * HOW TO USE:
+ * 1. Set your own settings ON YOUR FONTS FILE
+ *    or just use the defaults (in this case, you can skip this step)
+ *    eg.: $scale: (
+ *           base: 16px,
+ *           breakpoints: (
+ *             $b_initial: ratio-by-name(),
+ *             $b_very-small: 1.025,
+ *             $b_small: ratio-by-name()
+ *           )
+ *         );
+ *
+ * 2. Include the mixin in your class
+ *    eg.: h1 {
+ *           @include font-scale(6);
+ *         }
+ */
+
+@use "sass:map";
+/* stylelint-disable number-max-precision */
+
+
+/* RATIOS */
+$ratios: (
+  double-octave:    4,
+  pi:               3.14159265359,
+  major-twelfth:    3,
+  major-eleventh:   2.666666667,
+  major-tenth:      2.5,
+  octave:           2,
+  major-seventh:    1.875,
+  minor-seventh:    1.777777778,
+  major-sixth:      1.666666667,
+  phi:              1.618034,
+  golden:           1.618034,
+  minor-sixth:      1.6,
+  fifth:            1.5 ,
+  augmented-fourth: 1.41421,
+  fourth:           1.333333333,
+  major-third:      1.25,
+  minor-third:      1.2 ,
+  major-second:     1.125,
+  minor-second:     1.066666667
+);
+
+@function ratio-by-name($key: major-second) {
+  @return map.get($ratios, $key);
+}
+
+/* DEFAULT SETTINGS */
+$scale: (
+  base: 1em,
+  breakpoints: (
+    $b_initial: ratio-by-name(),
+    $b_small: ratio-by-name(fourth),
+    $b_large: ratio-by-name(fifth)
+  )
+) !default;
+
+
+/* FUNCTIONS */
+
+/* Calculate pow -- this is needed in the font-scale-get-size function */
+@function font-scale-pow($base, $exponent) {
+  $result: 1;
+
+  @for $_ from 1 through $exponent {
+    $result: $result * $base;
+  }
+
+  @return $result;
+}
+
+/* Calculate font-size for a specific step and breakpoint */
+@function font-scale-get-size($step: 0, $breakpoint: $b_initial, $base_scale: $scale) {
+  $base: map.get($base_scale, base_breakpoints, $breakpoint);
+
+  @if not $base {
+    $base: map.get($base_scale, base);
+  }
+
+  $breakpoint-ratio: map.get($base_scale, breakpoints, $breakpoint);
+
+  @if $step > 0 {
+    @return calc($base * font-scale-pow($breakpoint-ratio, $step));
+  } @else if $step == 0 {
+    @return $base;
+  } @else {
+    @return calc($base / font-scale-pow($breakpoint-ratio, calc($step * -1)));
+  }
+}
+
+/* MIXIN
+ * - This will define the font-size for every breakpoint you set in $scale
+ */
+@mixin font-scale($step: 0, $base_scale: $scale) {
+  $aux-step: $step;
+
+  @if $step == "p" {
+    $aux-step: 0;
+  } @else if $step == "h6" {
+    $aux-step: 1;
+  } @else if $step == "h5" {
+    $aux-step: 2;
+  } @else if $step == "h4" {
+    $aux-step: 3;
+  } @else if $step == "h3" {
+    $aux-step: 4;
+  } @else if $step == "h2" {
+    $aux-step: 5;
+  } @else if $step == "h1" {
+    $aux-step: 6;
+  } @else if $step == null {
+    $aux-step: 0;
+  }
+
+  @each $breakpoint in map.keys(map.get($base_scale, breakpoints)) {
+    @include breakpoint($breakpoint) {
+      font-size: font-scale-get-size($aux-step, $breakpoint, $base_scale);
+      letter-spacing: calc(font-scale-get-size($aux-step, $breakpoint, $base_scale) * 0.02);
+    }
+  }
+}

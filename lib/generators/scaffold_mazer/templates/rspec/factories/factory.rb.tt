@@ -1,0 +1,28 @@
+FactoryBot.define do
+  factory :<%= singular_table_name %> do
+    # begin generated fields
+<%- traits_references = [] -%>
+<%- attributes.each do |attribute| -%>
+  <%- if attribute.type == :string -%>
+    <%= attribute.column_name %> { Faker::Book.title }
+  <%- elsif attribute.type == :text -%>
+    <%= attribute.column_name %> { Faker::Movie.quote }
+  <%- elsif attribute.type == :integer -%>
+    <%= attribute.column_name %> { Faker::Number.number(digits: 6) }
+  <%- elsif attribute.type == :decimal -%>
+    <%= attribute.column_name %> { Faker::Number.decimal(l_digits: 3, r_digits: 3) }
+  <%- elsif attribute.type == :references -%>
+    <%- traits_references << attribute -%>
+  <%- end -%>
+<%- end -%>
+    # end generated fields
+    # begin generated traits
+    <%- traits_references.each do |trait| -%>
+      <%- trait_name = trait.column_name.gsub('_id','') -%>
+    trait :with_<%= trait_name %> do
+      <%= trait_name %> { create(:<%= trait_name %>) }
+    end
+    <%- end -%>
+    # end generated traits
+  end
+end

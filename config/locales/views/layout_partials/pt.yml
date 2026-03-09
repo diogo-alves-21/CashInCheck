@@ -1,0 +1,9 @@
+pt:
+  views:
+    layout_partials:
+      bottom_nav:
+        home: Página Inicial
+        more: Mais
+        wallets: Carteiras
+        budgets: Orçamentos
+        goals: Objetivos

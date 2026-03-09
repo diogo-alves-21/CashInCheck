@@ -1,0 +1,13 @@
+pt:
+  gdpr:
+    views:
+      cookies_disclaimer:
+        text: >
+          Ao continuar a navegar no site, está a concordar expressamente que serão armazenados cookies no teu computador para ajudar a calcular estatísticas de visitas e melhorar a qualidade dos conteúdos oferecidos.
+        learn_more: Ver Política de Cookies
+        accept: Aceitar
+      missing:
+        title: Consentimentos Por Aceitar
+        intro: Antes de continuar é necessário aceitar os seguintes consentimentos
+        check_consent: Ver %{consent}
+        submit: Aceitar Selecionados

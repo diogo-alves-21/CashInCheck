@@ -1,0 +1,5 @@
+en:
+  gdpr:
+    controllers:
+      accept_cookies_error: 'Something went wrong'
+      create_error: 'You need to accept all the consents'

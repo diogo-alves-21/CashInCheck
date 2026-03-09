@@ -1,0 +1,26 @@
+<% locales = 'views.wallets.new_bank_choice' %>
+
+<%= render 'layout_partials/header',
+  page_title: @wallet.name,
+  page_subtitle: t("#{locales}.subtitle") %>
+
+<%= form_with :url => { action: :exchange_public_token }, method: :post, data: { turbo: false }, class: 'cic-table' do |f| %>
+  <div>
+    <h6><%= f.label :institution, t("#{locales}.select_institution.label") %></h6>
+    <%= f.select :institution,
+              @institutions.map { |i| [i["name"],i["id"]] },
+              { prompt: t("#{locales}.select_institution.prompt") },
+              { data: {
+                  controller: 'tom-select-basic',
+              } } %>
+  </div>
+
+  <div class="form-buttons center">
+    <%= submit_tag t("#{locales}.button"), class: "btn" %>
+  </div>
+<% end %>
+
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: :back, extraClass: 'btn-icon back-link' },
+  ]  %>

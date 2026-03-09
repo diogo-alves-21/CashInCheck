@@ -1,0 +1,18 @@
+<% container_title = Admin.model_name.human(count: 0) %>
+<% content_for :title, container_title %>
+<%= render 'mazer_partials/container', title: container_title do %>
+
+  <%= render 'mazer_partials/box/box', title: t('views.mazer.action.edit') do %>
+    <%= render 'mazer_partials/box/body' do %>
+
+      <%= render 'form', record: @admin %>
+
+    <% end %>
+
+    <%= render 'mazer_partials/box/footer', links: [
+          { name: t("views.mazer.show"), url: [:admin, @admin] },
+          { name: t("views.mazer.back"), url: admin_admins_path }
+        ] %>
+  <% end %>
+
+<% end %>

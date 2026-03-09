@@ -1,0 +1,56 @@
+<% container_title = resource.model_name.human(count: 0) %>
+<% content_for :title, container_title %>
+<%= render 'mazer_partials/container', title: container_title do %>
+
+    <%= render 'mazer_partials/box/box', title: t('views.mazer.action.edit') do %>
+      <%= render 'mazer_partials/box/body' do %>
+        <div class="form-body">
+
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, data: { turbo: false }) do |f| %>
+            <%#= devise_error_messages! %>
+
+            <%= render(partial: 'layout_partials/toasts/errors', locals: { object: resource }) %>
+
+            <div class="form-group">
+              <%= f.label :email %><br>
+              <%= f.email_field :email, autofocus: true, class: "form-control" %>
+            </div>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div><%= t('devise.registrations.edit.currently_waiting_confirmation_for_email', email: resource.unconfirmed_email) %></div>
+            <% end %>
+
+            <div class="form-group">
+              <%= f.label :password %> <i><%= t('devise.registrations.edit.leave_blank_if_you_don_t_want_to_change_it') %></i><br>
+              <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+              <% if @minimum_password_length %>
+                <br>
+                <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
+              <% end %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :password_confirmation %><br>
+              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :current_password %> <i><%= t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes') %></i><br>
+              <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
+            </div>
+
+            <div class="col-12 d-flex justify-content-end">
+              <%= f.submit class: "btn btn-primary" %>
+            </div>
+          <% end %>
+
+        </div>
+      <% end %>
+
+      <%= render 'mazer_partials/box/footer',
+                 links: [
+                   { name: t("views.mazer.back"), url: :back }
+                 ] %>
+    <% end %>
+
+<% end %>

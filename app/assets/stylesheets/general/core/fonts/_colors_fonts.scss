@@ -1,0 +1,30 @@
+/**
+ * This variables are only assigned to FONT classes.
+ *
+ * The accent colors of the project are already assigned to internal variables
+ * in the colors stylesheet of the styleguide
+ * (e.g.: theme-color("primary"), neutral-color("lightest"),...).
+ *
+ *
+ * The name of this variables should follow this rule:
+ * $c_nav-text
+ *
+ *
+ * The variable begins with the initial of the variable type c (color),
+ * followed by the element, and the section of the element where will be applied
+ * the color.
+ *
+ * $c_nav
+ *
+ * In this case this variable represents the background color of the element.
+ */
+
+@use "sass:color";
+
+/* TEXT COLORS */
+$c_notes-text: neutral-color("darkest");
+$c_label-text: neutral-color("darkest");
+$c_input-text: neutral-color("darkest");
+$c_input-placeholder: theme-color("secondary");
+$c_link-text: theme-color("secondary");
+$c_link-text--hover: color.adjust($c_link-text, $lightness: 10%);

@@ -1,0 +1,17 @@
+<%= form_with(model: [:admin, record], class: 'form form-vertical') do |f| %>
+
+  <%= render(partial: 'layout_partials/toasts/errors', locals: { object: record }) %>
+
+  <div class="form-body">
+
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.text_field :email, class: 'form-control' %>
+    </div>
+
+    <div class="col-12 d-flex justify-content-end">
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
+
+  </div>
+<% end %>

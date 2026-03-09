@@ -1,0 +1,30 @@
+/**
+ * This variables are only assigned to BUTTONS.
+ *
+ * The accent colors of the project are already assigned to internal variables
+ * in the colors stylesheet of the styleguide
+ * (e.g.: theme-color("primary"), neutral-color("lightest"),...).
+ *
+ *
+ * The name of this variables should follow this rule:
+ * $c_nav-text
+ *
+ *
+ * The variable begins with the initial of the variable type c (color),
+ * followed by the element, and the section of the element where will be applied
+ * the color.
+ *
+ * $c_nav
+ *
+ * In this case this variable represents the background color of the element.
+ */
+
+/* BUTTON COLORS */
+
+$c_btn-secondary:        neutral-color("lightest");
+$c_btn-border-secondary: theme-color();
+$c_btn-secondary-text:   theme-color();
+
+// disabled btn colors
+$c_btn-disabled:      neutral-color("400");
+$c_btn-disabled-text: neutral-color("500");

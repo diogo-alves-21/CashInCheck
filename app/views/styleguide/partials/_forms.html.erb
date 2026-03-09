@@ -1,0 +1,359 @@
+<div class="styleguide__grid-title">
+
+  <div class="styleguide_title_main">
+    <h1 class="styleguide__title-page">Forms</h1>
+  </div>
+  <!-- Input Basics-->
+  <h2 class="styleguide__subtitle-page">Input Basics</h2>
+    <p class="styleguide__text styleguide_text_colorinfo">The inputs displayed have the HYP styling because of the mixin <code>input_basics</code>.<br>It overrides the default input styling of the browser, making it more cohesive with the rest of the website components.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-css"><code>
+  @mixin input_basics ($m_width, $m_height, $m_padding: $s_input_padding_top $s_input_padding_left)
+  {
+    width: $m_width;
+    height: $m_height;
+    padding: $m_padding;
+    box-sizing: border-box;
+    border: $s_border solid $c_border-dark;
+    border-radius: $s_radius;
+    background-color: $c_input;
+    margin-top: 10px;
+  }
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <input class="input-text styleguide__input-default" type="text" name="text" placeholder="Input Type Text">
+    </div>
+  </div>
+  <!--Inputs-->
+  <h2 class="styleguide__subtitle-page">Inputs</h2>
+  <p class="styleguide__text">Thanks to the mixin <code>input_basics</code> the next inputs don't need more than a line of code.<br>In order to get the desired kind of input, you just need to change the type.</p>
+  <!--Input Type Text-->
+  <h2 class="styleguide__subtitle-page">Input Type Text</h2>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<input class="input-text" type="text" name="text" placeholder="Input Type Text"/>
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <input class="input-text" type="text" name="text" placeholder="Input Type Text">
+    </div>
+  </div>
+  <!--Input Type Disabled-->
+  <h2 class="styleguide__subtitle-page">Input Type Text Disabled</h2>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<input class="input-text" type="text" name="text" disabled="disabled" placeholder="Input Type Text"/>
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <input class="input-text" type="text" name="text" disabled="disabled" placeholder="Input Type Text">
+    </div>
+  </div>
+  <!--Input Type Password-->
+  <h2 class="styleguide__subtitle-page">Input Type Password</h2>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<input class="input-text" type="password" name="psw" placeholder="Input Type Password">
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <input class="input-text" type="password" name="psw" placeholder="Input Type Password">
+    </div>
+  </div>
+  <!--Input Type Email-->
+  <h2 class="styleguide__subtitle-page">Input Type Email</h2>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<input class="input-text" type="email" name="email" placeholder="Input Type Email">
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <input class="input-text" type="email" name="email" placeholder="Input Type Email">
+    </div>
+  </div>
+  <!--Input Type URL-->
+  <h2 class="styleguide__subtitle-page">Input Type URL</h2>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<input class="input-text" type="url" name="homepage" placeholder="Input Type URL">
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <input class="input-text" type="url" name="homepage" placeholder="Input Type URL">
+    </div>
+  </div>
+  <!--Input Type Search-->
+  <h2 class="styleguide__subtitle-page">Input Type Search</h2>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<input class="input-text" type="search" name="googlesearch" placeholder="Input Type Search">
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <input class="input-text" type="search" name="googlesearch" placeholder="Input Type Search">
+    </div>
+  </div>
+  <!--Input Type Telephone-->
+  <h2 class="styleguide__subtitle-page">Input Type Telephone</h2>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<input class="input-text" type="tel" name="usrtel" placeholder="Input Type Telephone">
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <input class="input-text" type="tel" name="usrtel" placeholder="Input Type Telephone">
+    </div>
+  </div>
+  <!--Input Type Number-->
+  <h2 class="styleguide__subtitle-page">Input Type Number</h2>
+  <p class="styleguide__text">For this input you need to define a min and max value.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<input class="input-text" type="number" name="quantity" min="1" max="5" placeholder="Input Type Number">
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <input class="input-text" type="number" name="quantity" min="1" max="5" placeholder="Input Type Number">
+    </div>
+  </div>
+  <!--Input Range-->
+  <h2 class="styleguide__subtitle-page">Input Range</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">For the input type range you need to define the min and max value desired.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<input class="input-text" type="range" name="points" min="0" max="1000">
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <input class="input-text" type="range" name="points" min="0" max="1000">
+    </div>
+  </div>
+  <!--Input File-->
+  <h2 class="styleguide__subtitle-page">Input File</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">The input file is a little bit different. Our default one lets you choose more than one file to upload through the data multi caption tag.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<input type="file" name="file-2[]" id="file-2" class="inputfile" data-multiple-caption="{count} files selected" multiple />
+<label for="file-2" class="secondary-button large-button">
+  <i class="fa fa-upload"></i>
+  <span>Choose a file&hellip;</span>
+</label>
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <div class="box_input_file">
+    		<input type="file" name="file-2[]" id="file-2" class="inputfile" data-multiple-caption="{count} files selected" multiple />
+    		<label for="file-2" class="secondary-button large-button">
+    			<i class="fa fa-upload"></i>
+          <span>Choose a file&hellip;</span>
+        </label>
+  	  </div>
+    </div>
+  </div>
+  <!--Textarea-->
+  <h2 class="styleguide__subtitle-page">Textarea</h2>
+  <p class="styleguide__text">On textarea you can define the width and height with cols and rows, respectively.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+
+<textarea name="message" placeholder="Write anything you want" class="input-text" placeholder="Input Type Textarea"></textarea>
+
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <textarea name="message" placeholder="Write anything you want" class="input-text" placeholder="Input Type Textarea"></textarea>
+    </div>
+  </div>
+  <!--Select Box-->
+  <h2 class="styleguide__subtitle-page">Select Box</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">Instead of the <code>input</code> tag the Select Box has a <code>select</code> tag. Inside of it there are multiples options each one with a <code>option</code> tag.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<div class="control-group">
+	<div class="select">
+		<select class="input-text">
+			<option>First select</option>
+			<option>Option</option>
+			<option>Option</option>
+		</select>
+		<div class="select__arrow"></div>
+	</div>
+	<div class="select">
+		<select disabled="disabled" class="input-text">
+			<option>Disabled</option>
+			<option>Option</option>
+			<option>Option</option>
+		</select>
+		<div class="select__arrow"></div>
+	</div>
+</div>
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <div class="control-group">
+      	<div class="select">
+      		<select class="input-text">
+      			<option>First select</option>
+      			<option>Option</option>
+      			<option>Option</option>
+      		</select>
+      		<div class="select__arrow"></div>
+      	</div>
+      	<div class="select">
+      		<select disabled="disabled" class="input-text">
+      			<option>Disabled</option>
+      			<option>Option</option>
+      			<option>Option</option>
+      		</select>
+      		<div class="select__arrow"></div>
+      	</div>
+      </div>
+    </div>
+  </div>
+  <!--Select 2-->
+  <h2 class="styleguide__subtitle-page">Select2</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">Select2 is a JQuery library to extend Selectboxes. The appearance of the results is customizable and is the best option if you're searching for a more atypical selectbox.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<div class="select">
+  <select class="js-example-placeholder-single">
+    <option></option><!-- Needed to show X image to clear the select -->
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+  </select>
+</div>
+
+
+<!-- JavaScript -->
+$(".js-example-placeholder-single").select2({
+  placeholder: 'Select an option...',
+  theme: "flat",
+  allowClear: false
+});
+
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <div class="select">
+        <select class="styleguide_js-example-placeholder-single">
+          <option></option><!-- Needed to show X image to clear the select -->
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <!--Checkbox-->
+  <h2 class="styleguide__subtitle-page">Checkbox</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">Checkboxes allow the user to choose more than one option.<br>There are 3 different types of checkboxes, that change according to the value of checked and disabled. See example below:</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<label class="control control-checkbox label-text">Default
+	<input class="input-text" type="checkbox"/>
+	<div class="control-indicator"></div>
+ </label>
+<label class="control control-checkbox label-text">Checked
+	<input class="input-text" type="checkbox" checked="checked"/>
+	<div class="control-indicator"></div>
+</label>
+<label class="control control-checkbox label-text">Disabled
+	<input class="input-text" type="checkbox" disabled="disabled"/>
+	<div class="control-indicator"></div>
+</label>
+<label class="control control-checkbox label-text">Disabled & checked
+	<input class="input-text" type="checkbox" disabled="disabled" checked="checked"/>
+	<div class="control-indicator"></div>
+</label>
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output styleguide__control-checkbox">
+      <div class="styleguide__control-checkbox__wrapper">
+        <label class="control control-checkbox label-text">Default
+        	<input class="input-text" type="checkbox"/>
+        	<div class="control-indicator"></div>
+    	   </label>
+        <label class="control control-checkbox label-text">Checked
+      		<input class="input-text" type="checkbox" checked="checked"/>
+      		<div class="control-indicator"></div>
+    	  </label>
+      	<label class="control control-checkbox label-text">Disabled
+      		<input class="input-text" type="checkbox" disabled="disabled"/>
+      		<div class="control-indicator"></div>
+      	</label>
+      	<label class="control control-checkbox label-text">Disabled & checked
+      		<input class="input-text" type="checkbox" disabled="disabled" checked="checked"/>
+      		<div class="control-indicator"></div>
+      	</label>
+      </div>
+    </div>
+  </div>
+  <!--Radio Button-->
+  <h2 class="styleguide__subtitle-page">Radio Button</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">Radio buttons allow the user to choose only one option.<br>Just like the checkboxes, there are 3 different types of checkboxes, that change according to the value of checked and disabled. See example below:</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<label class="control control-radio label-text">Default
+	<input class="input-text" type="radio" name="radio"/>
+	<div class="control-indicator"></div>
+</label>
+<label class="control control-radio label-text">Checked
+	<input class="input-text" type="radio" name="radio" checked="checked"/>
+	<div class="control-indicator"></div>
+</label>
+<label class="control control-radio label-text">Disabled
+	<input class="input-text" type="radio" name="radio2" disabled="disabled"/>
+	<div class="control-indicator"></div>
+</label>
+<label class="control control-radio label-text">Disabled & checked
+	<input class="input-text" type="radio" name="radio2" disabled="disabled" checked="checked"/>
+	<div class="control-indicator"></div>
+</label>
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output styleguide__control-checkbox">
+      <div class="styleguide__control-checkbox__wrapper">
+        <label class="control control-radio label-text">Default
+      		<input class="input-text" type="radio" name="radio"/>
+      		<div class="control-indicator"></div>
+      	</label>
+        <label class="control control-radio label-text">Checked
+      		<input class="input-text" type="radio" name="radio" checked="checked"/>
+      		<div class="control-indicator"></div>
+      	</label>
+      	<label class="control control-radio label-text">Disabled
+      		<input class="input-text" type="radio" name="radio2" disabled="disabled"/>
+      		<div class="control-indicator"></div>
+      	</label>
+      	<label class="control control-radio label-text">Disabled & checked
+      		<input class="input-text" type="radio" name="radio2" disabled="disabled" checked="checked"/>
+      		<div class="control-indicator"></div>
+      	</label>
+      </div>
+    </div>
+  </div>
+  <!-- date & time picker-->
+  <div class="styleguide_example_show control_group" style="position: relative">
+    <h2 class="styleguide__subtitle-page">Date & Time Picker</h2>
+    <input class="bootstrap-datetimepicker-widget" type="datetimepicker" id="datetimepicker"></input>
+  </div>
+  <script type="text/javascript">
+    $('#datetimepicker').datetimepicker();
+  </script>
+</div>

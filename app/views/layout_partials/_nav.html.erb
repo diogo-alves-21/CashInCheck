@@ -1,0 +1,24 @@
+<nav class="navbar-container">
+  <div class="navbar">
+    <div class="nav-mobile">
+      <div class="burger-menu"><span></span></div>
+    </div>
+
+    <ul class="nav-list">
+      <li class="nav-dropdown">
+        <p class="dropdown-button nav-link"><%= "Menu Item with Dropdown" %><i class="uil uil-angle-right-b"></i></p>
+        <ul class="dropdown-content">
+          <li><%= link_to "Dropdown First Option", nil, class: "nav-link" %></li>
+          <li><%= link_to "Dropdown Second Option", nil, class: "nav-link" %></li>
+        </ul>
+      </li>
+      <li><%= link_to "Menu Item", nil, class: "nav-link" %></li>
+      <li><%= link_to "Login Button on Menu", nil, class: "btn-primary btn-small" %></li>
+    </ul>
+  </div>
+</nav>
+
+
+
+
+

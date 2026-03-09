@@ -1,0 +1,54 @@
+@mixin input-basics($m_width: 100%, $m_height: auto, $m_padding: $s_input-padding-top $s_input-padding-left) {
+  background-color: $c_input;
+  border: $s_border solid $c_input-border;
+  border-radius: $s_radius;
+  box-sizing: border-box;
+  height: $m_height;
+  margin-top: 10px;
+  padding: $m_padding;
+  width: $m_width;
+
+  &::placeholder {
+    color: $c_input-placeholder;
+    opacity: 0.5;
+  }
+
+  &:focus,
+  &:active {
+    border-color: $c_input-border--active;
+    outline: none;
+  }
+
+  &:disabled {
+    border-color: $c_input--disabled__border;
+    pointer-events: none;
+  }
+}
+
+@include breakpoint($b_initial) {
+  input:not([type="checkbox"], [type="radio"], [type="submit"], [type="color"], [type="range"], [type="file"]) {
+    @include input-basics;
+  }
+
+  textarea {
+    @include input-basics(100%, 6em);
+
+    border-bottom-right-radius: calc(spacer() / 2);
+  }
+
+  input[type="color"] {
+    @include input-basics(100%, 2.5em, 0);
+
+    appearance: none;
+
+    &::-webkit-color-swatch-wrapper {
+      padding: 0.5em 15px;
+    }
+
+    &::-webkit-color-swatch {
+      border: 0;
+    }
+
+  }
+
+}

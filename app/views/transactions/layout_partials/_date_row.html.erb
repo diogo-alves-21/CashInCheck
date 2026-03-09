@@ -1,0 +1,18 @@
+<%#
+ - date
+ - income
+ - expense
+ - balance
+%>
+
+<div class="cic-table__head--sub-head">
+  <div>
+    <h6><%= date.strftime("%d %b") %></h6>
+    <label class="badge-<%= date.saturday? || date.sunday? ? 'weekend' : 'weekday' %>"><%= date.strftime("%a") %></label>
+  </div>
+  <div class="group-balance">
+    <p class="text--income"><%= income %></p>
+    <p class="text--expense">-<%= expense %></p>
+    <p class="text--balance"><%= balance %></p>
+  </div>
+</div>

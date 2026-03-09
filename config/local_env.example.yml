@@ -1,0 +1,22 @@
+secret_key_base: bd73d73e776caacb39e2549616189765ec942a3fbe08f66a5a807a05597d355c2db60451745ad0296c2969e224e7547ac2a4c523312174fdee06a4dd68d27e5f
+host: "http://localhost:3000"
+mailer:
+  username: "software.hyp@gmail.com"
+  api_key: "api_key"
+  sender: "mail@hyp.pt"
+database:
+  username: hyp
+  password: hypsters
+  host: localhost
+development:
+  plaid:
+    env: sandbox  # No quotes
+    client_id: "67eaae01f2516500245db9b4"
+    secret: "1904b00b73112cb606e3c6324020c7"
+    redirect_uri: "http://localhost:3000/plaid/callback"
+    webhook_url: "http://localhost:3000/plaid/webhook"
+# s3:
+#   access_key_id: <%= ENV['S3_ACCESS_KEY_ID'] %>
+#   secret_access_key: <%= ENV['S3_SECRET_ACCESS_KEY'] %>
+#   region: <%= ENV['S3_REGION'] %>
+#   bucket: <%= ENV['S3_BUCKET'] %>

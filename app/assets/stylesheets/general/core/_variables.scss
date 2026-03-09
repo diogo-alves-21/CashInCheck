@@ -1,0 +1,136 @@
+/**
+ * This stylesheet has 4 sections:
+ *
+ * 1.Breakpoints
+ *
+ * 2.Sizes
+ *
+ * 3.Spacing
+ *
+ * 4.Animation
+ *
+ *
+ * How to declare variables:
+ *   $a_name
+ *
+ *   a_: Should be the initial of the variable type
+ *     b_  –— border
+ *     c_  –— color
+ *     d_  –— duration
+ *     f_  –— font
+ *     fw_ –— font-weight
+ *     fs_ –— font-size
+ *     h_  –— height
+ *     w_  –— width
+ *     s_  –— size
+ *
+ *   name: Should be the name of the variable.
+ *         For more info on naming variables check the README file
+ */
+
+ @use "sass:map";
+
+/* BREAKPOINTS */
+$b_initial:    0;
+$b_very-small: 400px;
+$b_small:      600px;
+$b_medium:     900px;
+$b_large:      1200px;
+$b_very-large: 1500px;
+$b_wider:      1800px;
+
+/* stylelint-disable scss/dollar-variable-pattern */
+$breakpoints: () !default;
+$breakpoints: map.merge(
+  (
+    "init": $b_initial,
+    "xs": $b_very-small,
+    "sm": $b_small,
+    "md": $b_medium,
+    "lg": $b_large,
+    "xl": $b_very-large,
+    "xxl": $b_wider
+  ),
+  $breakpoints
+);
+/* stylelint-enable scss/dollar-variable-pattern */
+
+/* SIZES */
+$s_nav-height:    60px;
+$s_footer-height: 140px;
+$s_border:        2px;
+$s_radius:        25px;
+
+/* SPACING */
+
+/*
+ * if you change this values and don't want to change your styles, don't forget
+ * to change all the spacer(key_you_have_changed) to spacer(new_key_of_the_old_value)
+ *
+ * eg.:
+ * ---- before changing values
+ *   5: 64px                        .class { margin-right: spacer(6); // 152px }
+ *   6: 152px
+ *
+ * ---- after changing values
+ *   5: 64px                        .class { margin-right: spacer(6); //  72px }
+ *   6: 72px                        -- you need to change the 6 to a 7 if you
+ *   7: 152px                          want to keep the 152px margin-right    --
+ *                                  .class { margin-right: spacer(7); // 152px }
+ */
+$spacers: () !default;
+$spacers: map.merge(
+  (
+    0: 0,
+    1: 8px, /*$s_spacing-initial*/
+    2: 16px, /*$s_spacing-small*/
+    3: 24px, /*$s_spacing-medium*/
+    4: 32px, /*$s_spacing-large*/
+    5: 64px, /*$s_spacing-extra-large*/
+    6: 152px, /*$s_spacing-hyper-large*/
+  ),
+  $spacers
+);
+
+@function spacer($key: 1) {
+  @return map.get($spacers, $key);
+}
+
+/* ANIMATION */
+$d_fast-duration:   0.2s;
+$d_medium-duration: 0.3s;
+$d_slow-duration:   0.6s;
+
+/* RADIUS */
+
+/*
+ * if you change this values and don't want to change your styles, don't forget
+ * to change all the radius(key_you_have_changed) to radius(new_key_of_the_old_value)
+ *
+ * eg.:
+ * ---- before changing values
+ *   3: 10px                        .class { border-radius: radius(4); // 20px }
+ *   4: 20px
+ *
+ * ---- after changing values
+ *   3: 10px                        .class { border-radius: radius(4); // 16px }
+ *   4: 16px                        -- you need to change the 4 to a 5 if you
+ *   5: 20px                           want to keep the 20px border-radius    --
+ *                                  .class { border-radius: radius(5); // 20px }
+ */
+$radius: () !default;
+$radius: map.merge(
+  (
+    0: 0,
+    1: 3px,
+    2: 8px,
+    3: 10px,
+    4: 20px,
+  ),
+  $radius
+);
+
+@function radius($key: 2) {
+  @return map.get($radius, $key);
+}
+

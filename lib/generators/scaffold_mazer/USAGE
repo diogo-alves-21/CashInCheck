@@ -1,0 +1,8 @@
+Description:
+    Generate scaffold for admin lte template
+
+Example:
+    rails generate scaffold_mazer Post title:string description:text author:references
+
+    or you can pass the prefered namespace using the flag '-n', if you don't want the 'admin' as default
+    rails generate scaffold_mazer Post title:string description:text author:references -n='user'

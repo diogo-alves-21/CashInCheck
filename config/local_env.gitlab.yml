@@ -1,0 +1,11 @@
+secret_key_base: bd73d73e776caacb39e2549616189765ec942a3fbe08f66a5a807a05597d355c2db60451745ad0296c2969e224e7547ac2a4c523312174fdee06a4dd68d27e5f
+host: 'http://localhost:3000'
+sentry_dsn: '0'
+mailer:
+  :username: 'software.hyp@gmail.com'
+  :api_key: 'api_key'
+  :sender: 'mail@hyp.pt'
+database:
+  :username: dbuser
+  :password: password
+  :host: postgres

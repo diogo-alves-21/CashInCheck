@@ -1,0 +1,44 @@
+<%#
+ - wallet
+ - category
+ - tags
+ - description
+ - kind
+ - amount
+%>
+
+<% wallet = wallet.presence || '' %>
+<% category = category.presence || '' %>
+<% tags = tags.presence || nil %>
+<% description = description.presence || '' %>
+<% kind = kind.presence || 0 #income %>
+
+<div class="cic-table__row--transaction">
+  <div>
+    <% if wallet.present? %>
+      <p class="transaction__wallet">
+        <i class="cic-icon-wallet"></i>
+        <%= wallet %>
+      </p>
+    <% end %>
+    <% if category.present? %>
+      <p class="transaction__category">
+        <i class="cic-icon-category"></i>
+        <%= category %>
+      </p>
+    <% end %>
+  </div>
+
+  <div>
+    <% if tags.present? %>
+      <p class="transaction__tags"><%= tags.map {|tag| "##{tag.name}" }.uniq.join(' ') %></p>
+    <% end %>
+    <% if description.present? %>
+      <p class="transaction__description"><%= description %></p>
+    <% end %>
+  </div>
+
+  <div class="transaction__amount text--<%= kind == 1 ? 'expense' : 'income' %>">
+    <%= amount %>
+  </div>
+</div>

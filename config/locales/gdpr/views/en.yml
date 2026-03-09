@@ -1,0 +1,13 @@
+pt:
+  gdpr:
+    views:
+      cookies_disclaimer:
+        text: >
+          By continuing to browse the site, you expressly agree that cookies will be stored on your computer to help measure statistics of visits and improve the quality of the contents offered.
+        learn_more: Learn More
+        accept: Accept
+      missing:
+        title: Consents To Be Accepted
+        intro: Before proceeding, you must accept the following consents
+        check_consent: Learn more about %{consent}
+        submit: Accept Selected

@@ -1,0 +1,9 @@
+pt:
+  controllers:
+    created: "%{model} foi criado com sucesso."
+    updated: "%{model} foi actualizado com sucesso."
+    destroyed: "%{model} foi apagado com sucesso."
+    destroy_error: "Ocorreu um erro ao apagar %{model}. Por favor, tente mais tarde."
+    update_error: "Ocorreu um erro ao atualizar %{model}. Por favor, tente mais tarde."
+    create_error: "Ocorreu um erro ao criar %{model}. Por favor, tente mais tarde."
+  Data de ocorrência: "Data de ocorrência"

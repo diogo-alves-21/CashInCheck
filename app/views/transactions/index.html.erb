@@ -1,0 +1,49 @@
+<%= render 'layout_partials/header',
+  page_title: @wallet.name,
+  page_subtitle: Transaction.model_name.human(count: 0),
+  buttons: [
+    { icon: 'cic-icon-edit', url: edit_wallet_path(@wallet), extraClass: 'action edit btn-icon' }
+  ] %>
+
+
+<div>
+  <div class="cic-table">
+    <%= render 'transactions/layout_partials/filters_and_header', url: wallet_transactions_path(@wallet) %>
+
+    <% @transactions.group_by(&:executed_at).each do |day, transactions| %>
+      <% income = transactions.select { |t| t.kind_before_type_cast == 0 }.sum(&:amount_cents) %>
+      <% expense = transactions.select { |t| t.kind_before_type_cast == 1 }.sum(&:amount_cents) %>
+
+      <%= render 'transactions/layout_partials/date_row',
+                 date: day,
+                 income: money_from_cents(income, @currency),
+                 expense: money_from_cents(expense, @currency),
+                 balance: money_from_cents(income - expense, @currency) %>
+
+      <% transactions.each do |transaction| %>
+        <%= link_to wallet_transaction_path(@wallet, transaction), class: "action show" do %>
+          <%= render 'transactions/layout_partials/transaction_row',
+                     category: transaction.category.name,
+                     tags: transaction.tags,
+                     description: transaction.description,
+                     kind: transaction.kind_before_type_cast,
+                     amount: transaction.sign_for_amount %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: wallets_path, extraClass: 'btn-icon back-link' },
+  ]  %>
+
+<% @right_buttons = [
+    { icon: 'cic-icon-plus', url: new_wallet_transaction_path, extraClass: 'btn-icon action new btn--extra-large', primary: true },
+    { icon: 'cic-icon-swap', url: new_wallet_transfer_path(@wallet), extraClass: 'btn-icon action edit btn--extra-large icon-rotate-135' },
+    { icon: 'cic-icon-filter', extraClass: 'btn-icon', data: { 'controller': 'modal', 'action': 'click->modal#open', 'modal-id': 'filters' } },
+  ]  %>
+

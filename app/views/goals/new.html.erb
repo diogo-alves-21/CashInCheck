@@ -1,0 +1,45 @@
+<%= render 'layout_partials/header',
+  page_title: Goal.model_name.human(count: 0),
+  page_subtitle: t('views.new') %>
+
+<%= form_for(@goal, html: {class:'cic-table'}) do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field(:name) %>
+  </div>
+
+  <div>
+    <%= f.label :target_amount_cents %>
+    <%= f.number_field :target_amount_cents, min: 0, step: 0.01, value: nil%>
+  </div>
+
+  <div>
+    <%= f.label :start_date %>
+    <%= f.date_field :start_date, min: Date.today %>
+  </div>
+
+  <div>
+    <%= f.label :end_date %>
+    <%= f.date_field :end_date, min: Date.today %>
+  </div>
+
+  <div>
+    <%= f.label :group_id %>
+    <%= f.select :group_id, @groups.map { |g| [g.name, g.id] }, {}, data: {controller: 'tom-select-basic'} %>
+  </div>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area(:description) %>
+  </div>
+
+  <div class="form-buttons center">
+    <%= submit_tag t('views.create'), class: 'btn' %>
+  </div>
+<% end %>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: goals_path(), extraClass: 'btn-icon back-link' },
+  ]  %>
+
+

@@ -1,0 +1,86 @@
+<% locales = 'views.transfers.new' %>
+
+<%= render 'layout_partials/header',
+  page_title: Transaction.model_name.human(count: 1),
+  page_subtitle: t("#{locales}.subtitle", wallet: @wallet.name) %>
+
+<div>
+  <%= form_for(:transfer, :url => {action: :create}, html: { class: 'cic-table' }) do |f| %>
+
+    <div data-controller="disable-wallet-goal" class="d-flex d-flex--column gap-2 m-b-4">
+      <div>
+        <%= f.label :wallet_id, t("#{locales}.send_to_target", target: Transaction.human_attribute_name(:wallet_id) )%><br>
+        <%= f.select :wallet_id,
+                      @wallets.map { |wallet| [wallet.name, wallet.id] },
+                      { prompt: "Selecione uma Carteira" },
+                      { data: {
+                          controller: 'tom-select-basic',
+                          'disable-wallet-goal-target': 'walletSelect',
+                          action: "change->disable-wallet-goal#toggle"
+                        }
+                      } %>
+      </div>
+
+      <div>
+        <%= f.label :goal_id, t("#{locales}.send_to_target", target: Transaction.human_attribute_name(:goal_id)) %><br>
+        <%= f.select :goal_id,
+                      @goals.where(status: :in_progress).map { |goal| [goal.name, goal.id] },
+                      { prompt: "Selecione um Objectivo" },
+                      { data: {
+                          controller: 'tom-select-basic',
+                          'disable-wallet-goal-target': 'goalSelect',
+                          action: "change->disable-wallet-goal#toggle"
+                        }
+                      }
+        %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.label :amount_cents, Transaction.human_attribute_name(:amount_cents) %><br>
+      <%= f.number_field :amount_cents, min:0, step: 0.01%>
+    </div>
+
+
+    <div>
+      <%= f.label :category_id, Transaction.human_attribute_name(:category_id) %><br>
+      <%= f.select :category_id, @categories.map { |category| [category.name, category.id] }, {},
+                  { data: {
+                      controller: 'tom-select-basic', tom_select_basic_options_value: { allowEmptyOption: true }
+                  } } %>
+    </div>
+
+    <div>
+      <%= f.label :tags, Transaction.human_attribute_name(:tags_id) %><br>
+      <%= f.select :tags, @tags.map { |tag| [tag.name, tag.id] }, { include_hidden: false }, multiple: true, data: {
+                      controller: 'tom-select-basic', tom_select_basic_options_value: { allowEmptyOption: true, create: true }
+                  } %>
+    </div>
+
+    <div>
+      <label><%= Transaction.human_attribute_name(:payer_id) %></label><br>
+      <p class="text--secondary"><%= current_user.member.name %></p>
+      <%= f.hidden_field :payer_id, value: current_user.member.id %>
+    </div>
+
+    <div>
+      <%= f.label :payees, Transaction.human_attribute_name(:payees) %><br>
+      <%= f.select :payees, @payees.map { |payee| [payee.name, payee.id] }, {include_hidden: false}, multiple: true, data: {
+                      controller: 'tom-select-basic', tom_select_basic_options_value: { allowEmptyOption: true }
+                  } %>
+    </div>
+
+    <div>
+      <%= f.label :description, Transaction.human_attribute_name(:description) %><br>
+      <%= f.text_area(:description) %>
+    </div>
+
+    <div class="form-buttons center">
+      <%= submit_tag "#{t("#{locales}.send")}", class: 'btn' %>
+    </div>
+  <% end %>
+</div>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: wallet_transactions_path, extraClass: 'btn-icon back-link' },
+  ]  %>

@@ -1,0 +1,75 @@
+<%= render 'layout_partials/header',
+  page_title: Budget.model_name.human(count: 0),
+  page_subtitle: t('views.new') %>
+
+<%= form_for @budget, html: {class: 'cic-table'} do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field(:name) %>
+  </div>
+
+  <div>
+    <%= f.label :max_amount_cents %>
+    <%= f.number_field :max_amount_cents, min: 0, step: 0.01, value: nil%>
+  </div>
+
+  <div>
+    <%= f.label :unit %>
+    <%= f.select :unit,
+              Budget.translated_units.map { |label, key, _value| [ label, key ] },
+              {},
+              { data: {
+                controller: 'tom-select-basic',
+              } } %>
+  </div>
+
+  <div>
+    <%= f.label :group_id %>
+    <%= f.select :group_id,
+                  @groups.map { |g| [g.name, g.id] },
+                  { prompt: "Selecione um grupo" },
+                  { data: { controller: "budget tom-select-basic", action: "update -> budget#groupChanged" } } %>
+  </div>
+
+  <div>
+  <%= f.label :category_id %>
+  <%= f.select :category_id,
+                [],
+                { prompt: "Selecione um grupo primeiro" },
+                {
+                  id: "budget_category_id",
+                  data: {
+                    controller: 'tom-select-remote',
+                    tom_select_remote_url_value: '' # set on budget controller
+                  }
+                } %>
+  </div>
+
+  <div>
+  <%= f.label :wallet_id %>
+  <%= f.select :wallet_id,
+                [],
+                { prompt: "Selecione um grupo primeiro" },
+                {
+                  id: "budget_wallet_id",
+                  data: {
+                    controller: 'tom-select-remote',
+                    tom_select_remote_url_value: '' # set on budget controller
+                  }
+                } %>
+  </div>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area(:description) %>
+  </div>
+
+  <div class="form-buttons center">
+    <%= submit_tag t('views.create'), class: 'btn' %>
+  </div>
+<% end %>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: budgets_path, extraClass: 'btn-icon back-link' },
+  ]  %>
+

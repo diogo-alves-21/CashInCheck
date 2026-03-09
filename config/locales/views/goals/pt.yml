@@ -1,0 +1,14 @@
+pt:
+  views:
+    goals:
+      remaining: Em falta
+      reinforce:
+        label: Reforçar Objetivo
+        btn: Reforçar
+      mobilize:
+        label: Mobilizar Objetivo
+        btn: Mobilizar
+      are_you_sure:
+        cancel: Tem a certeza que quer cancelar este objetivo?
+      cancel: Cancelar
+

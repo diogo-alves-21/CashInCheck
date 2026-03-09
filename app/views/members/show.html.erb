@@ -1,0 +1,31 @@
+<% buttons = [] %>
+<% buttons << {
+  icon: 'cic-icon-delete',
+  url: remove_group_member_path(@group, @member),
+  extraClass: 'action delete btn-icon btn-outline-danger',
+  data: { turbo_confirm: t('views.are_you_sure') },
+  method: :delete
+} if @current_user_member_group.owner? && (@current_user_member_group.member_id != @member.id) %>
+
+<%= render 'layout_partials/header',
+  page_title: Member.model_name.human(count: 1),
+  page_subtitle: @group.name,
+  buttons: buttons %>
+
+<div class="cic-table">
+  <div>
+    <h6 class="label--small"><%= Member.human_attribute_name(:name) %></h6>
+    <p><%= @member.name %></p>
+  </div>
+
+  <% unless @member.user_id.nil? %>
+    <div>
+      <h6 class="label--small"><%= Member.human_attribute_name(:email) %></h6>
+      <p><%= @member.user.email %></p>
+    </div>
+  <% end %>
+</div>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: group_members_path(@group), extraClass: 'btn-icon back-link' }
+  ]  %>

@@ -1,0 +1,51 @@
+<%% container_title = <%= class_name.demodulize %>.model_name.human(count: 0) %>
+<%% content_for :title, container_title %>
+<%%= render 'mazer_partials/container', title: container_title do %>
+
+  <%%= render 'mazer_partials/box/box', title: t('views.mazer.action.index'), buttons: [
+        {name: t('views.mazer.new'), url: new_<%= options['namespace'] %>_<%= singular_table_name %>_path, new_button: true },
+      ] do %>
+    <%%= render 'mazer_partials/box/body' do %>
+
+      <!-- <div class="card-body"> -->
+        <!-- INSERT FILTERS HERE -->
+      <!-- </div> -->
+
+      <%%= render 'mazer_partials/table/table', paginate_object: @pagy do %>
+          <thead>
+            <tr>
+              <%- attributes.reject(&:password_digest?).each do |attribute| -%>
+              <th><%%= <%= class_name.demodulize %>.human_attribute_name(:<%= attribute.name.downcase %>) %></th>
+              <%- end -%>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+              <tr>
+                <%- attributes.reject(&:password_digest?).each do |attribute| -%>
+                <%- if attribute.field_type == :check_box -%>
+                <td><%%= label_yes_or_no?(<%= singular_table_name %>.<%= attribute.name %>) %></td>
+                <%- elsif attribute.field_type == :text_area -%>
+                <td><%%= truncate(<%= singular_table_name %>.<%= attribute.name %>, length: 20) %></td>
+                <%- else -%>
+                <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+                <%- end -%>
+                <%- end -%>
+                <td class="text-right">
+                  <%%= render partial: 'mazer_partials/table/buttons', locals: {
+                    buttons: [
+                      { name: t("views.mazer.show"), url: [:<%= options['namespace'] %>, <%= singular_table_name %>] },
+                      { name: t("views.mazer.edit"), url: edit_<%= options['namespace'] %>_<%= singular_table_name %>_path(<%= singular_table_name %>) },
+                      # { name: t("views.mazer.destroy"), url: [:<%= options['namespace'] %>, <%= singular_table_name %>] },
+                    ]
+                  } %>
+                </td>
+              </tr>
+            <%% end %>
+          </tbody>
+      <%% end %>
+    <%% end %>
+  <%% end %>
+<%% end %>
+

@@ -1,0 +1,25 @@
+<%# PARAMS:
+
+- title
+  title of the card
+
+- section_breadcrumbs
+  example:
+    section_breadcrumbs: [
+      ["name1", "url1"],
+      ["name2", "url2"],
+      ["name3"]
+    ] %>
+
+<div class="table-responsive">
+  <table class="table table-hover mb-0">
+    <%= yield %>
+  </table>
+
+  <% if local_assigns[:paginate_object].present? %>
+    <div class='pt-3'>
+      <%= render 'mazer_partials/table/pagination', paginate_object: local_assigns[:paginate_object] %>
+    </div>
+  <% end %>
+
+</div>

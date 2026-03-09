@@ -1,0 +1,15 @@
+en:
+  views:
+    expense: Expense
+    income: Income
+    balance: Balance
+    filter: Filter
+    add_model: Add %{model}
+    show: Show
+    new: New
+    edit: Edit
+    edit_model: Edit %{model}
+    create: Create
+    update: Update
+    are_you_sure: Are you sure you want to delete this?
+    see_more: See More

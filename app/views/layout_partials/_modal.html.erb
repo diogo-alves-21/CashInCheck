@@ -1,0 +1,10 @@
+<% modal_id = local_assigns[:id].presence || 'default-modal' %>
+
+<div class="modal-container modal--closed" data-controller="modal" data-modal-id-value="<%= modal_id %>" data-modal-target="container">
+  <div class="modal">
+    <i class="btn--extra-large text--secondary cic-icon-close-square" data-action="click->modal#close"></i>
+    <div class="modal__content">
+      <%= yield %>
+    </div>
+  </div>
+</div>

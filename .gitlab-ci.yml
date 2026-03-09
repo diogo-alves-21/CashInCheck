@@ -1,0 +1,167 @@
+default:
+  tags:
+    - rails
+
+stages:
+  - build
+  - test
+  - deploy
+
+cache: &global_cache
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - apt-cache/
+    - vendor/ruby
+    - node_modules
+    - .yarn-cache
+  policy: pull-push
+
+.base:
+  image: ruby:3.4.1
+  cache:
+    # inherit all global cache settings
+    <<: *global_cache
+  before_script:
+    - gem install bundler --no-document
+    - bundle install --jobs $(nproc) "${FLAGS[@]}" --path=vendor
+
+.base_db:
+  image: ruby:3.4.1
+  # extends: .base
+  cache:
+    # inherit all global cache settings
+    <<: *global_cache
+  services:
+    - postgres:14
+    - selenium/standalone-chrome:112.0
+  variables:
+    POSTGRES_DB: explore_qr_test
+    POSTGRES_USER: dbuser
+    POSTGRES_PASSWORD: password
+    RAILS_ENV: test
+    SELENIUM_URL: "http://selenium__standalone-chrome:4444/wd/hub"
+    # SECRETS
+    DATABASE_HOST: postgres
+    DATABASE_USERNAME: dbuser
+    DATABASE_PASSWORD: password
+    # RAILS_MASTER_KEY: 7f1c36f4b32b5501cbe6cdfeebe1c117
+  before_script:
+    - export APT_CACHE_DIR=`pwd`/apt-cache && mkdir -pv $APT_CACHE_DIR
+    - apt-get update -qq && apt-get -o dir::cache::archives="$APT_CACHE_DIR" install -yqq libvips
+    - curl -sL https://deb.nodesource.com/setup_22.x | bash -
+    - apt-get update -qq && apt-get -o dir::cache::archives="$APT_CACHE_DIR" install -yqq nodejs
+    - node -v
+    # Install yarn
+    - wget -q -O - https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+    - echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list
+    # - apt-get update -yq
+    # - apt-get install -y yarn
+    # - yarn install
+    - apt-get update -qq && apt-get -o dir::cache::archives="$APT_CACHE_DIR" install -y yarn
+    - yarn config set cache-folder .yarn-cache
+    - yarn install
+    - gem install bundler --no-document
+    - bundle install --jobs $(nproc) "${FLAGS[@]}" --path=vendor
+    - mv config/local_env.gitlab.yml config/local_env.yml
+    - mv config/credentials/gitlab.yml.enc config/credentials/test.yml.enc
+    - mv config/credentials/gitlab.key config/credentials/test.key
+    - bundle exec rake db:prepare
+
+.base_minimal:
+  image: alpine:latest
+  cache: {}
+
+# build:assets_precompile:
+#   extends: .base_db
+#   stage: build
+#   script:
+#     - bundle exec rake assets:precompile
+
+build:prepare:
+  extends: .base_db
+  stage: build
+  script:
+    - echo Done
+
+test:rubocop:
+  extends: .base
+  stage: test
+  cache:
+    policy: pull-push
+  script:
+    - bundle exec rubocop
+
+test:erb_lint:
+  extends: .base
+  stage: test
+  allow_failure: false
+  cache:
+    policy: pull-push
+  script:
+    - bundle exec erblint --lint-all
+
+test:brakeman:
+  extends: .base
+  stage: test
+  allow_failure: false
+  artifacts:
+    name: brakeman_report
+    when: always
+    paths:
+      - brakeman/
+  # only:
+  #   - master
+  script:
+    - bundle exec brakeman --format html -o brakeman/index.html
+
+test:bundle_audit:
+  extends: .base
+  allow_failure: false
+  script:
+    - bundle exec bundle audit check --update
+
+test:eslint:
+  extends: .base_db
+  allow_failure: false
+  script:
+    - yarn eslint
+    # - eslint app/**/*.{js,erb}
+
+test:stylelint:
+  extends: .base_db
+  allow_failure: true
+  script:
+    - yarn stylelint
+    # - stylelint '**/*.scss' --config 'stylelint.config.js'
+
+test:rspec:
+  extends: .base_db
+  allow_failure: false
+  stage: test
+  # artifacts:
+  #   name: coverage_report
+  #   paths:
+  #     - coverage/
+  script:
+    - bundle exec rspec
+
+deploy:staging:
+  extends: .base_minimal
+  stage: deploy
+  only:
+    - staging
+  script:
+    - apk add --no-cache git
+    - 'command -v ssh-agent >/dev/null || ( apk update && apk add openssh-client )'
+    - mkdir -p ~/.ssh && touch ~/.ssh/known_hosts
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' >> ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+    - eval `ssh-agent -s`
+    - ssh-add ~/.ssh/id_rsa
+    - echo -e "Host *\n  AddKeysToAgent yes\n  ForwardAgent yes\n  IdentitiesOnly=yes\n  IdentityFile ~/.ssh/id_rsa" > ~/.ssh/config
+    - apk add ansible
+    - apk add bash
+    - cd hypsible/staging
+    - touch key.txt
+    - echo "$ANSIBLE_VAULT" >> key.txt
+    - ./deploy.sh

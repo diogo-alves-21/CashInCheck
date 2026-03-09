@@ -1,0 +1,33 @@
+<div class="mb-4">
+  <h2><%= resource.model_name.human(count: 1) %></h2>
+  <%# <a href="../index.html"><img src="../assets/images/brand/logo/logo-primary.svg" class="mb-2" alt=""></a> %>
+  <p class="mb-6"><%= t('devise.passwords.edit.change_your_password') %></p>
+</div>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, data: { turbo: false }) do |f| %>
+  <%= render(partial: 'layout_partials/toasts/errors', locals: { object: resource }) %>
+  <%#= devise_error_messages! %>
+  <%= f.hidden_field :reset_password_token %>
+
+  <div class="mb-3">
+    <%= f.label :password, class: 'form-label' %>
+    <% if @minimum_password_length %>
+      <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
+    <% end %>
+    <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control", placeholder: t('devise.passwords.edit.new_password') %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :password_confirmation, class: 'form-label' %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: t('devise.passwords.edit.confirm_new_password') %>
+  </div>
+
+  <div>
+    <!-- Button -->
+    <div class="d-grid">
+      <%= f.submit t('devise.passwords.edit.change_my_password'), class: "btn btn-primary btn-block" %>
+    </div>
+
+    <%= render "admins/shared/links" %>
+  </div>
+<% end %>

@@ -1,0 +1,114 @@
+<div class="styleguide__grid-title">
+  <div class="styleguide_title_main">
+    <h1 class="styleguide__title-page">Susy</h1>
+  </div>
+
+  <p class="styleguide__text">Susy is a grid-layout engine for Saas. This was our main tool to make grids until 2020, when we replaced it with CSS Grid.<br> However you may need for certain projects, like ones that require compatibility with Internet Explorer.</p>
+  <p class="styleguide__text">Let's see how you can integrate Susy in your project. This exercise is based on the CSS Tricks Article: Build Web Layoyts Easily with Susy</p>
+
+  <p class="styleguide__text"><b>1.</b> To intialize Susy you must insert the desired number of columns and the size of the gutter. One of the main advantages of Susy is that you can use more than 12 columns, but let's stick with the 12 columns for now.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code styleguide__example-description--full">
+      <pre class="language-css"><!-- do not indent -->
+        <code>
+@import "susy"
+
+$susy: (
+  'columns': susy-repeat(3),
+  'gutters': 20px,
+  'spread': 'narrow',
+  'container-spread': 'narrow',
+);
+        </code>
+      </pre>
+    </div>
+  </div>
+
+  <p class="styleguide__text"><b>2.</b> Now we must define the container for our website. </p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code styleguide__example-description--full">
+      <pre class="language-css"><!-- do not indent -->
+        <code>
+/* Tells Susy that the container has 12 of 12 columns */
+.styleguide__susy-container
+{
+  padding-top: 60px;
+  padding-bottom: 120px;
+  width: susy-span(3 of 3);
+}
+        </code>
+      </pre>
+    </div>
+  </div>
+
+  <p class="styleguide__text"><b>4.</b> Now let's make some boxes inside the container.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-css"><!-- do not indent -->
+        <code>
+.styleguide__susy-container--box
+{
+  /*This is crucial in order to work properly*/
+  float: left;
+  width: susy-span(1);
+  /*Here we can add some margin based on the gutter defined on the first step*/
+  margin-right: susy-gutter();
+
+  /*This is optional*/
+  height: 200px;
+  background-color: aqua;
+}
+
+.styleguide__susy-container--box:nth-child(3n)
+{
+  /*We don't want the third element to have margin right*/
+  margin-right: 0px;
+}
+        </code>
+      </pre>
+    </div>
+    <div class="styleguide__example-output">
+      <div class="styleguide__susy-container">
+        <div class="styleguide__susy-container--box">
+        </div>
+        <div class="styleguide__susy-container--box">
+        </div>
+        <div class="styleguide__susy-container--box">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="styleguide__text">You can also view how the susy columns work when you add this to the background of your container.
+  </p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code styleguide__example-description--full">
+      <pre class="language-css"><!-- do not indent -->
+        <code>
+
+/* Tells Susy that the container has 12 of 12 columns */
+.styleguide__susy-container
+{
+  padding-top: 60px;
+  padding-bottom: 120px;
+  width: susy-span(3 of 3);
+
+  /* Add this line to visualize the susy columns */
+  background: susy-svg-grid() no-repeat scroll;
+}
+
+        </code>
+      </pre>
+    </div>
+    <div class="styleguide__example-output">
+      <div class="styleguide__susy-container__grid">
+        <div class="styleguide__susy-container--box">
+        </div>
+        <div class="styleguide__susy-container--box">
+        </div>
+        <div class="styleguide__susy-container--box">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

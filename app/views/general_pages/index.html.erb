@@ -1,0 +1,6 @@
+<%= render 'layout_partials/header',
+  page_title: user_signed_in? ? t("views.layout_partials.bottom_nav.home") : '' %>
+
+<% if user_signed_in? %>
+  <%= render 'user_dashboard' %>
+<% end %>

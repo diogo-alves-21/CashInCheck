@@ -1,0 +1,7 @@
+en:
+  views:
+    budgets:
+      remaining: Available
+      are_you_sure: Are you sure you want to archive this budget? It will only be reactivated next %{unit}.
+      month : month
+      year: year

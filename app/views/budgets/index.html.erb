@@ -1,0 +1,57 @@
+<%= render 'layout_partials/header',
+  page_title: Budget.model_name.human(count: 0) %>
+
+<div class="cic-table">
+  <% @budgets.each do |budget| %>
+    <%= link_to budget_path(budget), class: "action show box p-b-1 bg--none border text--darkest #{ budget.archived_status? ? 'border--disabled opacity-50 bg-hover--secondary-20' : 'bg-hover--secondary-5' }" do %>
+      <div class="d-flex justify-between align-baseline gap-1 m-b-2">
+        <div>
+          <h6 class="text--primary m-b-1 m-l-1"><%= budget.name %></h6>
+          <p class="badge">
+            <i class="cic-icon-category"></i>
+            <%= budget.category.name %>
+          </p>
+        </div>
+        <div class="text-right">
+          <h6 class="text--primary"><%= t('views.budgets.remaining') %></h6>
+          <h5><%= budget.remaining_amount_with_currency %></h5>
+        </div>
+      </div>
+
+      <div class="d-flex justify-between align-baseline gap-1">
+        <p class="fs-step-2"><%= budget.start_date %></p>
+        <p class="fs-step-2"><%= budget.end_date %></p>
+      </div>
+
+      <div class="progress-bar" style="--percentage: <%= budget.amount_percentage %>; --color: <%= budget.progress_bar_color %>"></div>
+
+      <div class="d-flex justify-center gap-1 align-baseline">
+        <p>
+          <%= budget.spent_amount_with_currency%>
+          <span class="text--secondary">/ <%= budget.max_amount_with_currency %></span>
+        </p>
+      </div>
+
+      <div class="d-grid grid--1 grid--sm-3 m-t-2 gap-0-1">
+        <div class="d-flex gap-1 align-baseline">
+          <p class="fs-step-2 text--primary d-flex align-center"  style="gap: 4px;">
+            <i class="cic-icon-wallet"></i>
+            <%= budget&.wallet.name %>
+          </p>
+          <p class="fs-step-2 text--secondary d-flex align-center"  style="gap: 4px;">
+            <i class="cic-icon-user1"></i>
+            <%=  budget&.group.name %>
+          </p>
+        </div>
+
+        <% if budget.description.present? %>
+          <p class="fs-step-2 text--black-50 grid--span-sm-2"><%= budget.description %></p>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<% @right_buttons = [
+    { icon: 'cic-icon-plus', url: new_budget_path, extraClass: 'btn-icon action new btn--extra-large', primary: true },
+  ]  %>

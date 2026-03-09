@@ -1,0 +1,53 @@
+<%%= form_with(model: [:<%= options['namespace'] %>, record], class: 'form form-vertical') do |f| %>
+
+  <%%= render(partial: 'layout_partials/toasts/errors', locals: { object: record }) %>
+
+  <div class="form-body">
+
+  <% attributes.each do |attribute| -%>
+    <%- if attribute.field_type == :check_box -%>
+    <div class="form-check">
+    <%- else -%>
+    <div class="form-group">
+    <% end -%>
+  <% if attribute.password_digest? -%>
+      <%%= f.label :password %>
+      <%%= f.password_field :password, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%%= f.label :password_confirmation %>
+      <%%= f.password_field :password_confirmation, class: 'form-control' %>
+  <% else -%>
+    <%- if attribute.field_type == :check_box -%>
+      <%%= f.<%= attribute.field_type %> :<%= attribute.column_name %>, class: 'form-check-input' %>
+      <%%= f.label :<%= attribute.column_name %> %>
+    <%- elsif attribute.field_type == :text_area -%>
+      <%%= f.label :<%= attribute.column_name %> %>
+      <%%= f.<%= attribute.field_type %> :<%= attribute.column_name %>, class: 'form-control' %>
+    <%- elsif attribute.field_type == :datetime_field -%>
+      <%%= f.label :<%= attribute.column_name %> %>
+      <%%= f.text_field :<%= attribute.column_name %>, class: 'form-control', data: { controller: 'datetimepicker', 'datetimepicker-target': 'datetimepicker' } %>
+    <%- elsif attribute.field_type == :date_field -%>
+      <%%= f.label :<%= attribute.column_name %> %>
+      <%%= f.text_field :<%= attribute.column_name %>, class: 'form-control', data: { controller: 'datetimepicker', 'datetimepicker-target': 'datepicker' } %>
+    <%- elsif attribute.field_type == :time_field -%>
+      <%%= f.label :<%= attribute.column_name %> %>
+      <%%= f.text_field :<%= attribute.column_name %>, class: 'form-control', data: { controller: 'datetimepicker', 'datetimepicker-target': 'timepicker' } %>
+    <%- elsif attribute.type == :references -%>
+      <%%= f.label :<%= attribute.column_name %> %>
+      <%%= f.select :<%= attribute.column_name %>, options_from_collection_for_select(<%= attribute.name.classify %>.all, 'id', 'id'), {}, class: 'form-control' %>
+    <%- else -%>
+      <%%= f.label :<%= attribute.column_name %> %>
+      <%%= f.<%= attribute.field_type %> :<%= attribute.column_name %>, class: 'form-control' %>
+    <%- end -%>
+  <% end -%>
+    </div>
+
+  <% end -%>
+    <div class="col-12 d-flex justify-content-end">
+      <%%= f.submit class: 'btn btn-primary' %>
+    </div>
+
+  </div>
+<%% end %>

@@ -1,0 +1,19 @@
+<%= render 'layout_partials/header',
+  page_title: Tag.model_name.human(count: 1),
+  page_subtitle: t('views.edit') %>
+
+<%= form_for @tag, url: group_tag_path(@group, @tag), html: { class:'cic-table' } do |f| %>
+  <div>
+    <%= f.label :name %><br>
+    <%= f.text_field(:name) %>
+  </div>
+
+  <div class="form-buttons center">
+    <%= submit_tag "#{t('views.update')} #{Tag.model_name.human(count: 1)}", class: 'btn' %>
+  </div>
+<% end %>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: :back, extraClass: 'btn-icon back-link' }
+  ]  %>
+

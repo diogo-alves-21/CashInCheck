@@ -1,0 +1,29 @@
+<%= render 'layout_partials/header',
+  page_title: Category.model_name.human(count: 0),
+  page_subtitle: @group.name %>
+
+
+<div class="cic-table">
+  <div class="box">
+    <div class="cic-table m-t-3 m-b-2">
+      <% @categories.each do |category| %>
+        <div class="cic-table__row cic-table__row--with-badge">
+          <i class="cic-icon-category"></i>
+          <h5><%= category.name %></h5>
+          <%= link_to edit_group_category_path(@group.id, category), class: 'd-flex align-center gap-1 grow--1 justify-right' do %>
+            <i class="cic-icon-edit fs-h5"></i>
+            <%= t('views.edit') %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: group_path(@group), extraClass: 'btn-icon back-link' }
+  ]  %>
+
+<% @right_buttons = [
+    { icon: 'cic-icon-plus', url: new_group_category_path, extraClass: 'btn-icon action new btn--extra-large', primary: true }
+  ]  %>

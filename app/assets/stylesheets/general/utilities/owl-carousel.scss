@@ -1,0 +1,59 @@
+/**
+ * https://owlcarousel2.github.io/OwlCarousel2/demos/demos.html
+ *
+ **/
+
+@import "owl.carousel";
+@import "owl.theme";
+
+.owl-carousel {
+  height: 100vh;
+
+  .owl-wrapper-outer {
+    height: 100%;
+
+    .owl-wrapper {
+      .owl-item {
+        overflow: hidden;
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .owl-controls {
+    bottom: 0;
+    min-width: 100%;
+    position: absolute;
+
+    .owl-pagination .owl-page span {
+      background: $c_text-white;
+    }
+
+    .owl-buttons {
+      div {
+        background: transparent;
+        opacity: 0.7;
+
+        i {
+          color: $c_text-white;
+          font-size: 40px;
+          position: absolute;
+          top: -1000%;
+
+          &.icon-chevron-left {
+            left: 20px;
+          }
+
+          &.icon-chevron-right {
+            right: 20px;
+          }
+        }
+      }
+
+    }
+  }
+
+}

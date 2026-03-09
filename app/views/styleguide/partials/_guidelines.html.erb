@@ -1,0 +1,234 @@
+<div class="styleguide__grid-title">
+  <div class="styleguide_title_main">
+    <h1 class="styleguide__title-page">Guidelines</h1>
+  </div>
+<!-- IDENTING BRACKETS-->
+  <p class="styleguide__text"></p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code styleguide__example-description--full">
+      <pre class="language-css"><!-- do not indent -->
+        <code>
+.brackets
+{
+  //This is how we ident the brackets in  css
+}
+        </code>
+      </pre>
+    </div>
+  </div>
+<!-- UPERCASE-->
+  <p class="styleguide__text">Use <code>text-transform</code> when you want the text to be in uppercase rather than </p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code styleguide__example-description--full">
+      <pre class="language-css"><!-- do not indent -->
+        <code>
+.text
+{
+  text-transform: uppercase;
+}
+        </code>
+      </pre>
+    </div>
+  </div>
+<!-- TITLING CSS-->
+  <h2 class="styleguide__subtitle-page">Titling CSS</h2>
+  <p class="styleguide__text">Begin every new major section of a CSS project with a title like the one below.<br>The title of the section is prefixed with a hash (#) symbol to allow us to perform more targeted searches.<br>Leave a carriage return between this title and the next line of code and each title should be preceded by five (5) carriage returns.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code styleguide__example-description--full">
+      <pre class="language-css"><!-- do not indent -->
+        <code>
+/*------------------------------------*\
+  #SECTION-TITLE
+\*------------------------------------*/
+
+.selector { }
+
+
+
+
+/*------------------------------------*\
+  #NAV
+\*------------------------------------*/
+
+.navbar { }
+        </code>
+      </pre>
+    </div>
+  </div>
+<!-- IDENTING AND NESTING SASS-->
+  <h2 class="styleguide__subtitle-page">Identing &amp; Nesting Sass</h2>
+  <p class="styleguide__text">Sass provides nesting functionality but it must be used wisely.<br> We don't recomend using that more than 2 levels of nesting.<br>As a rule, if a selector will work without it being nested then do not nest it.If you're going to nest a class leave a blank line before and after the nested ruleset.<br></p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code styleguide__example-description--full">
+      <pre class="language-css"><!-- do not indent -->
+        <code>
+//Nested
+.parent
+{
+  color: red;
+
+  .child
+  {
+    color: blue;
+  }
+
+}
+
+//Not Nested
+.parent
+{
+  color: red;
+}
+
+.parent child
+{
+  color: blue;
+}
+        </code>
+      </pre>
+    </div>
+  </div>
+<!-- IDENTING AND NESTING SASS PT II-->
+  <p class="styleguide__text">However, there are some cases where nesting is very useful, like nesting <code>pseudo-classes</code> and <code>pseudo-elements.</code><br>If you're going to nest a class leave a blank line before and after the nested ruleset.<br></p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code styleguide__example-description--full">
+      <pre class="language-scss"><!-- do not indent -->
+        <code>
+.element {
+  /* Some CSS declarations */
+  &amp;:hover,
+  &amp;:focus {
+    /* More CSS declarations for hover/focus state */
+  }
+
+  &amp;::before {
+    /* Some CSS declarations for before pseudo-element */
+  }
+}
+        </code>
+      </pre>
+    </div>
+  </div>
+<!-- WHITESPACE-->
+  <h2 class="styleguide__subtitle-page">Meaningful Whitespace</h2>
+  <p class="styleguide__text">As well as indentation, we can provide a lot of information through the use of whitespace between rulesets. We use:</p>
+  <ul class="styleguide__example-list">
+    <li>One (1) empty line between closely related rulesets.</li>
+    <li>Two (2) empty lines between loosely related rulesets.</li>
+    <li>Five (5) empty lines between entirely new sections.</li>
+  </ul>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code styleguide__example-description--full">
+      <pre class="language-scss"><!-- do not indent -->
+        <code>
+/*------------------------------------*\
+  #FOO
+\*------------------------------------*/
+
+.foo { }
+
+  .foo__bar { }
+
+
+.foo--baz { }
+
+
+
+
+
+/*------------------------------------*\
+  #BAR
+\*------------------------------------*/
+
+.bar { }
+
+  .bar__baz { }
+
+  .bar__foo { }
+        </code>
+      </pre>
+    </div>
+  </div>
+<!-- NAMING CLASSES-->
+    <h2 class="styleguide__subtitle-page">Naming CSS Classes</h2>
+    <p class="styleguide__text">All strings in classes are delimited with a hyphen (-), like so:</p>
+    <div class="styleguide__example-container">
+      <div class="styleguide__example-description-code styleguide__example-description--full">
+        <pre class="language-scss"><!-- do not indent -->
+          <code>
+.page-head { }
+
+.sub-content { }
+          </code>
+        </pre>
+      </div>
+    </div>
+<!-- NAMING CLASSES PT II-->
+    <p class="styleguide__text">Do not use camel case or underscores for regular classes.</p>
+    <div class="styleguide__example-container">
+      <div class="styleguide__example-description-code styleguide__example-description--full">
+        <pre class="language-scss"><!-- do not indent -->
+          <code>
+.pageHead { }
+
+.sub_content { }
+          </code>
+        </pre>
+      </div>
+    </div>
+  <!-- BEM NAMING-->
+    <h2 class="styleguide__subtitle-page">BEM Naming</h2>
+    <p class="styleguide__text">For larger, more interrelated pieces of UI that require a number of classes, we use a BEM-like (Block Element Modifier) naming convention.</p>
+    <ul class="styleguide__example-list">
+      <p class="styleguide__example-list__header">BEM splits components’ classes into three groups:</p>
+      <li>Block: The sole root of the component.</li>
+      <li>Element: A component part of the Block.</li>
+      <li>Modifier: A variant or extension of the Block.</li>
+    </ul>
+    <p class="styleguide__text">For larger, more interrelated pieces of UI that require a number of classes, we use a BEM-like (Block Element Modifier) naming convention.<br>For more information check CSS Guidelines website.</p>
+    <div class="styleguide__example-container">
+      <div class="styleguide__example-description-code styleguide__example-description--full">
+        <pre class="language-scss"><!-- do not indent -->
+          <code>
+.person { }
+.person__head { }//Element
+.person--tall { }//Modifier
+          </code>
+        </pre>
+      </div>
+    </div>
+  <!-- IDS IN CSS-->
+    <h2 class="styleguide__subtitle-page">IDs in CSS</h2>
+    <p class="styleguide__text">Avoid using IDs in CSS. Not only are IDs inherently non-reusable, they are also vastly more specific than any other selector, and therefore become specificity anomalies.<br>It is still perfectly okay to use IDs in HTML and JavaScript; it is only in CSS that they prove troublesome.</p>
+    <div class="styleguide__example-container">
+      <div class="styleguide__example-description-code styleguide__example-description--full">
+        <pre class="language-scss"><!-- do not indent -->
+          <code>
+/*Avoid*/
+#element
+{
+
+}
+          </code>
+        </pre>
+      </div>
+    </div>
+  <!-- IDS IN CSS-->
+    <h2 class="styleguide__subtitle-page">The use of !important</h2>
+    <p class="styleguide__text">The general rule is that <code>!important</code> is always a bad thing but it does have a place in CSS projects<br> You can use <code>!important</code> when it is used before you’ve encountered any specificity problems; when it is used as a guarantee rather than as a fix.<br>This is correct use of !important to guarantee that these trumps always work, and don’t accidentally get overridden by something else more specific.</p>
+    <div class="styleguide__example-container">
+      <div class="styleguide__example-description-code styleguide__example-description--full">
+        <pre class="language-scss"><!-- do not indent -->
+          <code>
+.one-half {
+  width: 50% !important;
+}
+
+.hidden {
+  display: none !important;
+}
+          </code>
+        </pre>
+      </div>
+    </div>
+</div>

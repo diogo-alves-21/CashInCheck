@@ -1,0 +1,74 @@
+pt:
+  activerecord:
+    attributes:
+      member:
+        name: Nome
+      user:
+        email: Email
+      group:
+        name: Nome
+      transaction:
+        kind: Tipo
+        amount_cents: Montante
+        description: Notas
+        entity_name: Entidade
+        executed_at: Data
+        category_id: Categoria
+        payer_id: &payer Responsável pela Transação
+        payer: *payer
+        payees: Transação para
+        wallet_id: Carteira
+        sign_for_amount: Valor
+      budget:
+        name: Nome
+        max_amount_cents: Montante
+        unit: Duração
+        group_id: Grupo
+        category_id: Categoria
+        wallet_id: Carteira
+        description: Notas
+        unit_list:
+          monthly: "Mensal"
+          annual: "Anual"
+        status_list:
+          on_going: "A decorrer"
+          archived: "Arquivado"
+      goal:
+        name: Nome
+        target_amount_cents: Montante Objetivo
+        start_date: Data de Início
+        end_date: Data de Fim
+        group_id: Grupo
+        description: Notas
+        status_list:
+          scheduled: "Agendado"
+          in_progress: "Em progresso"
+          achieved: "Alcançado"
+          failed: "Falhado"
+          canceled: "Cancelado"
+    models:
+      budget:
+        one: Orçamento
+        other: Orçamentos
+      goal:
+        one: Objetivo
+        other: Objetivos
+      category:
+        one: Categoria
+        other: Categorias
+      tag:
+        one: Tag
+        other: Tags
+      member:
+        one: Membro
+        other: Membros
+      group:
+        one: Grupo
+        other: Grupos
+      wallet:
+        one: Carteira
+        other: Carteiras
+      transaction:
+        one: Transação
+        other: Transações
+

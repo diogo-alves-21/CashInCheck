@@ -1,0 +1,25 @@
+<%# PARAMS:
+
+- title
+  title of the card
+
+- section_breadcrumbs
+  example:
+    section_breadcrumbs: [
+      ["name1", "url1"],
+      ["name2", "url2"],
+      ["name3"]
+    ] %>
+
+<div class="card-footer">
+  <% if local_assigns.has_key?(:links) %>
+    <% local_assigns[:links].each_with_index do |link, index| %>
+      <% if index != 0 %>
+        |
+      <% end %>
+      <%= link_to link[:name], link[:url] %>
+    <% end %>
+  <% elsif block_given? %>
+    <%= yield %>
+  <% end %>
+</div>

@@ -1,0 +1,39 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "4e7e62a2935810bf08f233445dd5070c3991c5cdf351f93ebc2503508c56d247",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/styleguide/index.html.erb",
+      "line": 63,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => \"styleguide/partials/#{params[:page]}\", {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "ApplicationController",
+          "method": "styleguide",
+          "line": 8,
+          "file": "app/controllers/application_controller.rb",
+          "rendered": {
+            "name": "styleguide/index",
+            "file": "app/views/styleguide/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "styleguide/index"
+      },
+      "user_input": "params[:page]",
+      "confidence": "Medium",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "7.0.0"
+}

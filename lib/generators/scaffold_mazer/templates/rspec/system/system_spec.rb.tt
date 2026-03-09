@@ -1,0 +1,141 @@
+require "rails_helper"
+
+RSpec.describe "As a <%= options['namespace'] %> managing <%= plural_table_name %>", type: :system do
+  subject(:<%= singular_table_name %>) { build :<%= singular_table_name %><%- attributes.each do |attribute|-%><%- if attribute.type == :references -%>, :with_<%= attribute.column_name.gsub('_id', '') %><%- end -%><%- end -%> }
+  let(:attributes_to_exclude) { [:id, :created_at, :updated_at<%- attributes.each do |attribute|-%><%- if attribute.type == :references -%>, :<%= attribute.column_name %><%- end -%><%- end -%>] } # add ids to exclude
+
+  let(:<%= options['namespace'] %>) { create(:<%= options['namespace'] %>) }
+  before do
+    login(<%= options['namespace'] %>, scope: :<%= options['namespace'] %>)
+  end
+
+  context "to check" do
+    before do
+      <%= singular_table_name %>.save!
+    end
+    context "if side bar and menu index" do
+      it "are acessible" do
+        visit <%= options['namespace'] %>_root_path
+        # find('span', text: I18n.t('lte.sidebar.__replace_with_button__')).click # click on nav section
+        find("a[href='#{<%= options['namespace'] %>_<%= plural_table_name %>_path}']").click
+        expect(page.find("h3[data-test-title='#{<%= plural_table_name.classify %>.model_name.human(count: 0)}']")).to have_content case_insensitive(<%= plural_table_name.classify %>.model_name.human(count: 0))
+        expect(current_path).to eq(<%= options['namespace'] %>_<%= plural_table_name %>_path)
+      end
+    end
+
+    context "if menu create" do
+      it "is acessible" do
+        visit <%= options['namespace'] %>_<%= plural_table_name %>_path
+        find("a[href='#{new_<%= options['namespace'] %>_<%= singular_table_name %>_path}']").click
+        expect(page.find("h3[data-test-title='#{<%= plural_table_name.classify %>.model_name.human(count: 0)}']")).to have_content case_insensitive(<%= plural_table_name.classify %>.model_name.human(count: 0))
+        expect(page).to have_text I18n.t('views.mazer.action.new')
+        expect(current_path).to eq(new_<%= options['namespace'] %>_<%= singular_table_name %>_path)
+      end
+    end
+
+    context "if menu edit" do
+      it "is acessible" do
+        visit <%= options['namespace'] %>_<%= plural_table_name %>_path
+        find("a[href='#{edit_<%= options['namespace'] %>_<%= singular_table_name %>_path(id: <%= singular_table_name %>.id)}']").click
+        expect(page.find("h3[data-test-title='#{<%= plural_table_name.classify %>.model_name.human(count: 0)}']")).to have_content case_insensitive(<%= plural_table_name.classify %>.model_name.human(count: 0))
+        expect(page).to have_text I18n.t('views.mazer.action.edit')
+        expect(current_path).to eq(edit_<%= options['namespace'] %>_<%= singular_table_name %>_path(id: <%= singular_table_name %>.id))
+      end
+    end
+
+    context "if menu show" do
+      it "is acessible" do
+        visit <%= options['namespace'] %>_<%= plural_table_name %>_path
+        find("a[href='#{<%= options['namespace'] %>_<%= singular_table_name %>_path(id: <%= singular_table_name %>.id)}'][data-method='get']").click
+        expect(page.find("h3[data-test-title='#{<%= plural_table_name.classify %>.model_name.human(count: 0)}']")).to have_content case_insensitive(<%= plural_table_name.classify %>.model_name.human(count: 0))
+        expect(page).to have_text I18n.t('views.mazer.action.show')
+        expect(current_path).to eq(<%= options['namespace'] %>_<%= singular_table_name %>_path(id: <%= singular_table_name %>.id))
+      end
+    end
+  end
+
+  context "to create" do
+    before do
+      <%= singular_table_name %>
+      visit new_<%= options['namespace'] %>_<%= singular_table_name %>_path
+    end
+
+    # uncomment and add required error
+    # context "with an empty form" do
+    #   it "is unable to create" do
+    #     fill_form(:<%= singular_table_name %> , :new, {})
+    #     submit_form
+    #     expect_to_be_in_toast(<%= plural_table_name.classify %>.new.errors.add(:__attribute__, :__message__).full_message)
+    #   end
+    # end
+
+    context "with attributes" do
+      it "is able to create" do
+        fill_form(:<%= singular_table_name %>, <%= singular_table_name %>.attributes.symbolize_keys.except(*attributes_to_exclude).compact_blank!)
+        <%- attributes.each do |attribute| -%>
+          <%- if attribute.type == :references -%>
+        select <%= singular_table_name %>.<%= attribute.column_name.gsub('_id','') %>.__attribute__, from: '<%= singular_table_name %>_<%= attribute.column_name %>'
+        # select2(<%= singular_table_name %>.<%= attribute.column_name.gsub('_id','') %>.__attribute__, <%= singular_table_name %>.<%= attribute.column_name.gsub('_id','') %>.__attribute__, '#__html_id__' )
+          <%- end -%>
+        <%- end -%>
+
+        submit_form
+        expect(page).to have_text I18n.t('views.mazer.action.show')
+
+        expect_to_be_present_in_page(object: <%= singular_table_name %>.attributes.symbolize_keys.except(*attributes_to_exclude))
+        expect_to_be_in_toast(I18n.t('controllers.created', model: <%= plural_table_name.classify %>.model_name.human(count: 1)))
+      end
+    end
+  end
+
+  context "to edit" do
+    before do
+      <%= singular_table_name %>.save!
+      visit edit_<%= options['namespace'] %>_<%= singular_table_name %>_path(id: <%= singular_table_name %>.id)
+    end
+
+    context "with all attributes" do
+      it "is able to edit" do
+        new_attributes = attributes_for(:<%= singular_table_name %>)
+        <%- attributes.each do |attribute| -%>
+          <%- if attribute.type == :references -%>
+        <%= attribute.column_name.gsub('_id','') %>_for_update = FactoryBot.create(:<%= attribute.column_name.gsub('_id','') %>)
+          <%- end -%>
+        <%- end -%>
+        visit current_path
+
+        fill_form(:<%= singular_table_name %>, new_attributes.except(*attributes_to_exclude))
+        <%- attributes.each do |attribute| -%>
+          <%- if attribute.type == :references -%>
+        select <%= attribute.column_name.gsub('_id','') %>_for_update.__attribute__, from: '<%= singular_table_name %>_<%= attribute.column_name %>'
+        # select2(<%= singular_table_name %>.<%= attribute.column_name.gsub('_id','') %>.__attribute__, <%= singular_table_name %>.<%= attribute.column_name.gsub('_id','') %>.__attribute__, '#__html_id__' )
+        new_attributes[:<%= attribute.column_name.gsub('_id','') %>] = <%= attribute.column_name.gsub('_id','') %>_for_update.as_json(only: [:__attribute__])
+          <%- end -%>
+        <%- end -%>
+
+        submit_form
+        expect_to_be_in_toast(I18n.t('controllers.updated', model: <%= plural_table_name.classify %>.model_name.human(count: 1)))
+
+        expect_to_be_present_in_page(object: <%= plural_table_name.classify %>.find(<%= singular_table_name %>.id).attributes.symbolize_keys.merge(new_attributes).except(*attributes_to_exclude))
+      end
+    end
+  end
+
+  # uncomment to test delete
+  # context "to delete" do
+  #   before do
+  #     <%= singular_table_name %>.save!
+  #     visit <%= options['namespace'] %>_<%= plural_table_name %>_path
+  #   end
+
+  #   it "is able to delete" do
+  #     find("a[href='/<%= options['namespace'] %>/<%= plural_table_name %>/#{<%= singular_table_name %>.id}']", class: 'btn--destroy').click # this may need change
+  #     accept_confirm
+  #     expect_to_be_in_toast(I18n.t('controllers.destroyed', model: <%= plural_table_name.classify %>.model_name.human(count: 1)))
+
+  #     # not to find buttons with the id
+  #     expect(page).to_not have_link(href: "/<%= options['namespace'] %>/<%= plural_table_name %>/#{<%= singular_table_name %>.id}")
+  #     expect(page).to_not have_link(href: "/<%= options['namespace'] %>/<%= plural_table_name %>/#{<%= singular_table_name %>.id}/edit")
+  #   end
+  # end
+end

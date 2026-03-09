@@ -1,0 +1,72 @@
+header {
+  display: grid;
+  gap: 0 spacer(2);
+  grid-template:
+    "logo title btns"
+    "logo subtitle ."
+    "description description description"
+    / minmax(min-content, max-content) minmax(min-content, max-content);
+  margin: spacer(3) 0;
+}
+
+.header__logo {
+  grid-area: logo;
+
+  .nav-logo--logo {
+    display: none;
+  }
+
+  .nav-logo--icon {
+    display: block;
+  }
+}
+
+.header__title {
+  grid-area: title;
+}
+
+.header__subtitle {
+ @extend h4;
+
+ color: theme-color();
+ grid-area: subtitle;
+ text-transform: capitalize;
+}
+
+.header__description {
+  @extend .fs-step-1;
+
+  color: theme-color('secondary');
+  grid-area: description;
+ }
+
+.header__secondary-buttons {
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  gap: spacer();
+  grid-area: btns;
+  justify-content: end;
+}
+
+@include breakpoint($b_small) {
+  header {
+    grid-template:
+      "logo btns"
+      ". ." spacer(4) // gap between logo and title rows
+      "title title"
+      "subtitle subtitle"
+      "description description"
+      / minmax(min-content, max-content) ;
+  }
+
+  .header__logo {
+    .nav-logo--logo {
+      display: block;
+    }
+
+    .nav-logo--icon {
+      display: none;
+    }
+  }
+}

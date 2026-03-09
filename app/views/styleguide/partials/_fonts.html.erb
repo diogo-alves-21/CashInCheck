@@ -1,0 +1,141 @@
+<div class="styleguide__grid-title">
+  <div class="styleguide_title_main">
+    <h1 class="styleguide__title-page">Fonts</h1>
+  </div>
+
+  <h2 class="styleguide__subtitle-page">Modular scale</h2>
+  <p class="styleguide__text">A modular scale is a list of values that share the same relationship. These values are often used to size type and create a sense of harmony in a design.</p>
+  <p class="styleguide__text">The scale is created according to the base values and ratios that you choose. Multipliying or dividing the base by the ratio creates the steps of the scale.</p>
+
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description styleguide__example-description--full">
+      <ul class="styleguide__example-list">
+        <li>base = 16px</li>
+        <li>ratio = 1.125</li>
+        <br>
+        <li>step 3 = base * ratio^3</li>
+        <li>step 2 = base * ratio^2</li>
+        <li>step 1 = base * ratio</li>
+        <li>step 0 = base</li>
+        <li>step -1 = base ÷ ratio</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="styleguide__text">There are some steps that you need to follow to create your own type scale:</p>
+  <p class="styleguide__text"><b>1.</b> The first thing you’ll want to do when you start using modular scale is configure it to meet your needs. You can set one or multiple base values and a ratio, in any unit.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code styleguide__example-description--full">
+      <pre class="language-css"><!-- do not indent -->
+        <code>
+$modularscale: (
+  base: 16px,
+  ratio: 1.125,
+);
+        </code>
+      </pre>
+    </div>
+  </div>
+
+  <p class="styleguide__text"><b>2.</b> Next, you’ll create the font-sizes by using the ms-respond mixin. It takes in two arguments, $property and $steps.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code styleguide__example-description--full">
+      <pre class="language-css"><!-- do not indent -->
+        <code>
+h1
+{
+  @include ms-respond(font-size, 6);
+}
+        </code>
+      </pre>
+    </div>
+  </div>
+
+  <p class="styleguide__text"><b>3.</b> To control the size of the fonts in different devices you can add breakpoints to the modular scale and change its ratio.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code styleguide__example-description--full">
+      <pre class="language-css"><!-- do not indent -->
+        <code>
+$modularscale: (
+  base: 16px,
+  ratio: 1.125,
+  $b_very-small: (
+    ratio: 1.125,
+  ),
+  $b_small: (
+    ratio: 1.2,
+  ),
+  $b_large: (
+    ratio: 1.3,
+  ),
+);
+        </code>
+      </pre>
+    </div>
+  </div>
+
+  <h2 class="styleguide__subtitle-page">Font classes</h2>
+  <p class="styleguide__text">There are some classes created to add font weight and colors to the font styles, and you can combine them the way it fits your design.</p>
+
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><!-- do not indent -->
+        <code>
+<h3 class="text--bold text--blue">
+  Some blue bold title
+</h3>
+        </code>
+      </pre>
+    </div>
+
+    <div class="styleguide__example-output">
+      <h3 class="styleguide__example-output__text">
+        Some blue bold title
+      </h3>
+    </div>
+  </div>
+
+  <h2 class="styleguide__subtitle-page">Font styles</h2>
+
+  <div>
+    <div style="margin-bottom: 20px;">
+      <h1>Headline 1</h1>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <h2>Headline 2</h2>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <h3>Headline 3</h3>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <h4>Headline 4</h4>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <h5>Headline 5</h5>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <h6>Headline 6</h6>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <p>Paragraph - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet tempus est. Donec diam nisl, pellentesque non pharetra vitae, tincidunt nec neque. Praesent non ultricies nulla.</p>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <p class="notes-text">Notes text</p>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <p class="label-text">Label text</p>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <p class="input-text">Input text</p>
+    </div>
+  </div>
+</div>

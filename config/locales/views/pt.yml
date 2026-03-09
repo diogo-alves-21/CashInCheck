@@ -1,0 +1,15 @@
+pt:
+  views:
+    expense: Despesa
+    income: Rendimento
+    balance: Balanço
+    filter: Filtrar
+    add_model: Novo %{model}
+    show: Ver
+    new: Criar
+    edit: Editar
+    edit_model: Editar %{model}
+    create: Criar
+    update: Atualizar
+    are_you_sure: Tem a certeza que deseja eliminar isto?
+    see_more: Ver Mais

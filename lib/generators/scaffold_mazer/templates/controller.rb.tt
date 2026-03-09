@@ -1,0 +1,75 @@
+<% module_namespacing do -%>
+class <%= options['namespace'].classify %>::<%= controller_class_name %>Controller < <%= options['namespace'].classify %>::ApplicationController
+
+  before_action :authenticate_<%= options['namespace'] %>!
+  before_action :set_<%= singular_table_name %>, only: [:show, :edit, :update, :destroy]
+  layout 'mazer'
+
+  # GET /<%= options['namespace'] %><%= route_url %>
+  def index
+    @pagy, @<%= plural_table_name %> = pagy(<%= orm_class.all(class_name.demodulize) %>)
+  end
+
+  # GET /<%= options['namespace'] %><%= route_url %>/1
+  def show; end
+
+  # GET /<%= options['namespace'] %><%= route_url %>/new
+  def new
+    @<%= singular_table_name %> = <%= orm_class.build(class_name.demodulize) %>
+  end
+
+  # GET /<%= options['namespace'] %><%= route_url %>/1/edit
+  def edit; end
+
+  # POST /<%= options['namespace'] %><%= route_url %>
+  def create
+    @<%= singular_table_name %> = <%= orm_class.build(class_name.demodulize, "#{singular_table_name}_params") %>
+    respond_to do |format|
+      if @<%= orm_instance(singular_table_name).save %>
+        format.html { redirect_to [:<%= options['namespace'] %>, @<%= singular_table_name %>], notice: <%= "I18n.t('controllers.created', model: #{class_name.demodulize}.model_name.human(count: 1))" %> }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /<%= options['namespace'] %><%= route_url %>/1
+  def update
+    respond_to do |format|
+      if @<%= orm_instance.update("#{singular_table_name}_params") %>
+        format.html { redirect_to [:<%= options['namespace'] %>, @<%= singular_table_name %>], notice: <%= "I18n.t('controllers.updated', model: #{class_name.demodulize}.model_name.human(count: 1))" %> }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /<%= options['namespace'] %><%= route_url %>/1
+  def destroy
+    respond_to do |format|
+      if @<%= orm_instance.destroy %>
+        format.html { redirect_to <%= options['namespace'] %>_<%= index_helper %>_url, notice: <%= "I18n.t('controllers.destroyed', model: #{class_name.demodulize}.model_name.human(count: 1))" %> }
+      else
+        format.html { redirect_to <%= options['namespace'] %>_<%= index_helper %>_url, alert: <%= "I18n.t('controllers.destroy_error', model: #{class_name.demodulize}.model_name.human(count: 1))" %> }
+      end
+    end
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_<%= singular_table_name %>
+    @<%= singular_table_name %> = <%= orm_class.find(class_name.demodulize, "params[:id]") %>
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def <%= "#{singular_table_name}_params" %>
+    <%- if attributes_names.empty? -%>
+    params[:<%= singular_table_name %>]
+    <%- else -%>
+    params.require(:<%= singular_table_name %>).permit(<%= attributes_names.map { |name| ":#{name}" }.join(', ') %>)
+    <%- end -%>
+  end
+
+end
+<% end -%>

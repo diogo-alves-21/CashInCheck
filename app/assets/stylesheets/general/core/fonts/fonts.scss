@@ -1,0 +1,263 @@
+/* stylelint-disable selector-no-vendor-prefix */
+
+/**
+ * Sheet to import fonts to be used and to define text styles.
+ */
+
+/* FONTS */
+
+/* Fonts imported on views/layouts/application
+
+  @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap");
+
+  @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200;0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;0,6..12,900;0,6..12,1000;1,6..12,200;1,6..12,300;1,6..12,400;1,6..12,500;1,6..12,600;1,6..12,700;1,6..12,800;1,6..12,900;1,6..12,1000&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&display=swap");
+
+*/
+
+$f_family--primary: "Afacad", sans-serif;
+$f_family--secondary: "MuseoModerno", "Afacad", sans-serif;
+
+.ff-primary {
+  font-family: $f_family--primary;
+}
+
+.ff-secondary {
+  font-family: $f_family--secondary;
+}
+
+/* STYLES */
+$f_thin: 100;
+$f_extra-light: 200;
+$f_light: 300;
+$f_regular: 400;
+$f_medium: 500;
+$f_semi-bold: 600;
+$f_bold: 700;
+$f_extra-bold: 800;
+$f_black: 900;
+
+/* FONT SCALE */
+$scale: (
+  breakpoints: (
+    $b_initial: 1.15,
+    $b_small: 1.15,
+    $b_large: 1.15
+  ),
+  base_breakpoints: (
+    $b_initial: 16px,
+    $b_small: 18px,
+    $b_large: 20px
+  )
+);
+
+body {
+  font-family: $f_family--primary;
+
+  // Fonts look better in every browser
+  -moz-osx-font-smoothing: grayscale; /* (For Firefox) */
+  -webkit-font-smoothing: antialiased; /* (For Chrome and Safari) */
+  font-weight: $f_regular;
+  font-optical-sizing: auto;
+  line-height: 1.5;
+  transition: all 2s ease-in-out;
+}
+
+
+/* TEXT STYLES */
+$text-tags: (
+  "p":  0,
+  "h6": -1,
+  "h5": 2,
+  "h4": 1,
+  "h3": 2,
+  "h2": 3,
+  "h1": 4
+);
+
+
+@each $tag, $tag-aux in $text-tags {
+  ///  Tags Setup  ///
+
+  /*
+    p = 16px Regular
+    h6 = 14px Medium (Secondary font family)
+    h5 = 21px Regular
+    h4 = 18px Medium (Secondary font family)
+    h3 = 21px Regular (Secondary font family)
+    h2 = 24px Regular
+    h1 = 28px Regular (Secondary font family)
+  */
+
+  #{$tag} {
+    @include font-scale($tag-aux);
+
+    @if $tag == "h1" or $tag == "h3" {
+      font-family: $f_family--secondary;
+      font-weight: $f_regular;
+    } @else if $tag == "h4" or $tag == "h6" {
+      font-family: $f_family--secondary;
+      font-weight: $f_medium;
+    } @else {
+      font-family: $f_family--primary;
+      font-weight: $f_regular;
+    }
+
+    transition: font-size 0.2s ease-in-out;
+  }
+
+  ///  .fs- Classes  ///
+
+  /*
+    .fs-p = 16
+    .fs-h6 = 14
+    .fs-h5 = 21
+    .fs-h4 = 18
+    ...
+  */
+
+  .fs-#{$tag} {
+    @include font-scale($tag-aux);
+  }
+}
+
+
+///  .fs-step Classes  ///
+
+/*
+  .fs-step-3 = 11
+  .fs-step-2 = 12
+  .fs-step-1 = 14
+  .fs-step0 = 16
+  .fs-step1 = 18
+  .fs-step2 = 21
+  .fs-step3 = 24
+  .fs-step4 = 28
+  ...
+*/
+
+@for $i from -4 through 6 {
+  .fs-step#{$i} {
+    @include font-scale($i);
+  }
+}
+
+label,
+.label-text {
+  @include font-scale(-1);
+
+  font-family: $f_family--secondary;
+  font-weight: $f_bold;
+}
+
+.label--small {
+  @include font-scale(-2);
+
+  color: theme-color("secondary");
+  font-family: $f_family--primary;
+  font-weight: $f_semi-bold;
+}
+
+
+.notes-text {
+  @include font-scale(-2);
+
+  color: $c_notes-text;
+  font-weight: $f_light;
+  text-transform: uppercase;
+}
+
+input,
+.input-text {
+  @include font-scale(-1);
+
+  color: $c_input-text;
+  font-family: $f_family--primary;
+  font-weight: $f_regular;
+
+  &::placeholder {
+    color: $c_input-placeholder !important;
+    opacity: 1;
+  }
+}
+
+/* LINKS */
+a {
+  color: $c_link-text;
+  font-weight: $f_bold;
+}
+
+a,
+a:hover,
+a:visited,
+a:link,
+a:active {
+  text-decoration: none;
+}
+
+a:hover {
+  color: $c_link-text--hover;
+  cursor: pointer;
+}
+
+/* WEIGHT CLASSES */
+.text--light {
+  font-weight: $f_light;
+}
+
+.text--regular {
+  font-weight: $f_regular;
+}
+
+.text--medium {
+  font-weight: $f_medium;
+}
+
+.text--semi-bold {
+  font-weight: $f_semi-bold;
+}
+
+.text--bold {
+  font-weight: $f_bold;
+}
+
+/* COLOR CLASSES */
+.text--white {
+  color: white;
+}
+
+.text--black {
+  color: black;
+}
+
+.text--lightest {
+  color: neutral-color("lightest");
+}
+
+.text--darkest {
+  color: neutral-color("darkest");
+}
+
+@each $color, $value in $theme-colors {
+  .text--#{$color} {
+    color: $value;
+  }
+}
+
+@each $color, $value in $colors {
+  .text--#{$color} {
+    color: $value;
+  }
+}
+
+/* TEXT TRANSFORMATION */
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.line-through {
+  text-decoration: line-through;
+}

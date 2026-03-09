@@ -1,0 +1,71 @@
+/* Side Navigation */
+// @include breakpoint($b_initial)
+// {
+.menu-sidenav {
+  position: absolute; // menu above container
+  text-align: center;
+  width: 100%;
+  z-index: 2;
+
+  .burger-box {
+    background-color: $c_nav;
+    cursor: pointer;
+    display: inline-block;
+    left: 0;
+    padding: 20px 20px 18px;
+    position: absolute;
+    transition: $d_slow-duration all;
+
+    .burger-sidenav {
+      @include burger_icon(25px, 20px ,$s_border);
+
+      display: inline-block;
+    }
+  }
+
+  .logo {
+    margin-top: 20px;
+    vertical-align: top;
+    width: 40px;
+  }
+
+  .sidenav {
+    background-color: $c_sidenav;
+    height: 100%;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 30px;
+    position: fixed;
+    top: 0;
+    transition: $d_slow-duration all;
+    width: 0;
+    z-index: 1;
+
+    .nav-list {
+      padding: 0 50px;
+    }
+
+    .nav-list li {
+      list-style: none;
+    }
+
+    .nav-list a {
+      @extend h6;
+
+      border-bottom: $s_border solid transparent;
+      color: $c_nav-text;
+      display: block;
+      margin: 10px 0;
+      padding: 10px 0;
+      text-align: left;
+      transition: $d_fast-duration all;
+    }
+
+    .nav-list a:hover {
+      @include underline($c_nav-underline);
+    }
+
+  }
+}
+
+// }

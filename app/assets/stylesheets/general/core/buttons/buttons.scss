@@ -1,0 +1,139 @@
+@use "sass:map";
+@use "sass:color";
+
+/* Fix for Firefox */
+// Confirm if it is the correct value for the font that is being used.
+@-moz-document url-prefix() { /* stylelint-disable-line */
+  .btn {
+    letter-spacing: 1px;
+  }
+}
+
+/* Buttons */
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    $c_bg: $value;
+    $c_text: adaptative-color($c_bg);
+
+    @if $color == "primary" {
+      $c_text: neutral-color("darkest");
+    }
+
+    @include button($c_bg, $c_text);
+    @include font-scale(-1);
+
+    i {
+      margin-bottom: -.2em;
+    }
+
+    i:before {
+      // font-weight: $f_bold;
+      font-size: 1.244em;
+    }
+  }
+
+  .btn-outline-#{$color} {
+    $c_bg: transparent;
+    $c_text: $value;
+
+    @include button($c_bg, $c_text, "true");
+    @include font-scale(-1);
+
+    i {
+      margin-bottom: -.2em;
+    }
+
+    i:before {
+      // font-weight: $f_bold;
+      font-size: 1.244em;
+    }
+  }
+
+  .btn-outline-#{$color}.btn--overlap:not(:hover) {
+    background-color: neutral-color("lightest");
+  }
+}
+
+// Btn Defaults
+button {
+  @extend .btn-primary;
+}
+
+.btn {
+  @extend .btn-primary;
+}
+
+button:disabled,
+.btn:disabled {
+  @extend .btn-disabled;
+}
+
+.btn-outline {
+  @extend .btn-outline-secondary;
+}
+
+.btn-outline:disabled {
+  @extend .btn-outline-disabled;
+}
+
+.btn--overlap {
+  box-shadow: 0 0 9px 3px color.adjust(neutral-color("600"), $alpha: 0.2);
+  z-index: 2;
+}
+
+.btn--no-border {
+  border: none;
+}
+
+// Do NOT use directly on <i>,
+// place the <i> inside an <a>, <p> or <button> tag
+.btn-icon {
+  display: inline-flex !important;
+  gap: spacer();
+  padding: spacer() calc(spacer() + 1px);
+  line-height: 1;
+
+  i {
+    margin-bottom: -.2em;
+  }
+
+  i:before {
+    // font-weight: $f_bold;
+    font-size: 1.244em;
+  }
+}
+
+// Btn Sizes
+.btn--small {
+  @include font-scale(-2);
+
+  padding: calc(spacer() * 0.5) calc(spacer() * 3.5);
+
+  &.btn-icon {
+    padding: calc(spacer() / 2) calc(spacer() / 2 + 1px);
+  }
+}
+
+.btn--large {
+  @include font-scale(0);
+
+  padding: spacer() calc(spacer() * 3.5);
+
+  &.btn-icon {
+    padding: calc(spacer() * 1.25) calc(spacer() * 1.25 + 1px);
+  }
+}
+
+.btn--extra-large {
+  @include font-scale(1);
+
+  padding: (spacer() * 1.5) calc(spacer() * 5);
+
+  &.btn-icon {
+    padding: calc(spacer() * 1.625) calc(spacer() * 1.625 + 1px);
+  }
+}
+
+.btn--full-width {
+  width: 100%;
+}

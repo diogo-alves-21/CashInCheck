@@ -1,0 +1,109 @@
+<% locales = 'views.groups.show' %>
+
+<% buttons = [] %>
+
+ <% buttons << { icon: 'cic-icon-edit', url: edit_group_path(@group), extraClass: 'action edit btn-icon' } if @owner %>
+
+<%= render 'layout_partials/header',
+  page_title: Group.model_name.human(count: 1),
+  page_subtitle: @group.name,
+  buttons: buttons %>
+
+<div class="cic-table">
+  <% sections = [
+    {
+      title: Category.model_name.human(count: 0),
+      header_btn_url: new_group_category_path(@group.id),
+      header_btn_icon: 'category',
+      header_btn_text: t('views.add_model', model: Category.model_name.human(count: 1)),
+      objects: @categories,
+      object_btn_url: ->(group_id, category) { edit_group_category_path(group_id, category) },
+      object_btn_text: t('views.edit'),
+      object_btn_icon: 'edit',
+      more: @more_categories,
+      see_more_url: group_categories_path(@group.id)
+    },
+    {
+      title: Tag.model_name.human(count: 0),
+      header_btn_url: new_group_tag_path(@group.id),
+      header_btn_icon: 'tag',
+      header_btn_text: t('views.add_model', model: Tag.model_name.human(count: 1)),
+      objects: @tags,
+      object_btn_url:  ->(group_id, tag) { edit_group_tag_path(group_id, tag) },
+      object_btn_text: t('views.edit'),
+      object_btn_icon: 'edit',
+      more: @more_tags,
+      see_more_url: group_tags_path(@group.id)
+    },
+    {
+      title: Member.model_name.human(count: 0),
+      header_btn_url: new_group_member_path(@group.id),
+      header_btn_icon: 'add-user',
+      header_btn_text: t('views.add_model', model: Member.model_name.human(count: 1)),
+      objects: @members,
+      object_btn_url:  ->(group_id, member) { group_member_path(group_id, member) },
+      object_btn_text: t('views.show'),
+      object_btn_icon: 'show',
+      more: @more_members,
+      see_more_url: group_members_path(@group.id)
+    },
+  ] %>
+
+  <div class="d-grid grid--1 grid--sm-2 align-start">
+    <% sections.each do |section| %>
+      <div class="box <%= 'grid--span-sm-2' if section[:objects].first.is_a?(Member) %>">
+        <div class="d-flex gap-1 justify-between align-center wrap-reverse">
+          <h4><%= section[:title] %></h4>
+          <%= link_to section[:header_btn_url], class: 'btn btn-icon btn--small align-center m-l-auto' do %>
+            <i class="cic-icon-<%= section[:header_btn_icon] %>"></i>
+            <%= section[:header_btn_text] %>
+          <% end %>
+        </div>
+
+        <div class="cic-table m-t-3 m-b-2">
+          <% section[:objects].each do |object| %>
+            <div class="cic-table__row--small <%= 'cic-table__row--member' if object.is_a?(Member) %> <%= 'cic-table__row--with-badge' if object.is_a?(Category) %>">
+              <div class="fs-p">
+                <%= '#' if object.is_a?(Tag) %>
+                <% if object.is_a?(Category) %>
+                  <i class="cic-icon-category m-r-1"></i>
+                <% end %>
+                <div class="d-flex align-center">
+                  <p><%= object.name %></p>
+                  <% if object.is_a?(Member) && object.user == current_user %>
+                    <span class="fs-step-3 m-l-1 text--semi-bold uppercase text--secondary"><%= t('views.members.myself') %></span>
+                  <% end %>
+                </div>
+              </div>
+              <%= link_to section[:object_btn_url].call(@group.id, object), class: 'd-flex align-center gap-1' do %>
+                <i class="cic-icon-<%= section[:object_btn_icon] %> fs-h6"></i>
+                <%= section[:object_btn_text] %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <% if section[:more] %>
+          <div class="center">
+            <%= link_to t('views.see_more'), section[:see_more_url] %>
+          </div>
+        <% end %>
+
+      </div>
+    <% end %>
+  </div>
+
+  <% if @owner %>
+    <div class="m-t-3 center">
+      <%= link_to t("view.groups.show.leave_group"),
+            remove_group_member_path(@group, current_user.member),
+            data: { turbo_method: :delete, turbo_confirm: t('views.are_you_sure') },
+            remote: true,
+            class: "text--danger" %>
+    </div>
+  <% end %>
+</div>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: more_path, extraClass: 'btn-icon back-link' }
+  ]  %>

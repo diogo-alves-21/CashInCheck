@@ -1,0 +1,7 @@
+pt:
+  views:
+    transfers:
+      new:
+        subtitle: Enviar de %{wallet}
+        send_to_target: Enviar Para %{target}
+        send: Enviar

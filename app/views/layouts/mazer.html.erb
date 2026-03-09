@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html data-bs-theme="light">
+  <head>
+    <title><%= option_sidebar_brand_name %></title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <% unless Rails.env.production? %>
+      <meta name="robots" content="noindex">
+    <% end %>
+
+    <link href="/vendor/mazer/css/app.css" rel="stylesheet">
+    <link href="/vendor/mazer/css/app-dark.css" rel="stylesheet">
+    <%= javascript_include_tag 'mazer', 'data-turbo-track': 'reload', type: 'module' %>
+    <%= stylesheet_link_tag 'mazer', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag 'actiontext', 'data-turbo-track': 'reload' %>
+    <%# <script src="/vendor/mazer/js/app.js"></script> %>
+    <link href="/vendor/fontawesome/css/all.min.css" rel="stylesheet">
+
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body class="light dark">
+    <div id="app">
+
+      <% if admin_signed_in? %>
+        <%= render "mazer_partials/layout/admin_sidebar" %>
+      <% end %>
+
+      <div id="main" class="layout-navbar navbar-fixed">
+        <%= render "mazer_partials/layout/admin_header" %>
+        <%= yield %>
+        <footer>
+          <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start">
+              <p><%= Time.current.year %> &copy; <a href="https://hyp.pt">HYP</a></p><%# erblint:disable HardCodedString %>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <%= render partial: 'layout_partials/toasts/toast' %>
+
+    <script src="/vendor/mazer/js/app.js"></script>
+  </body>
+
+</html>

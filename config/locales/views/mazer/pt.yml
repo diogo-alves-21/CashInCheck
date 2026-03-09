@@ -1,0 +1,36 @@
+pt:
+  views:
+    mazer:
+      action:
+        new: 'Novo'
+        create: 'Novo'
+        edit: 'Editar'
+        update: 'Editar'
+        index: 'Listar'
+        show: 'Mostrar'
+      new: 'Criar'
+      back: 'Anterior'
+      show: 'Mostrar'
+      edit: 'Editar'
+      filter: 'Filtrar'
+      add: 'Adicionar'
+      send: "Enviar"
+      are_you_sure: 'Tem a certeza?'
+      notice: 'Informação!'
+      alert: 'Alerta!'
+      error: 'Erro!'
+      destroy: 'Eliminar'
+      created_by: 'Criado por'
+      member_since: 'Membro desde'
+      profile: 'Perfil'
+      insert_link: "Inserir link"
+      date: 'Data'
+      ban: 'Ban'
+      'yes': 'Sim'
+      'no': 'Não'
+      all: 'Todos'
+      data_of: 'Dados'
+      search_for: 'Procurar por...'
+      select: 'Selecionar...'
+      download_pdf: 'Download PDF'
+      welcome_message: 'Bem-vindo'

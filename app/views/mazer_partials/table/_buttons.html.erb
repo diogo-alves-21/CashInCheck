@@ -1,0 +1,94 @@
+<%# PARAMS:
+
+- theme default(only_text)
+  'only_text' | 'with_icons' | 'only_icons' | 'none'
+
+- buttons
+  an array of buttons that you want to appear on the footer
+  one element of the array can contain the following attributes:
+    - name
+    - url
+    - icon
+    - color
+    - method
+    - data
+    - extra_class (ex.: 'disabled')
+  example:
+    buttons: [
+      {name: t("views.mazer.show"), url: [:admin, admin], icon: "fas fa-eye"},
+      {name: t("views.mazer.edit"), url: edit_admin_admin_path(admin), color: "info", icon: "fas fa-pencil-alt"},
+      {url: [:admin, admin], color: "danger", method: :delete,
+        data: { confirm: t("views.mazer.are_you_sure") }, icon: "fas fa-trash"},
+    ]
+
+- kind (default: 'btn')
+  'btn' | 'btn-outline' | 'bg-gradient'
+
+- size (default: 'sm')
+  '' | 'lg' | 'sm' | 'xs' | 'flat' %>
+
+<div>
+  <% if local_assigns.has_key?(:buttons) %>
+
+    <% theme = 'only_text' if theme.blank? %>
+    <% kind = 'btn-outline' if kind.blank? %>
+    <% size = 'sm' if size.blank? %>
+
+    <% local_assigns[:buttons].each do |button| %>
+
+      <% default_name = '' %>
+      <% default_url = '#' %>
+      <% default_icon = nil %>
+      <% default_color = 'primary' %>
+      <% default_method = :get %>
+      <% default_data = {} %>
+      <% default_extra_class = '' %>
+
+      <% if theme != "none" %>
+        <% if button[:name] == t("views.mazer.show") %>
+          <% default_icon = "fas fa-eye" %>
+        <% end %>
+
+        <% if button[:name] == t("views.mazer.edit") %>
+          <% default_icon = "fas fa-pencil-alt" %>
+          <%# default_color = 'info' %>
+        <% end %>
+
+        <% if button[:name] == t("views.mazer.destroy") %>
+          <% default_icon = "fas fa-trash" %>
+          <% default_color = 'danger' %>
+          <% default_method = :delete %>
+          <% default_data = { 'turbo-method': :delete, confirm: t("views.mazer.are_you_sure") } %>
+        <% end %>
+      <% end %>
+
+      <% if theme == "only_icons" %>
+        <% name = '' %>
+      <% else %>
+        <% name = button[:name].presence || default_name %>
+      <% end %>
+
+      <% if theme == "only_text" %>
+        <% icon = nil %>
+      <% else %>
+        <% icon = button[:icon].presence || default_icon %>
+      <% end %>
+
+      <% url = button[:url].presence || default_url %>
+      <% color = button[:color].presence || default_color %>
+      <% method = button[:method].presence || default_method %>
+      <% data = button[:data].presence || default_data %>
+      <% extra_class = button[:extra_class].presence || default_extra_class %>
+
+      <%= link_to button[:url], data: data, class: "btn #{kind}-#{color} btn-#{size} #{extra_class}" do %>
+        <% if icon.present? %>
+          <i class="<%= icon %>"></i>
+        <% end %>
+        <% if theme != 'only_icons' %>
+          <%= name %>
+        <% end %>
+      <% end %>
+
+    <% end %>
+  <% end %>
+</div>

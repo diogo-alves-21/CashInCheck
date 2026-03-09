@@ -1,0 +1,28 @@
+<%= render 'layout_partials/header',
+  page_title: Member.model_name.human(count: 1),
+  page_subtitle: t('views.new') %>
+
+<%= form_for(@member, url: {action: :create}, html: { class:'cic-table' }  ) do |f| %>
+  <div>
+    <h6><%= f.label :name %></h6>
+    <%= f.text_field(:name) %>
+  </div>
+
+  <h6 class="center text--secondary m-t-3"><%= t("views.members.or") %></h6>
+
+  <div>
+    <%= f.fields_for :user, @member.build_user || User.new do |user_fields| %>
+      <div>
+        <h6><%= user_fields.label :email %></h6>
+        <%= user_fields.email_field(:email) %>
+      </div>
+    <% end %>
+  </div>
+  <div class="form-buttons center">
+    <%= f.submit t("views.members.action.add_member"), class: 'btn' %>
+  </div>
+<% end %>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: :back, extraClass: 'btn-icon back-link' }
+  ]  %>

@@ -1,0 +1,26 @@
+<% locales = "gdpr.views.missing" %>
+
+<div class="container">
+  <h1><%= t("#{locales}.title") %></h1>
+
+  <%= form_with url: consents_path, class: "container-xs" do |form| %>
+    <div class="d-flex flex-col gap-3">
+      <p><%= t("#{locales}.intro") %></p>
+      <%= form.collection_check_boxes :consent_ids, @consents, :id, :kind, include_hidden: false do |consent| %>
+        <div>
+          <%= consent.label(class: "control control-checkbox label-text m-b-0") do %>
+            <p><%= t("activerecord.attributes.consent.kind_list.#{consent.text}") %></p>
+            <%= consent.check_box %>
+            <div class="control-indicator"></div>
+          <% end %>
+          <%= link_to t("#{locales}.check_consent", consent: t("activerecord.attributes.consent.kind_list.#{consent.text}")), consent_path(consent.text), target: :_blank, class: "overline-text", rel: :noopener %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="m-t-4 text--right">
+      <%= form.submit t("#{locales}.submit"), class: "btn-primary" %>
+    </div>
+  <% end %>
+
+</div>

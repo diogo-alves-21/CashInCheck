@@ -1,0 +1,30 @@
+<% locales = 'devise.passwords.edit' %>
+
+<%= render 'layout_partials/header',
+  page_title: t("#{locales}.change_my_password") %>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'cic-table' }) do |f| %>
+  <%= render "users/shared/error_messages", resource: resource %>
+  <%= f.hidden_field :reset_password_token %>
+
+  <div class="field">
+    <%= f.label :password, t("#{locales}.new_password") %>
+    <% if @minimum_password_length %>
+      <em class="notes-text text--primary text--semi-bold"><%= @minimum_password_length %> <%= t("#{locales}.characters_minimum") %></em>
+    <% end %><br>
+    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, t("#{locales}.confirm_new_password") %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="actions center">
+    <%= f.submit t("#{locales}.update"), class: 'btn' %>
+  </div>
+<% end %>
+
+<div class="m-t-3 center">
+<%= render "users/shared/links" %>
+</div>

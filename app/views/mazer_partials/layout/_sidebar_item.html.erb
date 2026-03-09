@@ -1,0 +1,68 @@
+<%# PARAMS:
+
+- title
+  title of the card
+
+- sidebar_value (integer)
+
+- url (leave blank if treeview)
+
+- icon (fas fa-chevron-right)
+  example:
+    icon: "fas fa-pencil-alt"
+
+- current_sidebar_value
+
+- current_sidebar_sub_value
+
+- treeview
+  an array of elements that you want to appear on the treeview
+  one element of the array can contain the following attributes:
+    - title
+    - sidebar_value
+    - url
+    - icon (fas fa-chevron-right)
+  example:
+    treeview: [
+      {title: t("views.mazer.show"), sidebar_value: 1.1, url: [:admin, admin], icon: "fas fa-eye"},
+      {title: t("views.mazer.edit"), sidebar_value: 1.2, url: edit_admin_admin_path(admin), icon: "fas fa-pencil-alt"}
+    ] %>
+
+<% icon = 'fas fa-chevron-right' if icon.blank? %>
+
+<% if local_assigns.has_key?(:treeview) %>
+
+  <li class="sidebar-item has-sub <%= mazer_sidebar_active_to_class(current_sidebar_value, sidebar_value) %>">
+    <a href="#" class="sidebar-link">
+      <i class="<%= icon %>" style="min-width: 20px;"></i>
+      <span><%= title %></span>
+    </a>
+
+    <ul class="submenu">
+
+      <% local_assigns[:treeview].each do |item| %>
+
+        <% item_icon = item[:icon].presence || 'fas fa-chevron-right' %>
+
+        <li class="submenu-item <%= mazer_sidebar_active_to_class(current_sidebar_sub_value, item[:sidebar_value]) %>">
+          <%= link_to item[:url], class: "submenu-link" do %>
+
+            <%= item[:title] %>
+          <% end %>
+        </li>
+
+      <% end %>
+
+    </ul>
+  </li>
+
+<% else %>
+
+  <li class="sidebar-item <%= mazer_sidebar_active_to_class(current_sidebar_value, sidebar_value) %>">
+    <%= link_to url, class: "sidebar-link" do %>
+      <i class="<%= icon %>" style="min-width: 20px;"></i>
+      <span><%= title %></span>
+    <% end %>
+  </li>
+
+<% end %>

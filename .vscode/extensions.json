@@ -1,0 +1,52 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=827846 to learn about workspace recommendations.
+	// Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
+
+	// List of extensions which should be recommended for users of this workspace.
+	"recommendations": [
+
+    // javascript
+    "dbaeumer.vscode-eslint",
+    "xabikos.JavaScriptSnippets",
+
+    // ruby
+    "rebornix.ruby",
+    "wingrunr21.vscode-ruby",
+    "aki77.rails-i18n",
+    "aki77.rails-partial",
+    "aki77.rails-routes",
+    "bung87.vscode-gemfile",
+    "ghbozz.hashtag",
+    "kaiwood.endwise",
+    "miguel-savignano.ruby-symbols",
+    "rayhanw.erb-helpers",
+    "sianglim.slim",
+
+    // scss
+    "stylelint.vscode-stylelint",
+    "syler.sass-indented",
+
+    // other code
+    "ecmel.vscode-html-css",
+    "formulahendry.auto-rename-tag",
+
+    // conf
+    "EditorConfig.EditorConfig",
+    "eamodio.gitlens",
+
+    // editor style
+    "bobsparadox.seti-black",
+    "ctf0.close-tabs-to-the-left",
+    "file-icons.file-icons",
+    "ms-vscode.sublime-keybindings",
+    "mushan.vscode-open-iterm2",
+    "paz1987.stash-tabs",
+    "willmendesneto.vscode-file-extra",
+    "uyiosa-enabulele.reopenclosedtab"
+
+	],
+	// List of extensions recommended by VS Code that should not be recommended for users of this workspace.
+	"unwantedRecommendations": [
+
+	]
+}

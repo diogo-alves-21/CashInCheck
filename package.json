@@ -1,0 +1,52 @@
+{
+  "name": "app",
+  "private": true,
+  "devDependencies": {
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-conventional": "^18.1.0",
+    "@eslint/js": "^9.20.0",
+    "@playwright/test": "^1.53.0",
+    "babel-eslint": "^10.1.0",
+    "esbuild": "^0.25.0",
+    "eslint": "8.57.1",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-html": "^8.1.2",
+    "eslint-plugin-html-erb": "^1.0.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^7.2.1",
+    "globals": "^15.15.0",
+    "husky": "^8.0.0",
+    "stylelint": "^16.14.1",
+    "stylelint-config-sass-guidelines": "^12.1.0",
+    "stylelint-scss": "^6.11.1"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css ./app/assets/stylesheets/actiontext.sass.scss:./app/assets/builds/actiontext.css ./app/assets/stylesheets/mazer.sass.scss:./app/assets/builds/mazer.css --no-source-map --load-path=node_modules",
+    "eslint": "eslint \"app/**/*.{js,erb}\"",
+    "stylelint": "stylelint '**/*.scss' --config 'stylelint.config.js'",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@eonasdan/tempus-dominus": "^6.9.11",
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.12",
+    "@popperjs/core": "^2.11.8",
+    "@rails/actiontext": "^8.0.100",
+    "@rails/request.js": "^0.0.11",
+    "bootstrap": "^5.3.3",
+    "breakpoint-sass": "^3.0.0",
+    "chart.js": "^4.4.9",
+    "chartkick": "^5.0.1",
+    "i18n-js": "^4.5.1",
+    "moment": "^2.30.1",
+    "postcss-scss": "^4.0.9",
+    "sass": "^1.85.0",
+    "stylelint-config-standard-scss": "^14.0.0",
+    "toastify-js": "^1.12.0",
+    "tom-select": "2.1.0",
+    "trix": "^2.1.12",
+    "turbo_power": "^0.7.1"
+  }
+}

@@ -1,0 +1,47 @@
+<div class="mb-4">
+  <h2><%= resource.model_name.human(count: 1) %></h2>
+  <%# <a href="../index.html"><img src="../assets/images/brand/logo/logo-primary.svg" class="mb-2" alt=""></a> %>
+  <p class="mb-6"><%= t('devise.sessions.new.sign_in') %></p>
+</div>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
+
+  <%= render(partial: 'layout_partials/toasts/errors', locals: { object: resource }) %>
+
+  <div class="mb-3">
+    <%= f.label :email, class: 'form-label' %>
+    <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: resource.class.human_attribute_name(:email) %>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :password, class: 'form-label' %>
+    <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: resource.class.human_attribute_name(:password) %>
+  </div>
+
+  <div class="d-lg-flex justify-content-between align-items-center mb-4">
+    <div class="form-check custom-checkbox">
+      <%= f.check_box :remember_me, id: "remember", class: "form-check-input" %>
+      <%= f.label :remember_me, class: "form-check-label" %>
+    </div>
+  </div>
+
+  <div>
+    <!-- Button -->
+    <div class="d-grid">
+      <%= f.submit t('devise.sessions.new.sign_in'), class: "btn btn-primary btn-block" %>
+    </div>
+
+    <%= render "admins/shared/links" %>
+  </div>
+
+<% end %>
+
+<!-- <div class="social-auth-links text-center mb-3">
+  <p>- OR -</p>
+  <a href="#" class="btn btn-block btn-primary">
+    <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+  </a>
+  <a href="#" class="btn btn-block btn-danger">
+    <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+  </a>
+</div> -->

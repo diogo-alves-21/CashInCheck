@@ -1,0 +1,99 @@
+@use "sass:map";
+@use "sass:color";
+
+/* Mixins Buttons */
+
+// Mixin to create Button
+// Arguments: Background Color, Text Color
+@mixin button($m_bg, $m_text, $outline: "false") {
+  $m_btn-color: $m_bg;
+
+  @if $outline == "true" {
+    $m_btn-color: $m_text;
+    $m_border-radius: 0;
+  }
+
+  @include button-hover($m_btn-color, $outline);
+  @include font-scale(1);
+
+  background-color: $m_bg;
+  border: calc(spacer() * 0.25) solid $m_btn-color;
+  border-radius: calc(spacer() * 6);
+  box-sizing: border-box;
+  color: $m_text;
+  cursor: pointer;
+  display: initial;
+  font-family: $f_family--secondary;
+  font-weight: $f_medium;
+  padding: calc(spacer() * 0.75) calc(spacer() * 4);
+  text-align: center;
+  text-transform: capitalize;
+
+  @if $outline == "true" {
+    backdrop-filter: blur(10px);
+  }
+
+  @if $m_btn-color == map.get($theme-colors, "disabled") {
+    $c_disabled--lighten: color.adjust(theme-color("disabled"), $lightness: 10%);
+
+    @if $outline == "true" {
+      background-color: $c_disabled--lighten;
+    } @else {
+      color: $c_disabled--lighten;
+    }
+
+    pointer-events: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// Hover Effect
+@mixin button-hover($m_color, $outline) {
+  $m_color--hover: color.adjust($m_color, $lightness: 30%, $saturation: -10%);
+
+  // EXCEPTIONS start
+  @if $m_color == map.get($theme-colors, "secondary") {
+    $m_color--hover: color.adjust($m_color, $lightness: 20%, $saturation: -10%);
+  } @else if $m_color == map.get($theme-colors, "warning") {
+    $m_color--hover: color.adjust($m_color, $lightness: 20%, $saturation: -10%);
+  }
+
+  // EXCEPTIONS end
+
+  $m_border--hover: $m_color--hover;
+  $m_text--hover: adaptative-color($m_color);
+  $m_text--focus: adaptative-color($m_color);
+
+  // OUTLINE start
+  @if $outline == "true" {
+    $m_color--hover: color.adjust($m_color, $lightness: 30%, $saturation: -10%);
+    $m_border--hover: $m_color;
+    $m_text--hover: $m_color;
+    $m_text--focus: $m_color;
+
+    // OUTLINE EXCEPTIONS
+    @if $m_color == map.get($theme-colors, "secondary") {
+      $m_color--hover: color.adjust($m_color, $lightness: 10%, $saturation: -10%);
+    } @else if $m_color == map.get($theme-colors, "warning") {
+      $m_color--hover: color.adjust($m_color, $lightness: 35%, $saturation: -35%);
+    } @else if $m_color == map.get($theme-colors, "light") {
+      $m_color--hover: rgba($m_color, 0.2);
+    }
+  }
+
+  // OUTLINE end
+
+  overflow: hidden;
+  transition-duration: $d_medium-duration;
+  transition-property: "background";
+
+  &:hover,
+  &:active {
+    background-color: $m_color--hover;
+    border-color: $m_border--hover;
+    color: $m_text--hover;
+  }
+}

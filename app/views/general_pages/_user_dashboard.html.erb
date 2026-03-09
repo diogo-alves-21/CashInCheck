@@ -1,0 +1,158 @@
+
+  <h6>Top Transações de Maior Valor</h6>
+  <div>
+    <table>
+      <tr>
+        <th>Data</th>
+        <th>Tipo</th>
+        <th>Montante</th>
+      </tr>
+      <% @top_transfers.each do |transaction| %>
+        <tr>
+          <td><%= transaction.formated_date(transaction.executed_at)%></td>
+          <td><%= transaction.description %></td>
+          <td><%= Money.from_cents(transaction.amount_cents, transaction.amount_currency).format(symbol_position: :after) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <h6>Top Entidades por Custo Total</h6>
+  <div>
+    <table>
+      <tr>
+        <th>Entidade</th>
+        <th>Total</th>
+      </tr>
+      <% @top_merchants.each do |entity, total_cents| %>
+        <tr>
+          <td><%= entity.presence || "Sem nome" %></td>
+          <td><%= Money.from_cents(total_cents, "EUR").format(symbol_position: :after, symbol: "€") %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+
+  <%= form_with url: root_path, method: :get, local: true do %>
+    <%= select_tag :group_id, options_for_select( current_user.member.groups.map { |g| [g.name, g.id] }, params[:group_id]),
+                   prompt: "Selecione o grupo",
+                   onchange: "this.form.submit()" %>
+  <% end %>
+
+  <% @spending_by_category_per_group.each do |group_name, data| %>
+    <% if data.present? %>
+      <div>
+        <%= pie_chart data, suffix: "€", library: {
+          plugins: {
+            title: {
+              display: true,
+              text: "Gastos por Categoria - Grupo #{group_name}"
+            }
+          }
+        } %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% @spending_by_tag_per_group.each do |group_name, data| %>
+    <% if data.present? %>
+      <div>
+        <%= pie_chart data, suffix: "€", library: {
+          plugins: {
+            title: {
+              display: true,
+              text: "Gastos por Tag - Grupo #{group_name}"
+            }
+          }
+        } %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% @monthly_budget_variation_per_group.each do |group_name, budgets| %>
+    <div>
+      <%= line_chart(
+            budgets,
+            xtitle: "Mês",
+            ytitle: "Valor Gasto",
+            suffix: "€",
+            library: {
+              plugins: {
+                title: {
+                  display: true,
+                  text: "Budgets Mensais - Grupo #{group_name}"
+                }
+              }
+            }
+          ) %>
+    </div>
+  <% end %>
+
+  <% @annual_budget_variation_per_group.each do |group_name, budgets| %>
+    <div>
+    <%= line_chart(
+          budgets,
+          xtitle: "Ano",
+          ytitle: "Valor Gasto",
+          suffix: "€",
+          library: {
+            plugins: {
+              title: {
+                display: true,
+                text: "Budgets Anuais - Grupo #{group_name}"
+              }
+            }
+          }
+        ) %>
+    </div>
+  <% end %>
+
+
+
+  <% @goal_donuts_per_group.each do |group_name, goals| %>
+    <% goals.each do |goal| %>
+      <%= pie_chart(
+            { "Completo" => goal[:percent], "Faltam" => 100 - goal[:percent] },
+            suffix: "%",
+            donut: true,
+            colors: ["#4CAF50", "#e5e5e5"],
+            library: {
+              plugins: {
+                legend: { display: false },
+                title: { display: true, text: "Progresso do Goal #{goal[:name]} - Grupo #{group_name}" },
+              },
+              elements: {
+                arc: { borderWidth: 0 }
+              }
+            },
+          ) %>
+    <% end %>
+  <% end %>
+
+
+  <%# @goal_progress_per_group.each do |group_name, data| %>
+    <%# if data[0][:data].present? %>
+      <div>
+        <%#= bar_chart data, xtitle: "Objetivo", ytitle: "Montante", library: {
+          plugins: {
+            title: {
+              display: true,
+              text: "Comparação entre metas e progresso atual - Grupo #{group_name}"
+            }
+          }
+        } %>
+      </div>
+    <%# end %>
+  <%# end %>
+
+  <div>
+    <%= line_chart @expense_and_income_comparison, xtitle: "Mês", ytitle: "Montante", library: {
+      plugins: {
+        title: {
+          display: true,
+          text: "Comparação entre rendimento e despesa mensal"
+        }
+      }
+    } %>
+
+  </div>

@@ -1,0 +1,63 @@
+<%# PARAMS:
+- page_title
+- page_subtitle
+- page_description
+- buttons
+  #example:
+    buttons: [
+      { name: "btn1", url: "url1" },
+      { name: "btn2", url: "url2", extraClass: "btn-danger" },
+      { name: "btn2", url: "url2", extraClass: "btn-danger", data: { turbo_confirm: "Are you sure?" }, method: :delete },
+
+    ]
+%>
+
+<% buttons = local_assigns[:buttons].presence || [] %>
+
+<header class="cash-in-check__header">
+  <%= link_to root_path, class:"header__logo" do %>
+    <span class="nav-logo">
+      <%= image_tag "logo.svg", class: 'nav-logo--logo' %>
+      <%= image_tag "logo_icon.svg", class: 'nav-logo--icon' %>
+    </span>
+  <% end %>
+
+  <% if local_assigns[:page_title].present? %>
+    <h1 class="header__title">
+      <%= page_title %>
+    </h1>
+  <% end %>
+
+  <% if local_assigns[:page_subtitle].present? %>
+    <h2 class="header__subtitle"><%= page_subtitle %></h2>
+  <% end %>
+
+  <% if local_assigns[:page_description].present? %>
+    <p class="header__description"><%= page_description %></p>
+  <% end %>
+
+  <div class="header__secondary-buttons">
+    <% buttons.each do |btn| %>
+
+      <% if btn[:data].present? && btn[:data][:turbo_confirm].present? %>
+        <%= button_to btn[:url], class: "btn-outline  #{btn[:extraClass].presence || ''}", data: btn[:data], method: btn[:method].presence || ''  do %>
+          <% if btn[:icon].present? %>
+            <i class="<%= btn[:icon] %>"></i>
+          <% end %>
+          <% if btn[:name].present? %>
+            <span><%=btn[:name] %></span>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= link_to btn[:url], class: "btn-outline  #{btn[:extraClass].presence || ''}", data: btn[:data]  do %>
+          <% if btn[:icon].present? %>
+            <i class="<%= btn[:icon] %>"></i>
+          <% end %>
+          <% if btn[:name].present? %>
+            <span><%=btn[:name] %></span>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</header>

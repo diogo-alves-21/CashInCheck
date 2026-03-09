@@ -1,0 +1,19 @@
+<%= render 'layout_partials/header',
+  page_title: Category.model_name.human(count: 1),
+  page_subtitle: t('views.new') %>
+
+
+<%= form_for :category, :url => {action: :create}, html: { class:'cic-table' } do |f| %>
+  <div>
+    <%= f.label :name %><br>
+    <%= f.text_field(:name) %>
+  </div>
+
+  <div class="form-buttons center">
+    <%= submit_tag "#{t('views.create')} #{Category.model_name.human(count: 1)}", class: 'btn' %>
+  </div>
+<% end %>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: :back, extraClass: 'btn-icon back-link' }
+  ]  %>

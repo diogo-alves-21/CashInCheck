@@ -1,0 +1,76 @@
+/**
+ * Adapted from: https://codepen.io/kristyjy/pen/rewVjX
+ *
+ * HTML example:
+   <div class="hamburger hamburger-default"><span></span></div>
+ *
+ * Usage if you're using the default elements (previous example):
+ * @include burger-icon;
+ *
+ * Usage if you want to define the elements:
+ * @include burger-icon(25px,20px,$s_border);
+ *
+ */
+
+@mixin hamburger-line($height) {
+  background-color: $c_nav-burger;
+  height: $height;
+  left: 0;
+  position: absolute;
+  transition: $d_fast-duration all;
+  width: 100%;
+}
+
+@mixin burger-icon($width: 30px, $height: 20px, $line-height: 2px, $x_degrees: 45deg) {
+  cursor: pointer;
+  height: $height;
+  overflow: hidden;
+  position: relative;
+  width: $width;
+
+  span {
+    @include hamburger-line($line-height);
+
+    top: ($height / 2) - ($line-height / 2);
+
+    &:before {
+      @include hamburger-line($line-height);
+
+      content: "";
+      top: -($height / 2) + ($line-height / 2);
+    }
+
+    &:after {
+      @include hamburger-line($line-height);
+
+      bottom: -($height / 2) + ($line-height / 2);
+      content: "";
+    }
+  }
+
+  &.open {
+    span {
+      left: - $width;
+
+      &:before {
+        left: 100%;
+        top: 0;
+        transform: rotate($x_degrees);
+      }
+
+      &:after {
+        bottom: 0;
+        left: 100%;
+        transform: rotate(- $x_degrees);
+      }
+    }
+  }
+
+  &:hover {
+    span,
+    span:before,
+    span:after {
+      background-color: $c_nav-burger--hover;
+    }
+  }
+}

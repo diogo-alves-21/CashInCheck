@@ -1,0 +1,58 @@
+/** Input Range
+ * Adapted from: http://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html
+ */
+
+@mixin range-track() {
+  background-color: $c_input;
+  border: $s_border solid $c_input-border;
+  border-radius: $s_radius;
+  height: 10px;
+}
+
+@mixin range-thumb() {
+  appearance: none;
+  background: $c_input-symbol;
+  border: 0;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+}
+
+@include breakpoint($b_initial) {
+  input[type="range"] {
+    /* removes default webkit styles */
+    appearance: none;
+    margin-top: 10px;
+
+    /* fix for FF unable to apply focus style bug */
+
+    /* required for proper track sizing in FF */
+    width: 100%;
+
+    &:focus {
+      outline: none;
+
+      &::-webkit-slider-runnable-track {
+        background: $c_input--active;
+      }
+    }
+
+    &::-webkit-slider-runnable-track {
+      @include range-track;
+    }
+
+    &::-webkit-slider-thumb {
+      @include range-thumb;
+
+      margin-top: -7px;
+    }
+
+    &::-moz-range-track {
+      @include range-track;
+    }
+
+    &::-moz-range-thumb {
+      @include range-thumb;
+    }
+  }
+}

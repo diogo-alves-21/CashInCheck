@@ -1,0 +1,31 @@
+pt:
+  devise:
+    failure:
+      invited: 'Tem um convite pendente, aceite para finalizar a sua conta.'
+    invitations:
+      send_instructions: 'Um email de convite foi enviado para %{email}.'
+      invitation_token_invalid: 'O código do convite não é válido!'
+      updated: 'A sua senha foi atualizada com sucesso. Está autenticado.'
+      no_invitations_remaining: "Sem convites pendentes"
+      invitation_removed: 'O seu convite foi removido.'
+      new:
+        header: "Enviar convite"
+        submit_button: "Enviar um convite"
+      edit:
+        header: "Escolha a sua senha"
+        submit_button: "Atualizar a minha senha"
+    mailer:
+      invitation_instructions:
+        subject: 'Instruções do convite'
+        hello: 'Olá %{email}'
+        someone_invited_you: 'Alguém o convidou para aceder a %{url}, pode aceitar o convite através do link abaixo.'
+        accept: 'Aceitar convite'
+        accept_until: 'Este convite deverá ser entregue em %{due_date}.'
+        accept_until_format: "%d/%m/%Y às %H:%M"
+        ignore: "Se não quiser aceitar este convite, por favor ignore este e-mail.<br />A sua conta não será criada até aceder ao link abaixo e escolher a sua senha."
+  time:
+    formats:
+      devise:
+        mailer:
+          invitation_instructions:
+            accept_until_format: "%d/%m/%Y às %H:%M"

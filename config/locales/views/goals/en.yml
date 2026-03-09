@@ -1,0 +1,13 @@
+en:
+  views:
+    goals:
+      remaining: Remaining
+      reinforce:
+        label: Reinforce Goal
+        btn: Reinforce
+      mobilize:
+        label: Mobilize Goal
+        btn: Mobilize
+      are_you_sure:
+        cancel: Are you sure you want to cancel this goal?
+      cancel: Cancel

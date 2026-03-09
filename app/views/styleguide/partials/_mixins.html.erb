@@ -1,0 +1,108 @@
+<div class="styleguide__grid-title">
+
+  <div class="styleguide_title_main">
+    <h1 class="styleguide__title-page">Mixins</h1>
+  </div>
+
+  <h2 class="styleguide__subtitle-page">Burger Menu</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">The burguer menu has two crucial mixins.<br> The first one is the <b>hamburger-line</b> — lets you costumize the color and size of the lines that make the burger.<br>The second one is the <b>burger_icon</b> — you can just include this mixin on your navbar and it makes the buger icon automatically.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-css"><code>
+.menu-nav
+{
+  height: $s_nav-height;
+  background-color: $c_nav;
+  padding: 0px;
+  border-bottom: 1px solid $c_border-medium;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+
+  .burger-menu
+  {
+    display: inline-block;
+    float: right;
+    margin-right: 30px;
+    margin-top: 25px;
+    @include burger_icon(25px, 20px ,$s_border);
+  }
+}
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <nav class="styleguide__menu-nav">
+        <div class="styleguide__burger-menu"><span></span></div>
+      </nav>
+    </div>
+  </div>
+
+  <h2 class="styleguide__subtitle-page">Centerer Flexbox</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">This is useful to center text and other elements. You can either:<br>
+    Center Horizontaly —<code>(true,false)</code><br>
+    Center Verticaly —<code>(false,true)</code><br>
+    Center Horizontaly and Verticaly —<code>(true,true)</code><br>
+    The last one is the default of the mixin.
+  </p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-css"><code>
+.text
+{
+  @include centerer_flexbox(true,true);
+}
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <p class="styleguide__text styleguide_centerer">This text is centered</p>
+    </div>
+  </div>
+
+  <h2 class="styleguide__subtitle-page">Truncate</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">This mixin truncates a text based on his max-width. The max-width is an argument of the mixin.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-css"><code>
+.text
+{
+  @include truncate(250px);
+}
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <p class="styleguide__text styleguide__truncate">This text is truncated at a max of 250px.</p>
+    </div>
+  </div>
+
+  <h2 class="styleguide__subtitle-page">Line Clamp</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">This mixin truncates text as a specific number of lines. The max of lines is an argument of the mixin.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-css"><code>
+.text
+{
+  @include line-clamp(2);
+}
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <p class="styleguide__text styleguide__line-clamp">This text has a maximum of two lines. It can't pass those two lines. This text has a maximum of two lines. It can't pass those two lines.This text has a maximum of two lines. It can't pass those two lines.This text has a maximum of two lines. It can't pass those two lines.This text has a maximum of two lines. It can't pass those two lines.This text has a maximum of two lines. It can't pass those two lines.</p>
+    </div>
+  </div>
+
+  <h2 class="styleguide__subtitle-page">Underline</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">This mixin gives a border-bottom to the text of the desired color. The color is an argument of the mixin.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-css"><code>
+.text
+{
+  @include underline($color);
+}
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <p class="styleguide__text styleguide__underline">This text is underlined</p>
+    </div>
+  </div>
+</div>

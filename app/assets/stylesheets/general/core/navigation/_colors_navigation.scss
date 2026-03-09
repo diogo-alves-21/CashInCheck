@@ -1,0 +1,46 @@
+/**
+ * This variables are only assigned to NAVIGATION elements.
+ *
+ * The accent colors of the project are already assigned to internal variables
+ * in the colors stylesheet of the styleguide
+ * (e.g.: theme-color("primary"), neutral-color("lightest"),...).
+ *
+ *
+ * The name of this variables should follow this rule:
+ * $c_nav-text
+ *
+ *
+ * The variable begins with the initial of the variable type c (color),
+ * followed by the element, and the section of the element where will be applied
+ * the color.
+ *
+ * $c_nav
+ *
+ * In this case this variable represents the background color of the element.
+ */
+
+/* FOOTER COLORS */
+$c_footer: neutral-color("700");
+
+/* NAV COLORS */
+$c_nav: neutral-color("lightest");
+$c_nav--open: neutral-color("100");
+$c_nav-text: neutral-color("darkest");
+$c_nav-text--hover: theme-color-shade("primary", 8%);
+$c_nav-underline: theme-color-shade("primary", 8%);
+$c_nav-burger: neutral-color("darkest");
+$c_nav-burger--hover: theme-color-shade("primary", 8%);
+$c_burger-menu: neutral-color("darkest");
+
+/* PAGINATION COLORS */
+$c_pagination-text: neutral-color("darkest");
+$c_pagination-bg--hover: neutral-color("400");
+$c_pagination-bg--active: theme-color();
+$c_pagination-text--active: adaptative-color($c_pagination-bg--active);
+
+/* BREADCRUMB COLORS */
+$c_breadcrumb-text--hover: theme-color-shade("primary", -8%);
+$c_breadcrumb-separator: neutral-color("darkest");
+
+/* SIDENAV COLORS */
+$c_sidenav: theme-color-shade("primary", -8%);

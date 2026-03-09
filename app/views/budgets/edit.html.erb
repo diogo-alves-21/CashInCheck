@@ -1,0 +1,38 @@
+<% buttons = [] %>
+<% buttons << {
+      icon: 'cic-icon-delete',
+      url: archive_budget_path(@budget),
+      extraClass: 'action destroy btn-icon btn-outline-warning',
+      data: { turbo_confirm: t("views.budgets.are_you_sure", unit: @budget.monthly_unit? ? t("views.budgets.month") : t("views.budgets.year")) },
+      method: :patch
+    } if @budget.on_going_status? %>
+
+<%= render 'layout_partials/header',
+  page_title: Budget.model_name.human(count: 0),
+  page_subtitle: t('views.edit'),
+  buttons: buttons %>
+
+<%= form_for(@budget, html: {class:'cic-table'}) do |f| %>
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field(:name) %>
+    </div>
+
+    <div>
+      <%= f.label :max_amount_cents %>
+      <%= f.number_field :max_amount_cents, step: 0.01, value: Money.from_cents( @budget.max_amount_cents, @budget.currency).to_f %>
+    </div>
+
+    <div>
+      <%= f.label :description %>
+      <%= f.text_area(:description) %>
+    </div>
+
+  <div class="form-buttons center">
+    <%= submit_tag t('views.update'), class: 'btn' %>
+  </div>
+<% end %>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: budget_path(@budget), extraClass: 'btn-icon back-link' },
+  ]  %>

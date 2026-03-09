@@ -1,0 +1,26 @@
+.accounts-container {
+  display: flex;
+  flex-direction: column;
+  gap: spacer(2);
+  justify-content: center;
+}
+
+.account-card {
+  border-radius: $s_radius;
+  border: $s_border solid theme-color();
+  display: flex;
+  flex-direction: column;
+  gap: spacer();
+  padding: spacer(2);
+}
+
+@include breakpoint ($b_very_small) {
+  .accounts-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .account-card {
+    max-width: calc(100% / 2 - spacer(2) * 2);
+  }
+}

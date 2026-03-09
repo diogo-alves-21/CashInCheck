@@ -1,0 +1,37 @@
+<%= form_with(model: [:admin, record], class: 'form form-vertical') do |f| %>
+
+  <%= render(partial: 'layout_partials/toasts/errors', locals: { object: record }) %>
+
+  <div class="form-body">
+
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.text_field :email, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.fields_for :member, record.member || Member.new do |member_fields| %>
+        <div class="field">
+          <%= member_fields.label :name %>
+          <%= member_fields.text_field :name, autofocus: true, autocomplete: "name", class: 'form-control' %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+    </div>
+
+
+    <div class="col-12 d-flex justify-content-end">
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
+
+  </div>
+<% end %>

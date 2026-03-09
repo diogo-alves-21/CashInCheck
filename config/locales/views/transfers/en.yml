@@ -1,0 +1,7 @@
+en:
+  views:
+    transfers:
+      new:
+        subtitle: Transfer from %{wallet}
+        send_to_target: Transfer To %{target}
+        send: Transfer

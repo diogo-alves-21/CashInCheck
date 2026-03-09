@@ -1,0 +1,36 @@
+en:
+  views:
+    mazer:
+      action:
+        new: "New"
+        create: "New"
+        edit: "Edit"
+        update: "Update"
+        index: "All"
+        show: "Show"
+      new: "New"
+      back: "Back"
+      show: "Show"
+      edit: "Edit"
+      filter: "Filter"
+      add: "Add"
+      send: "Send"
+      are_you_sure: "Are you sure?"
+      notice: "Notice!"
+      alert: "Alert!"
+      error: "Error!"
+      destroy: "Destroy"
+      created_by: "Created by"
+      member_since: "Member Since"
+      profile: "Profile"
+      insert_link: "Insert link"
+      date: "Date"
+      ban: "Ban"
+      'yes': "Yes"
+      'no': "No"
+      all: "All"
+      data_of: 'Data of'
+      search_for: 'Search for...'
+      select: 'Select...'
+      download_pdf: 'Download PDF'
+      welcome_message: 'Welcome'

@@ -1,0 +1,47 @@
+.modal-container {
+  align-items: flex-start;
+  background-color: color("secondary-20");
+  box-sizing: border-box;
+  display: flex;
+  height: 100dvh;
+  justify-content: center;
+  left: 0;
+  overflow-y: auto;
+  padding: spacer(2);
+  position: fixed;
+  top: 0;
+  width: 100dvw;
+  z-index: 10000;
+}
+
+.modal-container.modal--closed {
+  display: none;
+}
+
+.modal {
+  @extend .btn--overlap;
+
+  align-items: end;
+  background-color: neutral-color("lightest");
+  border-radius: spacer(2);
+  display: flex;
+  flex-direction: column;
+  gap: spacer();
+  padding: spacer(3);
+  margin: auto;
+  max-width: container-max-width(small);
+
+  > i[data-action*='close'] {
+    cursor: pointer;
+  }
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: spacer(2);
+}
+
+body:has(.modal-container:not(.modal--closed)){
+  overflow: hidden;
+}

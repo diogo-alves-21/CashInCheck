@@ -1,0 +1,12 @@
+:scheduler:
+  timezone: "Europe/Lisbon"
+  :schedule:
+    open_api_sync_transactions:
+      cron: '5 0 * * *' ## Every day at 00:05
+      class: 'OpenApiSyncTransactions'
+    create_budget_unit_job:
+      cron: '5 0 1 * *' ## Every day at 00:05 monthly
+      class: 'CreateBudgetUnitJob'
+    check_goals:
+      cron: '5 0 * * *' ## Every day at 00:05
+      class: 'CheckGoalsJob'

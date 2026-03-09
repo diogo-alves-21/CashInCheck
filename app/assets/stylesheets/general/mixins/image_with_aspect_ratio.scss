@@ -1,0 +1,8 @@
+// Container should have display: flex
+
+@mixin image-with-aspect-ratio($width, $height) {
+  aspect-ratio: calc($width / $height);
+  height: fit-content;
+  object-fit: cover;
+  width: 100%;
+}

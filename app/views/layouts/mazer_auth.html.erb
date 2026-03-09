@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= option_sidebar_brand_name %></title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <% unless Rails.env.production? %>
+      <meta name="robots" content="noindex">
+    <% end %>
+
+    <link href="/vendor/mazer/css/app.css" rel="stylesheet">
+    <link href="/vendor/mazer/css/app-dark.css" rel="stylesheet">
+
+    <%= javascript_include_tag 'mazer', 'data-turbo-track': 'reload', type: 'module' %>
+    <%= stylesheet_link_tag 'mazer', 'data-turbo-track': 'reload' %>
+    <%= stylesheet_link_tag 'actiontext', 'data-turbo-track': 'reload' %>
+    <%# <script src="/vendor/mazer/js/app.js"></script> %>
+    <link href="/vendor/fontawesome/css/all.min.css" rel="stylesheet">
+
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body class="bg-light">
+    <!-- container -->
+    <div class="container d-flex flex-column">
+      <div class="row align-items-center justify-content-center g-0
+          min-vh-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0">
+          <!-- Card -->
+          <div class="card smooth-shadow-md">
+            <!-- Card body -->
+            <div class="card-body p-6">
+
+              <%= yield %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= render partial: 'layout_partials/toasts/toast' %>
+  </body>
+
+</html>

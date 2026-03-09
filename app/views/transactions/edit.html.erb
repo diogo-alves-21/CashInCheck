@@ -1,0 +1,77 @@
+<%= render 'layout_partials/header',
+  page_title: Transaction.model_name.human(count: 1),
+  page_subtitle: t('views.edit'),
+  buttons: [
+    { icon: 'cic-icon-delete', url:  wallet_transaction_path(@wallet, @transaction), extraClass: 'action delete btn-icon btn-outline-danger', data: { turbo_confirm: t('views.are_you_sure') }, method: :delete }
+  ] %>
+
+<div>
+  <%= form_for(@transaction, url: wallet_transaction_path(@wallet, @transaction), html: { class: "cic-table" }) do |f| %>
+    <div>
+      <%= f.label :kind %><br>
+      <%= f.select :kind,
+                Transaction.kinds.keys.map { |key| [key.humanize, key] },
+                { prompt: "Selecione um tipo de transação" },
+                { data: {
+                    controller: 'tom-select-basic',
+                } } %>
+    </div>
+
+    <div>
+      <%= f.label :amount_cents %><br>
+      <%= f.number_field :amount_cents, min: 0, step: 0.01, value: Money.from_cents( @transaction.amount_cents, @transaction.amount_currency).to_f %>
+    </div>
+
+    <div>
+      <%= f.label :executed_at %><br>
+      <%= f.date_field :executed_at %>
+    </div>
+
+    <div>
+      <%= f.label :category_id %><br>
+      <%= f.select :category_id,
+                  @categories.map { |category| [category.name, category.id] },
+                  { prompt: "Selecione uma categoria" },
+                  { data: {
+                      controller: 'tom-select-basic', tom_select_basic_options_value: { allowEmptyOption: true }
+                  } } %>
+    </div>
+
+    <div>
+      <h6><%= f.label(:tags , "Tags") %></h6>
+      <%= f.select :tags, @tags.map { |tag| [tag.name, tag.id] }, {}, multiple: true, data: {
+                      controller: 'tom-select-basic', tom_select_basic_options_value: { allowEmptyOption: true, create: true }
+                  } %>
+    </div>
+
+    <% if @transaction.payer.present? %>
+      <div>
+        <%= f.label :payer_id %></br>
+        <p class="text--secondary"><%= current_user.member.name %></p>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.label :payees %></br>
+      <%= f.select :payees, @payees.map { |payee| [payee.name, payee.id] }, {}, multiple: true, data: {
+                      controller: 'tom-select-basic', tom_select_basic_options_value: { allowEmptyOption: true, create: true }
+                  } %>
+    </div>
+
+    <div>
+      <%= f.label :description %></br>
+      <%= f.text_area(:description) %>
+    </div>
+
+    <div class="form-buttons center">
+      <%= submit_tag "#{t('views.update')} #{Transaction.model_name.human(count: 1)}", class: 'btn' %>
+    </div>
+  <% end %>
+
+</div>
+
+
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: wallet_transaction_path(@wallet, @transaction), extraClass: 'btn-icon back-link' },
+  ]  %>

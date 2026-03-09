@@ -1,0 +1,5 @@
+<% if local_assigns[:paginate_object].present? %>
+  <div class="pagination pagination-primary justify-content-end">
+    <%== pagy_bootstrap_nav(local_assigns[:paginate_object]) %>
+  </div>
+<% end %>

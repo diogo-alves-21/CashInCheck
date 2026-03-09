@@ -1,0 +1,99 @@
+<%#
+ - url
+ - @tags
+ - @categories
+ - @transactions
+%>
+
+<% url = local_assigns[:url].presence || wallet_transactions_path(@wallet) %>
+
+<%= form_with url: url, method: :get, local: true, class: "cic-table__head--secondary-info" do %>
+  <%= render 'layout_partials/modal', id: 'filters' do %>
+    <div>
+      <%= label_tag :kind %>
+      <%= select_tag :kind, options_for_select( Transaction.kinds.keys.map { |k| [k.humanize, k] }, params[:kind]),
+              prompt: "Selecione o tipo",
+              data: {
+                  controller: 'tom-select-basic',tom_select_basic_options_value: { allowEmptyOption: true }
+                } %>
+    </div>
+
+    <div>
+      <%= label_tag :category %>
+      <%= select_tag :category_id, options_for_select( @categories.map { |c| [c.name, c.id] }, params[:category_id]),
+              multiple: true,
+              placeholder: "Selecione categorias",
+              data: {
+                  controller: 'tom-select-basic', tom_select_basic_options_value: { allowEmptyOption: true }
+              }
+      %>
+    </div>
+
+    <div>
+      <%= label_tag :tag %>
+      <%= select_tag :tag_id, options_for_select( @tags.map { |t| [t.name, t.id] }, params[:tag_id]),
+              multiple: true,
+              placeholder: "Selecione tags",
+              data: {
+                  controller: 'tom-select-basic', tom_select_basic_options_value: { allowEmptyOption: true }
+                }
+      %>
+    </div>
+
+    <div>
+      <%= label_tag :query, Member.model_name.human(count:1) %>
+      <%= text_field_tag :query, params[:query],
+                      placeholder: "Pesquise por nome dos membros"
+                      # oninput: " this.form.submit() "
+      %>
+    </div>
+
+    <%= submit_tag t('views.filter'), class: 'btn' %>
+  <% end %>
+
+  <div class="cic-table__head">
+    <%= button_tag type: 'submit', name: "month_navigation", value: "prev", class: "btn--extra-large btn-icon" do %>
+      <i class="btn--extra-large cic-icon-arrow---left-2"></i>
+    <% end %>
+
+    <%= text_field_tag :month, params[:month],
+        data: { controller: 'datetimepicker', "datetimepicker-target": 'monthpicker' },
+        onchange: "this.form.submit()" %>
+
+    <%= button_tag type: 'submit', name: "month_navigation", value: "next", class: "btn--extra-large btn-icon" do %>
+      <i class="btn--extra-large cic-icon-arrow---right-2"></i>
+    <% end %>
+  </div>
+  <div class="cic-table__head__info">
+    <% income = @transactions.select { |t| t.kind_before_type_cast == 0 }.sum(&:amount_cents) %>
+    <% expense = @transactions.select { |t| t.kind_before_type_cast == 1 }.sum(&:amount_cents) %>
+    <% balance = income - expense %>
+
+    <div>
+      <p>
+        <%= t('views.income') %>
+      </p>
+      <p class="text--income">
+        <%= money_from_cents(income, @currency) %>
+      </p>
+    </div>
+
+    <div>
+      <p>
+        <%= t('views.expense') %>
+      </p>
+      <p class="text--expense">
+        -<%= money_from_cents(expense, @currency) %>
+      </p>
+    </div>
+
+    <div>
+      <p>
+        <%= t('views.balance') %>
+      </p>
+      <p class="text--balance">
+        <%= money_from_cents(balance, @currency) %>
+      </p>
+    </div>
+  </div>
+<% end %>

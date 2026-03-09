@@ -1,0 +1,21 @@
+<% container_title = Admin.model_name.human(count: 0) %>
+<% content_for :title, container_title %>
+<%= render 'mazer_partials/container', title: container_title do %>
+
+    <%= render 'mazer_partials/box/box', title: t('views.mazer.action.show') do %>
+      <%= render 'mazer_partials/box/body' do %>
+
+        <strong><%= Admin.human_attribute_name(:email) %></strong>
+        <p class="text-muted">
+          <%= @admin.email %>
+        </p>
+
+      <% end %>
+
+      <%= render 'mazer_partials/box/footer', links: [
+            { name: t("views.mazer.edit"), url: edit_admin_admin_path(@admin) },
+            { name: t("views.mazer.back"), url: admin_admins_path }
+          ] %>
+    <% end %>
+
+<% end %>

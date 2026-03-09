@@ -1,0 +1,61 @@
+.d-grid {
+  display: grid;
+  gap: spacer(2);
+}
+
+$grid-n-columns: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12;
+
+/*  - USAGE -
+    Use .d-grid.grid--2 on divs that always have 2 columns
+    Add .grid--md-4 to some div that have 4 columns from breakpoints bigger than md (inclusive)
+
+    You can use numbers present in $grid-n-columns, or add custom ones to the list.
+*/
+
+@each $n-col in $grid-n-columns {
+  .grid--#{$n-col} {
+    grid-template-columns: repeat($n-col, 1fr);
+  }
+
+  .grid--span-#{$n-col} {
+    grid-column-end: span $n-col;
+  }
+
+  .grid--start-#{$n-col} {
+    grid-column-start: $n-col;
+  }
+
+  /* Use .grid--start-right-4 if element has a .grid--span-4
+  /  and it will appear on the right side of the grid.
+  /  — $n-col should be its span size on the grid
+  /  */
+  .grid--start-right-#{$n-col} {
+    grid-column-start: calc(($n-col + 1) * -1);
+  }
+
+  @each $breakpoint, $value in $breakpoints {
+    .grid--#{$breakpoint}-#{$n-col} {
+      @include breakpoint($value) {
+        grid-template-columns: repeat($n-col, 1fr);
+      }
+    }
+
+    .grid--span-#{$breakpoint}-#{$n-col} {
+      @include breakpoint($value) {
+        grid-column-end: span $n-col !important;
+      }
+    }
+
+    .grid--start-#{$breakpoint}-#{$n-col} {
+      @include breakpoint($value) {
+        grid-column-start: $n-col;
+      }
+    }
+
+    .grid--start-right-#{$breakpoint}-#{$n-col} {
+      @include breakpoint($value) {
+        grid-column-start: calc(($n-col + 1) * -1);
+      }
+    }
+  }
+}

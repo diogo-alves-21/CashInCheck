@@ -1,0 +1,6 @@
+<% if notice.present? %>
+  <%= toast(notice, type: 'notice') %>
+<% end %>
+<% if alert.present? %>
+  <%= toast(alert, type: 'alert') %>
+<% end %>

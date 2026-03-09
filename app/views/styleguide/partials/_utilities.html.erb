@@ -1,0 +1,83 @@
+<div class="styleguide__grid-title">
+
+  <div class="styleguide_title_main">
+    <h1 class="styleguide__title-page">Utilities</h1>
+  </div>
+
+  <h2 class="styleguide__subtitle-page">Jquery Modal</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">A modal is a dialog box/popup window that is displayed on top of the current page.</p>
+  <div class="styleguide__example-container">
+    <div class="styleguide__example-description-code">
+      <pre class="language-markup"><code>
+<a href="#modal_window" rel="modal:open">Open Modal</a>
+<!-- Modal HTML embedded directly into document -->
+<div class="modal" id="modal_window">
+  <p>Thanks for clicking. That felt good.</p>
+  <a href="#" rel="modal:close" class="close_modal"><i class="material-icons">close</i></a>
+</div>
+      </code></pre>
+    </div>
+    <div class="styleguide__example-output">
+      <a href="#modal_window" rel="modal:open">Open Modal</a>
+      <!-- Modal HTML embedded directly into document -->
+      <div class="modal" id="modal_window">
+        <p>Thanks for clicking. That felt good.</p>
+        <a href="#" rel="modal:close" class="close_modal"><i class="material-icons">close</i></a>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="styleguide__subtitle-page">Owl Carousel</h2>
+  <p class="styleguide__text styleguide_text_colorinfo">This is a carousel based on JQuery, easy and fast to implement.</p>
+  <!--Code Box-->
+  <div class="styleguide__code-example">
+    <!--Tabs-->
+    <div class="styleguide__tabs-wrapper">
+      <button class="styleguide__tabs is-active" data-tab-id="htmlcarousel">
+        HTML
+      </button>
+      <button class="styleguide__tabs" data-tab-id="railscarousel">
+        Rails
+      </button>
+    </div>
+    <!--Code-->
+    <div class="styleguide__tabs-content">
+      <!--HTML-->
+      <div class="styleguide__content" data-tab-id="htmlcarousel">
+        <pre class="language-markup"><code>
+<div class="owl-carousel">
+ <div class="img1">
+   <img src="img_1.jpg">
+ </div>
+
+ <div class="img2">
+   <img src="img_2.jpg">
+ </div>
+
+ <div class="img3">
+   <img src="img_3.jpg">
+ </div>
+</div>
+        </code></pre>
+      </div>
+      <!--Rails-->
+      <div class="styleguide__content" data-tab-id="railscarousel">
+        <pre class="language-erb"><code>
+<div class="owl-carousel">
+ <div class="img1">
+   #1#%= image_tag("img_1.jpg") %#2#
+ </div>
+
+ <div class="img2">
+   #1#%= image_tag("img_2.jpg") %#2#
+ </div>
+
+ <div class="img3">
+   #1#%= image_tag("img_3.jpg") %#2#
+ </div>
+</div>
+        </code></pre>
+  </div>
+    </div>
+  </div>
+</div>

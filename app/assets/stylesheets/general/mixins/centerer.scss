@@ -1,0 +1,46 @@
+/**
+ * Adapted from: https://css-tricks.com/centering-css-complete-guide/, https://stackoverflow.com/questions/38221573/flexbox-vertical-centering-plus-a-sticky-footer
+ *
+ * HTML example:
+   <div class="centered_div">
+     <div class="child_centerer">
+       Olá.
+     </div>
+   </div>
+ *
+ * CSS example:
+   .centered_div{
+    background-color: $x_primary-main;
+    height: 500px;
+
+    @include centerer-flexbox;
+
+    .child_centerer
+    {
+       background-color: $x_warning-main;
+    }
+
+   }
+ *
+ * Usage if you're using the default elements (previous example):
+ * @include centerer;
+ *
+ * Usage if you want to define the elements:
+ * @include centerer(true, false);
+ *
+ */
+
+@mixin centerer-flexbox($horizontal: true, $vertical: true) {
+  display: flex;
+  flex-direction: column;
+
+  @if $horizontal and $vertical {
+    align-items: center;
+    justify-content: center;
+  } @else if $horizontal {
+    align-items: center;
+
+  } @else if $vertical {
+    justify-content: center;
+  }
+}

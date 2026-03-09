@@ -1,0 +1,65 @@
+<%= render 'layout_partials/header',
+  page_title: Goal.model_name.human(count: 0) %>
+
+<div class="cic-table">
+  <% @goals.each do |goal| %>
+    <%= link_to goal_path(goal),
+        class: "action show box p-b-1 bg--none border text--darkest bg-hover--secondary-5
+              #{ goal.canceled_status? ? 'border--disabled opacity-50 bg-hover--secondary-20' : 'bg-hover--secondary-5' }
+              #{ 'border--primary' if goal.scheduled_status?}
+              #{ 'border--success opacity-50 bg-hover--secondary-20' if goal.achieved_status?}
+              #{ 'border--danger opacity-50 bg-hover--secondary-20' if goal.failed_status?} " do %>
+      <div class="d-flex justify-between align-baseline gap-1 m-b-2">
+        <div>
+          <h6 class="m-b-1 d-flex gap-1 align-center">
+            <i class="cic-icon-piggy-bank text--primary fs-h5"></i>
+            <%= goal.name %>
+          </h6>
+          <p class="fs-step-1">
+            <%= goal.translated_status %>
+          </p>
+        </div>
+        <div class="text-right">
+          <%# <h6 class="text--primary"> %>
+            <%#= t('views.goals.remaining') %>
+          <%# </h6> %>
+          <h5 class="text--secondary">
+            <%#= goal.remaining_amount_with_currency %>
+            <%= goal.amount_percentage %>%
+          </h5>
+        </div>
+      </div>
+
+      <div class="d-flex justify-between align-baseline gap-1">
+        <p class="fs-step-2"><%= goal.start_date.strftime("%d %b") %></p>
+        <p class="fs-step-2"><%= goal.end_date.strftime("%d %b") %></p>
+      </div>
+
+      <div class="progress-bar" style="--percentage: <%= goal.amount_percentage %>; --color: <%= goal.scheduled_status? ? "var(--theme-color--disabled)" : goal.progress_bar_color %>"></div>
+
+      <div class="d-flex justify-center gap-1 align-baseline">
+        <p>
+          <%= goal.actual_amount_with_currency%>
+          <span class="text--secondary">/ <%= goal.goal_amount_with_currency %></span>
+        </p>
+      </div>
+
+      <div class="d-grid grid--1 grid--sm-3 m-t-2 gap-0-1">
+        <div class="d-flex gap-1 align-baseline">
+          <p class="fs-step-2 text--secondary d-flex align-center"  style="gap: 4px;">
+            <i class="cic-icon-user1"></i>
+            <%=  goal&.group.name %>
+          </p>
+        </div>
+
+        <% if goal.description.present? %>
+          <p class="fs-step-2 text--black-50 grid--span-sm-2"><%= goal.description %></p>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<% @right_buttons = [
+    { icon: 'cic-icon-plus', url: new_goal_path, extraClass: 'btn-icon action new btn--extra-large', primary: true },
+  ]  %>

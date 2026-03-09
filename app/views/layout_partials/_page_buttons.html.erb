@@ -1,0 +1,58 @@
+<%# On application layout you'll find this code:
+
+  |  render 'layout_partials/page_buttons',
+  |         left_buttons: @left_buttons.presence || [],
+  |         right_buttons: @right_buttons.presence || []
+
+For this to work, on each page you'll need to define @left_buttons and @right_buttons as an array of objects each, something like this:
+
+  |  @left_buttons = [
+  |    { name: "btn1", url: "url1" , primary: true},
+  |    { icon: "icon-btn2", name: "btn2", url: "url2" }
+  |    { icon: "icon-btn3", url: "url3", extraClass: "btn-danger" }
+  |  ]
+
+
+PARAMS:
+- left_buttons
+- right_buttons
+  #example:
+    left_buttons: [
+      { name: "btn1", url: "url1" , primary: true},
+      { icon: "icon-btn2", name: "btn2", url: "url2" },
+      { icon: "icon-btn3", url: "url3", extraClass: "btn-danger" },
+      { icon: "icon-btn3", url: "url3", data: { key: value, key2: value2 } }
+    ]
+%>
+
+<% left_buttons = local_assigns[:left_buttons].presence || [] %>
+<% right_buttons = local_assigns[:right_buttons].presence || [] %>
+
+<% { left: left_buttons, right: right_buttons }.each do |position, buttons| %>
+  <div class="<%= position %>-buttons overlap-page-buttons">
+    <% buttons.each do |btn| %>
+      <% primary = btn[:primary].presence || false %>
+
+      <% if btn[:url].present? %>
+        <%= link_to btn[:url], class: "btn-#{primary ? 'primary' : 'outline'} btn--no-border btn--overlap #{btn[:extraClass].presence || ''}", data: btn[:data].presence || {} do %>
+          <% if btn[:icon].present? %>
+            <i class="<%= btn[:icon] %>"></i>
+          <% end %>
+          <% if btn[:name].present? %>
+            <span><%=btn[:name] %></span>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= content_tag :div, class: "btn-#{primary ? 'primary' : 'outline'} btn--no-border btn--overlap #{btn[:extraClass].presence || ''}", data: btn[:data].presence || {} do %>
+          <% if btn[:icon].present? %>
+            <i class="<%= btn[:icon] %>"></i>
+          <% end %>
+          <% if btn[:name].present? %>
+            <span><%=btn[:name] %></span>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+

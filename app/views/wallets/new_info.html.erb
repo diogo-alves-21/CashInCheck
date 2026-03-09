@@ -1,0 +1,19 @@
+<% locales = 'views.wallets.new_info' %>
+
+<%= render 'layout_partials/header',
+  page_title: @wallet.name,
+  page_subtitle: t("#{locales}.subtitle") %>
+
+<div class="cic-table m-t-5">
+  <h1 class="center"><%= t("#{locales}.connect_wallet")  %></h1>
+
+  <div class="d-flex gap-2 d-flex--column align-center justify-center">
+    <%= link_to t("#{locales}.buttons.connect") , new_bank_choice_wallet_path(@wallet), class: "action edit btn" %>
+
+    <%= link_to t("#{locales}.buttons.maybe_later"), wallet_transactions_path(@wallet), class: "action edit btn-outline" %>
+  </div>
+</div>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: wallets_path, extraClass: 'btn-icon back-link' },
+  ]  %>

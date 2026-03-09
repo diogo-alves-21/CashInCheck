@@ -1,0 +1,16 @@
+en:
+  views:
+    members:
+      action:
+        add_member: "Add member"
+      back: "Back"
+      or: "Or"
+      myself: Me
+      create:
+        member_added: "Member added with success!"
+        invitation_sent: "Invitation sent!"
+      error:
+        error_when_adding_member: "Error when adding member!"
+        this_member_is_already_in_the_group: "This member is already in the group"
+      edit:
+        profile: "Profile"

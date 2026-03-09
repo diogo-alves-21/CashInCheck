@@ -1,0 +1,72 @@
+<%# PARAMS:
+
+- title
+  title of the card
+
+- section_breadcrumbs
+  example:
+    section_breadcrumbs: [
+      ["name1", "url1"],
+      ["name2", "url2"],
+      ["name3"]
+    ] %>
+
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <h4 class="card-title"><%= title %></h4>
+
+    <div>
+      <% if local_assigns.has_key?(:buttons) %>
+
+        <% buttons_theme = 'with_icons' if buttons_theme.blank? %>
+        <% buttons_kind = 'btn-outline' if buttons_kind.blank? %>
+        <% buttons_size = 'sm' if buttons_size.blank? %>
+
+        <% local_assigns[:buttons].each do |button| %>
+
+          <% default_name = '' %>
+          <% default_url = '#' %>
+          <% default_icon = nil %>
+          <% default_color = 'primary' %>
+          <% default_method = :get %>
+          <% default_data = {} %>
+
+          <% if buttons_theme != "none" %>
+            <% if button[:new_button] %>
+              <% default_icon = "fas fa-plus-circle" %>
+            <% end %>
+          <% end %>
+
+          <% if buttons_theme == "only_icons" %>
+            <% name = '' %>
+          <% else %>
+            <% name = button[:name].presence || default_name %>
+          <% end %>
+
+          <% if buttons_theme == "only_text" %>
+            <% icon = nil %>
+          <% else %>
+            <% icon = button[:icon].presence || default_icon %>
+          <% end %>
+
+          <% url = button[:url].presence || default_url %>
+          <% color = button[:color].presence || default_color %>
+          <% method = button[:method].presence || default_method %>
+          <% data = button[:data].presence || default_data %>
+
+          <%= link_to button[:url], method: method, data: data, class: "btn #{buttons_kind}-#{color} btn-#{buttons_size}" do %>
+            <% if icon.present? %>
+              <i class="<%= icon %>"></i>
+            <% end %>
+            <% if buttons_theme != 'only_icons' %>
+              <%= name %>
+            <% end %>
+          <% end %>
+
+        <% end %>
+      <% end %>
+
+    </div>
+  </div>
+    <%= yield %>
+</div>

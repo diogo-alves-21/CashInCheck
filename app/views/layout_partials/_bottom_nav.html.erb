@@ -1,0 +1,78 @@
+<% active_item__value = bottom_nav_active %>
+<% active_item__title = bottom_nav_titles(active_item__value) %>
+
+<%
+  bottom_nav_items__no_user = [
+    {
+      value: 0,
+      url: root_path,
+      icon: 'cic-icon-home'
+    },
+    {
+      value: 1,
+      url: new_user_session_path,
+      icon: 'cic-icon-poweroff'
+    },
+  ]
+%>
+
+<%
+  bottom_nav_items__user = [
+    {
+      value: 0,
+      url: root_path,
+      icon: 'cic-icon-activity'
+    },
+    {
+      value: 3,
+      url: wallets_path,
+      icon: 'cic-icon-wallet'
+    },
+    {
+      value: 5,
+      url: goals_path,
+      icon: 'cic-icon-piggy-bank'
+    },
+    {
+      value: 4,
+      url: budgets_path,
+      icon: 'cic-icon-wallet-calculator'
+    },
+    {
+      value: 2,
+      url: more_path,
+      icon: 'cic-icon-more-square'
+    },
+  ]
+%>
+
+<% bottom_nav_items = user_signed_in? ? bottom_nav_items__user : bottom_nav_items__no_user %>
+
+
+
+<nav class="bottom-nav"
+     data-controller="bottom-nav"
+     data-action="click->bottom-nav#toggleNav resize@window->bottom-nav#updateLayout">
+  <div class="bottom-nav__closed"
+       data-bottom-nav-target="containerClosed">
+    <span class="bottom-nav__active-page">
+      <i class="<%= bottom_nav_items.find{|i| i[:value] == active_item__value }[:icon] %>" style="min-width: 20px;     margin: auto 0;"></i>
+      <%= active_item__title %>
+    </span>
+  </div>
+
+  <div class="bottom-nav__open"
+       data-bottom-nav-target="containerOpened">
+    <ul class="bottom-nav__items"
+        data-bottom-nav-target="contentOpened">
+      <% bottom_nav_items.each do |item| %>
+        <li class="bottom-nav__item <%= item[:value] == active_item__value ? 'bottom-nav__item--active' : '' %>">
+          <%= link_to item[:url], class: "bottom-nav__link" do %>
+            <i class="<%= item[:icon] %>" style="min-width: 20px;     margin: auto 0;"></i>
+            <span><%= bottom_nav_titles(item[:value]) %></span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>

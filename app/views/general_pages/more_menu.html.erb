@@ -1,0 +1,50 @@
+<% locales = 'views.general_pages.more_menu' %>
+
+<%= render 'layout_partials/header' %>
+
+<div class="cic-table">
+  <div class="box">
+    <div class="d-flex gap-1 justify-between align-center wrap-reverse">
+      <h1><%= t("#{locales}.groups") %></h1>
+      <%= link_to new_group_path, class: 'btn btn-icon align-center m-l-auto' do %>
+        <i class="cic-icon-user1"></i>
+        <%= t('views.add_model', model: Group.model_name.human(count: 1)) %>
+      <% end %>
+    </div>
+
+    <div class="cic-table m-t-3 m-b-2">
+      <% @groups.each do |group| %>
+        <div class="cic-table__row">
+          <h5><%= group.name %></h5>
+          <%= link_to group_path(group), class: 'd-flex align-center gap-1' do %>
+            <i class="cic-icon-show fs-h5"></i>
+            <%= t('views.show') %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @more_groups %>
+      <div class="center">
+        <%= link_to t('views.see_more'), groups_path %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="box">
+    <div class="d-flex gap-1 justify-between align-center wrap-reverse">
+      <h1><%= t("#{locales}.profile") %></h1>
+      <%= link_to edit_user_registration_path, class: 'btn btn-icon align-center m-l-auto' do %>
+        <i class="cic-icon-profile"></i>
+        <%= t('views.edit_model', model: t("#{locales}.profile")) %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="center">
+    <%= link_to t("devise.sessions.new.sign_out"),
+            destroy_user_session_path,
+            data: { turbo_method: :delete },
+            class: "text--danger" %>
+  </div>
+</div>

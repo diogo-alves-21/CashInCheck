@@ -1,0 +1,9 @@
+en:
+  views:
+    layout_partials:
+      bottom_nav:
+        home: Dashboard
+        more: More
+        wallets: Wallets
+        budgets: Budgets
+        goals: Goals

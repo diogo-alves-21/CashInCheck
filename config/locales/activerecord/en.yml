@@ -1,0 +1,74 @@
+en:
+  activerecord:
+    attributes:
+      member:
+        name: Name
+      user:
+        email: Email
+      group:
+        name: Name
+      transaction:
+        kind: Type
+        amount_cents: Amount
+        description: Notes
+        entity_name: Entity
+        executed_at: Date
+        category_id: Category
+        payer_id: &payer Transaction owner
+        payer: *payer
+        payees: Transaction for
+        wallet_id: Wallet
+        sign_for_amount: Amount
+      budget:
+        name: Name
+        max_amount_cents: Amount
+        unit: Duration
+        group_id: Group
+        category_id: Category
+        wallet_id: Wallet
+        description: Notes
+        unit_list:
+          monthly: "Monthly"
+          annual: "Annually"
+        status_list:
+          on_going: "On going"
+          archived: "Archived"
+      goal:
+        name: Name
+        target_amount_cents: Goal Amount
+        start_date: Start Date
+        end_date: End Date
+        group_id: Group
+        description: Notes
+        status_list:
+          scheduled: "Scheduled"
+          in_progress: "In progress"
+          achieved: "Achieved"
+          failed: "Failed"
+          canceled: "Canceled"
+    models:
+      budget:
+        one: Budget
+        other: Budgets
+      goal:
+        one: Goal
+        other: Goals
+      category:
+        one: Category
+        other: Categories
+      tag:
+        one: Tag
+        other: Tags
+      member:
+        one: Member
+        other: Members
+      group:
+        one: Group
+        other: Groups
+      wallet:
+        one: Wallet
+        other: Wallets
+      transaction:
+        one: Transaction
+        other: Transactions
+

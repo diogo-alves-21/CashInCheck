@@ -1,0 +1,40 @@
+<%= render 'layout_partials/header',
+  page_title: Wallet.model_name.human(count: 0) %>
+
+<div>
+  <div class="cic-table">
+    <div class="cic-table__head">
+      <p>TOTAL</p>
+      <p class="<%= @wallets_balance_cents.negative? ? 'text--danger' : '' %>"><%= @wallets_total %></p>
+    </div>
+
+    <% @wallets.group_by(&:group).sort_by { |group, _| group.name }.each do |group, wallets| %>
+      <div class="cic-table__body">
+        <div class="cic-table__head">
+          <p><%= group.name %></p>
+          <p class="<%= group.balance_cents.negative? ? 'text--danger' : '' %>"><%= money_from_cents(group.balance_cents, wallets.first.currency) %></p>
+        </div>
+
+        <% wallets.each do |wallet| %>
+          <%= link_to wallet_transactions_path(wallet), class: "cic-table__row " do %>
+            <p><%= wallet.name %></p>
+            <p class="<%= wallet.balance_cents.negative? ? 'text--danger' : '' %>"><%= money_from_cents(wallet.balance_cents, wallet.currency) %></p>
+            <%# <td class="actions"> %>
+
+              <%#= link_to("Editar", edit_wallet_path(wallet), :class => "action edit") %>
+
+              <%#= button_to("Apagar", wallet_path(wallet), data: { turbo_confirm: "Tem certeza que deseja apagar este goal?" }, method: :delete, :class => "action destroy") %>
+            <%# </td> %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <%#= link_to("Criar Wallet", new_wallet_path, class: "action new") %>
+</div>
+
+
+<% @right_buttons = [
+    { icon: 'cic-icon-plus', url: new_wallet_path, extraClass: 'btn-icon action new btn--extra-large', primary: true },
+  ]  %>

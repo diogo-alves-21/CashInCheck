@@ -1,0 +1,175 @@
+/** Radio and Checkbox Buttons
+ * Adapted from: https://kyusuf.com/post/completely-css-custom-checkbox-radio-buttons-and-select-boxes
+ *
+ * HTML example:
+  <div class="control_group checkbox_group">
+    <label class="control control-checkbox label-text">First checkbox
+      <input type="checkbox" checked="checked"/>
+      <div class="control-indicator"></div>
+    </label>
+  </div>
+
+  <div class="control_group radio_group">
+  	<label class="control control-radio label-text">First radio
+  		<input type="radio" name="radio" checked="checked"/>
+  		<div class="control-indicator"></div>
+  	</label>
+  </div>
+ *
+ * To update the colors of the inputs, the variables should changed on colors.scss
+ *
+ */
+
+ @use "sass:color";
+
+$m_size: 20px;
+$m_border-radius: 4px;
+
+.control {
+  cursor: pointer;
+  display: block;
+  margin-bottom: 15px;
+  padding-left: calc(#{$m_size} + 10px);
+  position: relative;
+
+  input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+
+    // Input Checked
+    &:checked ~ .control-indicator:after {
+      display: block;
+    }
+
+    // Input Disabled
+    &:disabled ~ .control-indicator {
+      border: $s_border solid $c_input--disabled__border;
+      opacity: 0.6;
+      pointer-events: none;
+
+    }
+
+  }
+
+  &:hover input:not([disabled]) ~ .control-indicator {
+    background: $c_input--hover;
+  }
+
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.control-indicator {
+  background: $c_input;
+  border: $s_border solid $c_input-border;
+  border-radius: $m_border-radius;
+  height: $m_size;
+  left: 0;
+  position: absolute;
+  top: -2px;
+  width: $m_size;
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  &:after {
+    content: "";
+    display: none;
+    position: absolute;
+  }
+
+}
+
+.control-radio {
+  // radio symbol
+  /* stylelint-disable-next-line no-descending-specificity */
+  .control-indicator {
+    border-radius: 50%;
+    border-color: $c_input-border--radio;
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    &:after {
+      background: $c_input-symbol;
+      border-radius: 50%;
+      box-sizing: border-box;
+      height: 100%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+    }
+  }
+
+  input:disabled ~ .control-indicator:after {
+    background: $c_input--disabled__symbol;
+  }
+}
+
+@each $theme, $color in $theme-colors {
+  .control-radio--#{$theme} {
+    .control-indicator {
+      border-color: $color;
+    }
+
+    .control-indicator:after {
+      background: $color;
+    }
+
+    &:hover input:not([disabled]) ~ .control-indicator {
+      background: color.adjust($color, $lightness: 20%, $saturation: -10%);
+    }
+  }
+}
+
+.control-checkbox {
+  // checkbox symbol
+  /* stylelint-disable-next-line no-descending-specificity */
+  .control-indicator {
+    border-color: $c_input-border--checkbox;
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    &:after {
+      border: solid adaptative-color($c_input-symbol);
+      border-width: 0 $s_border $s_border 0;
+      height: 9px;
+      left: 6px;
+      top: 3px;
+      transform: rotate(45deg);
+      width: 6px;
+    }
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  input:checked ~ .control-indicator {
+    background-color: $c_input-symbol;
+  }
+
+  input:disabled ~ .control-indicator:after {
+    border-color: $c_input--disabled__symbol;
+  }
+}
+
+.control-checkbox--no-text {
+  margin-top: spacer();
+  min-height: calc(spacer() * 3.25);
+}
+
+
+@each $theme, $color in $theme-colors {
+  .control-checkbox--#{$theme} {
+    .control-indicator {
+      border-color: $color;
+    }
+
+    .control-indicator:after {
+      border-color: adaptative-color($color);
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    input:checked ~ .control-indicator {
+      background-color: $color;
+    }
+
+    &:hover input:not([disabled]) ~ .control-indicator {
+      background: color.adjust($color, $lightness: 20%, $saturation: -10%);
+    }
+  }
+}

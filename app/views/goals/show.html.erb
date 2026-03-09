@@ -1,0 +1,161 @@
+<% buttons = [] %>
+<% buttons << {
+      icon: 'cic-icon-delete',
+      name: t("views.goals.cancel"),
+      url: cancel_goal_path(@goal),
+      extraClass: 'action destroy btn-icon btn-outline-warning align-center',
+      data: { turbo_confirm: t("views.goals.are_you_sure.cancel") },
+      method: :patch
+    } if @goal.scheduled_status? %>
+
+<%= render 'layout_partials/header',
+  page_title: Goal.model_name.human(count: 1),
+  buttons: buttons << { icon: 'cic-icon-edit', url: edit_goal_path(@goal), extraClass: 'action edit btn-icon' } %>
+
+<div class="cic-table gap-3">
+  <div class="action show box p-b-1 text--darkest bg-hover--secondary-5
+              <%= @goal.canceled_status? || @goal.achieved_status? || @goal.failed_status? ? 'opacity-50' : 'bg-hover--secondary-5' %>
+              ">
+    <div class="d-flex justify-between align-baseline gap-1 m-b-2">
+      <div>
+        <h6 class="m-b-1 d-flex gap-1 align-center">
+          <i class="cic-icon-piggy-bank text--primary fs-h5"></i>
+          <%= @goal.name %>
+        </h6>
+        <p class="fs-step-1">
+          <%= @goal.translated_status %>
+        </p>
+      </div>
+      <div class="text-right">
+        <%# <h6 class="text--primary"> %>
+          <%#= t('views.goals.remaining') %>
+        <%# </h6> %>
+        <h5 class="text--secondary">
+          <%#= @goal.remaining_amount_with_currency %>
+          <%= @goal.amount_percentage %>%
+        </h5>
+      </div>
+    </div>
+
+    <div class="d-flex justify-between align-baseline gap-1">
+      <p class="fs-step-2"><%= @goal.start_date.strftime("%d %b") %></p>
+      <p class="fs-step-2"><%= @goal.end_date.strftime("%d %b") %></p>
+    </div>
+
+    <div class="progress-bar" style="--percentage: <%= @goal.amount_percentage %>; --color: <%= @goal.scheduled_status? ? "var(--theme-color--disabled)" : @goal.progress_bar_color  %>"></div>
+
+    <div class="d-flex justify-center gap-1 align-baseline">
+      <p>
+        <%= @goal.actual_amount_with_currency%>
+        <span class="text--secondary">/ <%= @goal.goal_amount_with_currency %></span>
+      </p>
+    </div>
+
+    <div class="d-grid grid--1 grid--sm-3 m-t-2 gap-0-1">
+      <p class="fs-step-2 text--secondary d-flex align-center"  style="gap: 4px;">
+        <i class="cic-icon-user1"></i>
+        <%=  @goal&.group.name %>
+      </p>
+
+      <% if @goal.description.present? %>
+        <p class="fs-step-2 text--black-50 grid--span-sm-2"><%= @goal.description %></p>
+      <% end %>
+    </div>
+  </div>
+
+
+  <div class="border-bottom border--primary"></div>
+
+  <div class="cic-table width-full">
+    <%= render 'transactions/layout_partials/filters_and_header', url: goal_path(@goal) %>
+
+    <% @transactions.group_by(&:executed_at).each do |day, transactions| %>
+      <% income = transactions.select { |t| t.kind_before_type_cast == 0 }.sum(&:amount_cents) %>
+      <% expense = transactions.select { |t| t.kind_before_type_cast == 1 }.sum(&:amount_cents) %>
+
+      <%= render 'transactions/layout_partials/date_row',
+                 date: day,
+                 income: money_from_cents(income, @currency),
+                 expense: money_from_cents(expense, @currency),
+                 balance: money_from_cents(income - expense, @currency) %>
+
+      <% transactions.each do |transaction| %>
+        <%= link_to wallet_transaction_path(@goal, transaction), class: "action show" do %>
+          <%= render 'transactions/layout_partials/transaction_row',
+                     category: transaction&.category&.name,
+                     tags: transaction&.tags,
+                     description: transaction&.description,
+                     kind: transaction.kind_before_type_cast,
+                     amount: transaction.sign_for_amount %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
+</div>
+
+<% if @goal.in_progress_status? %>
+  <%= render 'layout_partials/modal', id: 'goal-update-modal' do %>
+    <%= form_for(@goal, url: update_amount_goal_url(@goal), method: :patch) do |f| %>
+      <div>
+        <h6>
+          <%= f.label :current_amount_cents, t('views.goals.reinforce.label'),  data: { 'goal-update-modal-target': 'reinforceLabel' } %>
+          <%= f.label :current_amount_cents, t('views.goals.mobilize.label'),  data: { 'goal-update-modal-target': 'mobilizeLabel' } %>
+        </h6>
+        <%= f.number_field :current_amount_cents, min: 0, max: @goal.actual_amount_with_currency, step: 0.01, value: nil, data: { current_cents: @goal.current_amount_cents, 'goal-update-modal-target': 'input' } %>
+      </div>
+      <div class="form-buttons m-t-3 center">
+        <%= submit_tag t('views.goals.reinforce.btn'), name: "add", class: "btn-primary btn-small", data: { 'goal-update-modal-target': 'reinforceBtn' } %>
+        <%= submit_tag t('views.goals.mobilize.btn'), name: "subtract", class: "btn-primary btn-small", data: { 'goal-update-modal-target': 'mobilizeBtn' } %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: goals_path, extraClass: 'btn-icon back-link' },
+  ]  %>
+
+<% right_buttons = [] %>
+<% if @goal.in_progress_status? %>
+  <% right_buttons.concat([
+    {
+        icon: 'cic-icon-piggy-bank-reinforce',
+        extraClass: 'btn-icon action new btn--extra-large',
+        primary: true,
+        data: {
+          'controller': 'goal-update-modal',
+          'action': 'click->goal-update-modal#open',
+          'modal-id': 'goal-update-modal',
+          'modal-type': 'reinforce'
+        }
+      }
+    ]) %>
+
+  <% right_buttons.concat([
+      {
+        icon: 'cic-icon-piggy-bank-mobilize',
+        extraClass: 'btn-icon',
+        data: {
+          'controller': 'goal-update-modal',
+          'action': 'click->goal-update-modal#open',
+          'modal-id': 'goal-update-modal',
+          'modal-type': 'mobilize'
+        }
+      }
+  ]) if @goal.current_amount_cents > 0 %>
+<% end %>
+
+<% @right_buttons = right_buttons.concat([
+    {
+      icon: 'cic-icon-filter',
+      extraClass: 'btn-icon',
+      data: {
+        'controller': 'modal',
+        'action': 'click->modal#open',
+        'modal-id': 'filters'
+      }
+    }
+  ])  %>
+

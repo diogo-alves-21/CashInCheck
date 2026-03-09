@@ -1,0 +1,382 @@
+/* stylelint-disable font-family-no-missing-generic-family-keyword */
+
+/* FONT ICONS */
+
+// Icons to Font:
+// Use the website https://icomoon.io/
+// Before downloading check the font preferences:
+// Make sure your icon name with the prefix and/or the suffix matches the correct pattern (same as classes, check styleguide)
+// - Suggestions:
+//     Prefix: {short version/abbreviation of font name/project name}-icon-
+//     Suffix:
+//  eg.: re-icon-home
+
+// Instructions to update the font:
+// 1. Change the font files in assets/fonts
+// 2. Copy the style.css of the font to this file
+// 3. Change "url" on @font-face {} to "font-url"
+// 4. Delete "fonts/" form src links
+
+// How to use:
+// Change de class for the icon you want: prefix-{icon name}-sufix
+// <span class="prefix-home-sufix"></span>
+
+@font-face {
+  font-family: "CicFontIcon";
+  // src:  font-url('cic_font_icon.eot?vlazjf');
+  // src:  font-url('cic_font_icon.eot?vlazjf#iefix') format('embedded-opentype'),
+  //   font-url('cic_font_icon.ttf?vlazjf') format('truetype'),
+  //   font-url('cic_font_icon.woff?vlazjf') format('woff'),
+  //   font-url('cic_font_icon.svg?vlazjf#cic_font_icon') format('svg');
+  src: url('/assets/cic_font_icon-c47b42dc.woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="cic-icon-"], [class*=" cic-icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: "CicFontIcon" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  display: contents;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.cic-icon-user:before {
+  content: "\e900";
+}
+.cic-icon-user1:before {
+  content: "\e901";
+}
+.cic-icon-activity:before {
+  content: "\e902";
+}
+.cic-icon-add-user:before {
+  content: "\e903";
+}
+.cic-icon-arrow---down-2:before {
+  content: "\e904";
+}
+.cic-icon-arrow---down-3:before {
+  content: "\e905";
+}
+.cic-icon-arrow---down-circle:before {
+  content: "\e906";
+}
+.cic-icon-arrow---down-square:before {
+  content: "\e907";
+}
+.cic-icon-arrow---down:before {
+  content: "\e908";
+}
+.cic-icon-arrow---left-2:before {
+  content: "\e909";
+}
+.cic-icon-arrow---left-3:before {
+  content: "\e90a";
+}
+.cic-icon-arrow---left-circle:before {
+  content: "\e90b";
+}
+.cic-icon-arrow---left-square:before {
+  content: "\e90c";
+}
+.cic-icon-arrow---left:before {
+  content: "\e90d";
+}
+.cic-icon-arrow---right-2:before {
+  content: "\e90e";
+}
+.cic-icon-arrow---right-3:before {
+  content: "\e90f";
+}
+.cic-icon-arrow---right-circle:before {
+  content: "\e910";
+}
+.cic-icon-arrow---right-square:before {
+  content: "\e911";
+}
+.cic-icon-arrow---right:before {
+  content: "\e912";
+}
+.cic-icon-arrow---up-2:before {
+  content: "\e913";
+}
+.cic-icon-arrow---up-3:before {
+  content: "\e914";
+}
+.cic-icon-arrow---up-circle:before {
+  content: "\e915";
+}
+.cic-icon-arrow---up-square:before {
+  content: "\e916";
+}
+.cic-icon-arrow---up:before {
+  content: "\e917";
+}
+.cic-icon-bag-3:before {
+  content: "\e918";
+}
+.cic-icon-bag:before {
+  content: "\e919";
+}
+.cic-icon-bookmark:before {
+  content: "\e91a";
+}
+.cic-icon-bullseye:before {
+  content: "\e91b";
+}
+.cic-icon-buy:before {
+  content: "\e91c";
+}
+.cic-icon-calculator:before {
+  content: "\e91d";
+}
+.cic-icon-calendar:before {
+  content: "\e91e";
+}
+.cic-icon-call-missed:before {
+  content: "\e91f";
+}
+.cic-icon-call-silent:before {
+  content: "\e920";
+}
+.cic-icon-call:before {
+  content: "\e921";
+}
+.cic-icon-calling:before {
+  content: "\e922";
+}
+.cic-icon-camera:before {
+  content: "\e923";
+}
+.cic-icon-category:before {
+  content: "\e924";
+}
+.cic-icon-chart:before {
+  content: "\e925";
+}
+.cic-icon-chat:before {
+  content: "\e926";
+}
+.cic-icon-close-square:before {
+  content: "\e927";
+}
+.cic-icon-danger-circle:before {
+  content: "\e928";
+}
+.cic-icon-danger-triangle:before {
+  content: "\e929";
+}
+.cic-icon-delete:before {
+  content: "\e92a";
+}
+.cic-icon-discount:before {
+  content: "\e92b";
+}
+.cic-icon-discovery:before {
+  content: "\e92c";
+}
+.cic-icon-document:before {
+  content: "\e92d";
+}
+.cic-icon-download:before {
+  content: "\e92e";
+}
+.cic-icon-edit-square:before {
+  content: "\e92f";
+}
+.cic-icon-edit:before {
+  content: "\e930";
+}
+.cic-icon-filter-3:before {
+  content: "\e931";
+}
+.cic-icon-filter:before {
+  content: "\e932";
+}
+.cic-icon-folder:before {
+  content: "\e933";
+}
+.cic-icon-game:before {
+  content: "\e934";
+}
+.cic-icon-graph:before {
+  content: "\e935";
+}
+.cic-icon-heart:before {
+  content: "\e936";
+}
+.cic-icon-hide:before {
+  content: "\e937";
+}
+.cic-icon-home:before {
+  content: "\e938";
+}
+.cic-icon-image-3:before {
+  content: "\e939";
+}
+.cic-icon-image:before {
+  content: "\e93a";
+}
+.cic-icon-info-square:before {
+  content: "\e93b";
+}
+.cic-icon-link:before {
+  content: "\e93c";
+}
+.cic-icon-location:before {
+  content: "\e93d";
+}
+.cic-icon-lock:before {
+  content: "\e93e";
+}
+.cic-icon-login:before {
+  content: "\e93f";
+}
+.cic-icon-logout:before {
+  content: "\e940";
+}
+.cic-icon-message:before {
+  content: "\e941";
+}
+.cic-icon-more-circle:before {
+  content: "\e942";
+}
+.cic-icon-more-square:before {
+  content: "\e943";
+}
+.cic-icon-notification:before {
+  content: "\e944";
+}
+.cic-icon-paper-download:before {
+  content: "\e945";
+}
+.cic-icon-paper-fail:before {
+  content: "\e946";
+}
+.cic-icon-paper-negative:before {
+  content: "\e947";
+}
+.cic-icon-paper-plus:before {
+  content: "\e948";
+}
+.cic-icon-paper-upload:before {
+  content: "\e949";
+}
+.cic-icon-paper:before {
+  content: "\e94a";
+}
+.cic-icon-password:before {
+  content: "\e94b";
+}
+.cic-icon-piggy-bank-mobilize:before {
+  content: "\e94c";
+}
+.cic-icon-piggy-bank-reinforce:before {
+  content: "\e94d";
+}
+.cic-icon-piggy-bank:before {
+  content: "\e94e";
+}
+.cic-icon-play:before {
+  content: "\e94f";
+}
+.cic-icon-plus:before {
+  content: "\e950";
+}
+.cic-icon-poweroff:before {
+  content: "\e951";
+}
+.cic-icon-profile:before {
+  content: "\e952";
+}
+.cic-icon-scan:before {
+  content: "\e953";
+}
+.cic-icon-search:before {
+  content: "\e954";
+}
+.cic-icon-send:before {
+  content: "\e955";
+}
+.cic-icon-setting:before {
+  content: "\e956";
+}
+.cic-icon-shield-done:before {
+  content: "\e957";
+}
+.cic-icon-shield-fail:before {
+  content: "\e958";
+}
+.cic-icon-show:before {
+  content: "\e959";
+}
+.cic-icon-star:before {
+  content: "\e95a";
+}
+.cic-icon-swap:before {
+  content: "\e95b";
+}
+.cic-icon-tag:before {
+  content: "\e95c";
+}
+.cic-icon-tick-square:before {
+  content: "\e95d";
+}
+.cic-icon-ticket-star:before {
+  content: "\e95e";
+}
+.cic-icon-ticket:before {
+  content: "\e95f";
+}
+.cic-icon-time-circle:before {
+  content: "\e960";
+}
+.cic-icon-time-square:before {
+  content: "\e961";
+}
+.cic-icon-unlock:before {
+  content: "\e962";
+}
+.cic-icon-upload:before {
+  content: "\e963";
+}
+.cic-icon-video:before {
+  content: "\e964";
+}
+.cic-icon-voice-3:before {
+  content: "\e965";
+}
+.cic-icon-voice:before {
+  content: "\e966";
+}
+.cic-icon-volume-down:before {
+  content: "\e967";
+}
+.cic-icon-volume-Off:before {
+  content: "\e968";
+}
+.cic-icon-volume-up:before {
+  content: "\e969";
+}
+.cic-icon-wallet-calculator:before {
+  content: "\e96a";
+}
+.cic-icon-wallet-link:before {
+  content: "\e96b";
+}
+.cic-icon-wallet:before {
+  content: "\e96c";
+}
+.cic-icon-work:before {
+  content: "\e96d";
+}

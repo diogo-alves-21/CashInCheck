@@ -1,0 +1,184 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.7
+  Exclude:
+    - bin/**/*
+    - coverage/**/*
+    # - db/schema.rb
+    # - db/migrate/**
+    - db/**/*
+    - lib/**/*
+    - log/**/*
+    - node_modules/**/*
+    - public/**/*
+    - tmp/**/*
+    - vendor/**/*
+  EnabledByDefault: true
+
+### Rails
+
+Rails/FilePath:
+  EnforcedStyle: arguments
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - staging
+    - production
+    - test
+
+### Bundler
+
+Bundler/OrderedGems:
+  Enabled: false
+
+### Metrics
+
+Metrics/AbcSize:
+  Max: 35
+
+Metrics/BlockLength:
+  Max: 140
+  Exclude:
+    - spec/**/*
+
+Metrics/ClassLength:
+  Max: 150
+
+Metrics/MethodLength:
+  Max: 30
+
+### Style
+
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/SymbolArray:
+  EnforcedStyle: brackets
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Lambda:
+  EnforcedStyle: literal
+
+Style/LambdaCall:
+  Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+  Enabled: false
+
+Style/MissingElse:
+  Enabled: false
+
+Style/Copyright:
+  Enabled: false
+
+Style/InlineComment:
+  Enabled: false
+
+Style/StringHashKeys:
+  Enabled: false
+
+Style/MethodCalledOnDoEndBlock:
+  Enabled: false
+
+Style/DocumentationMethod:
+  Enabled: false
+
+Style/DisableCopsWithinSourceCodeDirective:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/OpenStructUse:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: never
+
+### Layout
+
+Layout/DotPosition:
+  EnforcedStyle: leading
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: variable
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
+
+Layout/HashAlignment:
+  Enabled: false
+
+Layout/MultilineMethodArgumentLineBreaks:
+  Enabled: false
+
+Layout/MultilineArrayLineBreaks:
+  Enabled: false
+
+Layout/MultilineAssignmentLayout:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 190
+  AllowedPatterns: ['\A#'] # Allow long comments
+
+Layout/RedundantLineBreak:
+  Enabled: false
+
+Layout/SingleLineBlockChain:
+  Enabled: false
+
+Layout/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines_except_namespace
+
+# Lint
+
+Lint/ConstantResolution:
+  Enabled: false
+
+Lint/NumberConversion:
+  Enabled: false
+
+# Performance
+
+Performance/ChainArrayAllocation:
+  Enabled: false
+
+Performance/OpenStruct:
+  Enabled: false
+
+Performance/MapCompact:
+  Enabled: false
+
+# Naming
+
+Naming/InclusiveLanguage:
+  Enabled: false

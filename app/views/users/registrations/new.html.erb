@@ -1,0 +1,41 @@
+<% locales = 'devise.registrations.new' %>
+
+<%= render 'layout_partials/header',
+  page_title: t("#{locales}.sign_up") %>
+
+<%= form_for resource, as: resource_name, url: registration_path(resource_name), html: {class:'cic-table'} do |f| %>
+  <%= render "users/shared/error_messages", resource: resource %>
+
+  <%= f.fields_for :member do |member_fields| %>
+    <div class="field">
+      <%= member_fields.label :name %><br />
+      <%= member_fields.text_field :name, autofocus: true, autocomplete: "name" %>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+      <em class="notes-text text--primary text--semi-bold"><%= t('devise.shared.minimum_password_length',count: @minimum_password_length) %></em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="actions center">
+    <%= f.submit t("#{locales}.sign_up"), class: 'btn' %>
+  </div>
+<% end %>
+
+<div class="m-t-3 center">
+<%= render "users/shared/links" %>
+</div>

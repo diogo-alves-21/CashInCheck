@@ -1,0 +1,96 @@
+@use "sass:map";
+
+$spacing-values: map.merge(
+  (
+    auto: auto,
+  ),
+  $spacers
+);
+
+@each $spacer, $value in $spacing-values {
+  /* MARGIN */
+  .m-#{$spacer} {
+    margin: $value !important;
+  }
+
+  .m-x-#{$spacer} {
+    margin-left: $value !important;
+    margin-right: $value !important;
+  }
+
+  .m-y-#{$spacer} {
+    margin-bottom: $value !important;
+    margin-top: $value !important;
+  }
+
+  .m-t-#{$spacer} {
+    margin-top: $value !important;
+  }
+
+  .m-b-#{$spacer} {
+    margin-bottom: $value !important;
+  }
+
+  .m-l-#{$spacer} {
+    margin-left: $value !important;
+  }
+
+  .m-r-#{$spacer} {
+    margin-right: $value !important;
+  }
+
+  /* PADDING */
+  .p-#{$spacer} {
+    padding: $value !important;
+  }
+
+  .p-x-#{$spacer} {
+    padding-left: $value !important;
+    padding-right: $value !important;
+  }
+
+  .p-y-#{$spacer} {
+    padding-bottom: $value !important;
+    padding-top: $value !important;
+  }
+
+  .p-t-#{$spacer} {
+    padding-top: $value !important;
+  }
+
+  .p-b-#{$spacer} {
+    padding-bottom: $value !important;
+  }
+
+  .p-l-#{$spacer} {
+    padding-left: $value !important;
+  }
+
+  .p-r-#{$spacer} {
+    padding-right: $value !important;
+  }
+
+  /* GAP */
+  .gap-#{$spacer} {
+    gap: $value !important;
+  }
+
+  .gap-y-#{$spacer} {
+    gap: $value 0 !important;
+  }
+
+  .gap-x-#{$spacer} {
+    gap: 0 $value !important;
+  }
+
+  @each $spacer2, $value2 in $spacing-values {
+    .gap-#{$spacer}-#{$spacer2} {
+      gap: $value $value2 !important;
+    }
+  }
+
+  /* LETTER SPACING */
+  .letter-spacing-#{$spacer} {
+    letter-spacing: calc($value * 0.05) !important;
+  }
+}

@@ -1,0 +1,101 @@
+.ts-wrapper {
+  width: 100%;
+}
+
+.ts-control {
+  @extend .fs-step-1;
+  @include input_basics;
+
+  background-color: neutral-color("lightest");
+  margin-top: spacer();
+  min-width: calc(spacer() * 19.25);
+  // padding: calc(spacer() * 1.5) spacer();
+  // padding-right: calc(spacer() * 5.5);
+
+  &:after {
+    @extend h6;
+    @include font-scale(-2);
+
+    align-items: center;
+    box-sizing: border-box;
+    color: neutral-color("darkest");
+    content: "\f078";
+    display: flex;
+    /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+    font-family: "Font Awesome 5 Pro";
+    height: 100%;
+    padding: calc(spacer() / 2) (spacer() * 1.5);
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+
+  input {
+    @extend .fs-step-1;
+    @include input_basics;
+
+    font-family: $f_family--primary;
+    min-width: calc(spacer() * 9);
+    width: auto !important;
+  }
+}
+
+.focus .ts-control {
+  border-color: theme-color("secondary");
+}
+
+/* stylelint-disable-next-line selector-not-notation */
+.ts-wrapper:not(.form-control):not(.form-select).single .ts-control {
+  background-image: none;
+}
+
+.ts-wrapper.dropdown-active {
+  z-index: 20;
+}
+
+.ts-wrapper.multi.has-items .ts-control {
+  padding: 0.75em 20px;
+}
+
+.ts-dropdown {
+  border: $s_border solid theme-color("secondary");
+  border-radius: 0 0 calc(spacer() * 3.125) calc(spacer() * 3.125);
+  margin: 0;
+  margin-top: calc($s_radius * -1);
+  padding-top: calc($s_radius - $s_border);
+  z-index: -1;
+
+  .active {
+    background-color: transparent;
+    color: theme-color("secondary");
+    font-weight: $f_extra-bold;
+  }
+
+  .selected {
+    color: neutral-color("darkest");
+    font-weight: $f_bold;
+  }
+
+  [data-selectable] .highlight {
+    background-color: transparent;
+    color: theme-color();
+  }
+
+  // GROUP DROPDOWN
+  .optgroup-header {
+    color: theme-color();
+    font-weight: $f_bold;
+  }
+}
+
+
+.ts-dropdown-content {
+  padding: calc( spacer() / 2) spacer();
+}
+
+// Fix Required error notice
+.ts-hidden-accessible {
+  bottom: 0;
+  left: spacer(2);
+}

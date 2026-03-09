@@ -1,0 +1,22 @@
+<% locales = 'devise.passwords.new' %>
+
+<%= render 'layout_partials/header',
+  page_title: t("#{locales}.forgot_your_password") %>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'cic-table' }) do |f| %>
+  <%= render "users/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="actions center">
+    <%= f.submit t("#{locales}.send_me_reset_password_instructions"), class: 'btn' %>
+  </div>
+<% end %>
+
+
+<div class="m-t-3 center">
+<%= render "users/shared/links" %>
+</div>

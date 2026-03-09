@@ -1,0 +1,38 @@
+<%= render 'layout_partials/header',
+  page_title: Wallet.model_name.human(count: 0),
+  page_subtitle: t('views.new') %>
+
+
+<%= form_with model: Wallet.new, local: true, class: 'cic-table' do |f| %>
+  <%= f.hidden_field :api_access_token, value: nil %>
+
+  <div>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :group_id %><br>
+    <%= f.select :group_id,
+              @groups.map { |group| [group.name, group.id] },
+              { prompt: "Selecione um grupo" },
+              { data: {
+                  controller: 'tom-select-basic',
+              } } %>
+  </div>
+
+  <div>
+    <%= f.label :descrition %><br>
+    <%= f.textarea :description %>
+  </div>
+
+  <div class="form-buttons center">
+    <%= submit_tag "#{t('views.create')} #{Wallet.model_name.human(count: 1)}" , class: 'btn' %>
+  </div>
+<% end %>
+
+<%= javascript_include_tag "https://cdn.plaid.com/link/v2/stable/link-initialize.js", defer: true %>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: wallets_path, extraClass: 'btn-icon back-link' },
+  ]  %>

@@ -1,0 +1,15 @@
+<%% container_title = <%= class_name.demodulize %>.model_name.human(count: 0) %>
+<%% content_for :title, container_title %>
+<%%= render 'mazer_partials/container', title: container_title do %>
+
+  <%%= render 'mazer_partials/box/box', title: t('views.mazer.action.new') do %>
+    <%%= render 'mazer_partials/box/body' do %>
+      <%%= render 'form', record: @<%= singular_table_name %> %>
+    <%% end %>
+
+    <%%= render 'mazer_partials/box/footer', links: [
+          { name: t("views.mazer.back"), url: <%= options['namespace'] %>_<%= index_helper %>_path }
+        ] %>
+
+  <%% end %>
+<%% end %>

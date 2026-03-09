@@ -1,0 +1,59 @@
+<% buttons = [] %>
+
+<%= render 'layout_partials/header',
+  page_title: Wallet.model_name.human(count: 1),
+  page_subtitle: t('views.edit'),
+  buttons: [
+    {
+      icon: 'cic-icon-delete',
+      url: wallet_path(@wallet),
+      extraClass: 'action destroy btn-icon btn-outline-danger',
+      data: { turbo_confirm: t('views.are_you_sure') },
+      method: :delete
+    }
+  ] %>
+
+
+
+<div>
+  <%= form_for @wallet, html: { class: 'cic-table' } do |f| %>
+    <div>
+      <%= f.label :name %><br>
+      <%= f.text_field(:name) %>
+    </div>
+
+    <div>
+      <%= f.label :description %><br>
+      <%= f.textarea(:description) %>
+    </div>
+
+    <div class="form-buttons center">
+      <%= submit_tag "#{t('views.update')} #{Wallet.model_name.human(count: 1)}", class: 'btn' %>
+    </div>
+  <% end %>
+
+
+  <div class="m-t-4 cic-table align-center">
+    <% if @wallet.api_access_token.present? && @wallet.account_id.present? %>
+      <%= link_to disconnect_wallet_wallet_path(@wallet),
+                  class: 'action delete btn-icon btn-outline-danger btn--small p-x-2 align-center',
+                  data: {
+                    turbo_confirm: t('views.wallets.edit.disconnect_wallet.are_you_sure'),
+                    turbo_method: :post
+                  } do %>
+        <i class='cic-icon-wallet-link'></i>
+        <%= t('views.wallets.edit.disconnect_wallet.title') %>
+      <% end %>
+    <% else %>
+      <%= link_to new_bank_choice_wallet_path(@wallet),
+                  class: 'action align-center btn--small btn-icon btn-outline p-x-2' do %>
+        <i class='cic-icon-wallet-link'></i>
+        <%= t('views.wallets.edit.connect_wallet') %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<% @left_buttons = [
+    { icon: 'cic-icon-arrow---left-2', url: wallet_transactions_path(@wallet), extraClass: 'btn-icon back-link' },
+  ]  %>

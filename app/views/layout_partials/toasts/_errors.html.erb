@@ -1,0 +1,5 @@
+<% if object.errors.any? %>
+  <% object.errors.each do |error| %>
+    <%= toast(error.full_message, type: 'alert') %>
+  <% end %>
+<% end %>
