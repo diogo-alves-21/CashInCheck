@@ -244,15 +244,4 @@ Then open `http://localhost:8808` to browse the generated docs.
 
 ## Testing
 
-The test suite is based on:
-
-- **RSpec** for unit and integration tests
-- **Capybara + Selenium + webdrivers** for system/browser tests
-- **FactoryBot** and **Faker** for factories and sample data
-- **DatabaseCleaner**, **Timecop** and `formulaic` for test helpers
-
-Run the full test suite with:
-
-```bash
-bundle exec rspec
-```
+All the tests developed for this project were written on [CashInCheck Tests](https://github.com/diogo-alves-21/CashInCheck-tests).
