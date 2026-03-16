@@ -1,9 +1,7 @@
 ## CashInCheck
 
 CashInCheck is a Ruby on Rails application for personal and shared money management.
-It helps users organise their **groups, wallets, budgets, goals and transactions**, and integrates with external providers to keep balances and movements in sync.
-
-The repository captures both the product features and the engineering practices used in the team (testing, code style, documentation and deployment tooling).
+It helps users organise their finances by focusing on groups rather than individual users and integrates with an Open Banking API to keep balances and transactions in sync.
 
 ---
 
